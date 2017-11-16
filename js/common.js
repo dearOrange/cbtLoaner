@@ -3,7 +3,7 @@ var cbt = cbt || {
 };
 cbt.utils = cbt.utils || {}; //公共函数
 
-var ROOTURL = '/wx';/*项目根目录名称 谨慎修改*/
+var ROOTURL = '/bt';/*项目根目录名称 谨慎修改*/
 var REQUESTROOT = '/hunterServer'; /*服务器默认为/manager 当本地开发时切换为域名映射*/
 if(window.location.hostname === 'local.cbt.com'){
     REQUESTROOT = 'http://test.cbt.com:8080/hunterServer';

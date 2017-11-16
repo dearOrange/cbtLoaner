@@ -13,7 +13,7 @@
 
 <body>
     <div class="loginForm" style="background: #f3f3f3;">
-        <div class="wrapper" style="padding-top: 50px;padding-bottom: 30px;">
+        <div class="wrapper login-box1" style="padding-top: 50px;padding-bottom: 30px;">
             <div id="file"></div>
         </div>
         <div class="wrapper login-box">
@@ -23,7 +23,7 @@
                         <label>车牌号</label>
                     </td>
                     <td>
-                        <input type="text" name="carNumber" placeholder="例：浙A88888" />
+                        <input type="text" name="carNumber" id="carNumber" placeholder="例：浙A88888" />
                     </td>
                 </tr>
                 <tr>
@@ -33,23 +33,38 @@
                 </tr>
             </table>
         </div>
-        <div id="add-location">
-          <div class="pipei_pic">
-            <div class="pipei_error hide"><img src="images/sorry.png"></div>
-            <div class="pipei_success hide"><img src="images/succs.png"></div>
-          </div>
-          <div class="pipei_note">
-            <p class="pipei_error hide">该车暂未匹配到任务</p>
-            <p class="pipei_success hide">匹配成功,该车为可疑车辆!</p>
-          </div>
-          <div class="addLocation_note">
-            <p class="addLocation_success hide">描述车辆位置后，请继续追踪该车。</p>
-            <p class="addLocation_success hide">期间我们或与您主动联系，</p>
-            <p class="addLocation_success hide">您也可主动联系我们: 0571-87001678</p>
-            <p class="addLocation_error hide"></p>
-            
-          </div>
-
+        <div id="add-location" class="hide">
+            <div class="pipei_pic">
+                <div class="pipei_error hide"><img src="images/sorry.png"></div>
+                <div class="pipei_success hide"><img src="images/succs.png"></div>
+            </div>
+            <div class="pipei_note">
+                <p class="pipei_error hide">该车暂未匹配到任务</p>
+                <p class="pipei_success hide">匹配成功,该车为可疑车辆!</p>
+            </div>
+            <div style="text-align: center;margin-top: 50px;background-color: #fff;">
+                <table style="text-align: center;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 40%;">位置</td>
+                            <td>
+                                <input type="text" id="location" placeholder="请描述位置" maxlength="50">
+                            </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <a href="javascript:;" class="submit" id="submitLocation">提交</a>
+                          </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="addLocation_note">
+                <p class="addLocation_success hide">描述车辆位置后，请继续追踪该车。</p>
+                <p class="addLocation_success hide">期间我们或与您主动联系，</p>
+                <p class="addLocation_success hide">您也可主动联系我们: 0571-87001678</p>
+                <p class="addLocation_error hide"></p>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -58,114 +73,149 @@
     <script type="text/javascript" src="js/webuploader.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
-      wx.config({
-          debug: true,
-          appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
-          timestamp: '1510730450032',
-          nonceStr: '5uw5f1t6h34nl39',
-          signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
-          jsApiList: ['getLocation']
-      });
+    wx.config({
+        debug: true,
+        appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+        timestamp: '1510730450032',
+        nonceStr: '5uw5f1t6h34nl39',
+        signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
+        jsApiList: ['getLocation']
+    });
 
-      wx.ready(() => {
-          wx.getLocation({
-              type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-              success: (res) => {
-                  window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                  window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-              }
-          });
-
-          var traceId = '';
-
-          $.ajax({
-            url: REQUESTROOT + '/trace/tracelist',
-            dataType: 'json',
-            method: 'post',
-            contentType: 'application/json',
-            data: JSON.stringify({
-              pageNum: 1,
-              pageSize: 300,
-              params: {}
-            }),
-            success: function(data){
-              console.log(data);
+    wx.ready(() => {
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: (res) => {
+                debugger
+                window.latitude = res.latitude ? res.latitude : ''; // 纬度，浮点数，范围为90 ~ -90
+                window.longitude = res.longitude ? res.longitude : ''; // 经度，浮点数，范围为180 ~ -180。
             }
-          });
+        });
 
-          $.ajax({
-              url: 'http://test.cbt.com:8080/adminServer/qiniu/getToken',
-              dataType: 'json',
-              success: function(returnData) {
-                  if(returnData.code !== 'SUCCESS'){
+        var traceId = '',isMatch;
+
+        $.ajax({
+            url: 'http://test.cbt.com:8080/adminServer/qiniu/getToken',
+            dataType: 'json',
+            success: function(returnData) {
+                if (returnData.code !== 'SUCCESS') {
                     alert('获取信息失败');
                     return false;
-                  }
-                  uploader = WebUploader.create({
-                      auto: true, //自动上传
-                      server: 'http://up.qiniu.com/', //后台server
-                      pick: {
-                          id: '#file',
-                          multiple: false
-                      }, //上传按钮id,是否可以多个文件同时上传
-                      fileNumLimit: 999, //可上传数量
-                      fileSingleSizeLimit: 5242880,
-                      duplicate: true, //可重复上传同一张图片
-                      fileVal: 'file',
-                      formData: {
-                          token: returnData.data.uploadToken
-                          // token: 'Oa_h69810SW3XaHQAfeVvEEche4lDGQGGNXqRgss:Sr5bENtZhe2ZIktGkVrijj58oWc=:eyJzY29wZSI6ImNoZWJ1dG91IiwiZGVhZGxpbmUiOjE1MTA3NDE1NTR9'
-                      }
-                  });
+                }
+                uploader = WebUploader.create({
+                    auto: true, //自动上传
+                    server: 'http://up.qiniu.com/', //后台server
+                    pick: {
+                        id: '#file',
+                        multiple: false
+                    }, //上传按钮id,是否可以多个文件同时上传
+                    fileNumLimit: 999, //可上传数量
+                    fileSingleSizeLimit: 5242880,
+                    duplicate: true, //可重复上传同一张图片
+                    fileVal: 'file',
+                    formData: {
+                        token: returnData.data.uploadToken
+                        // token: 'Oa_h69810SW3XaHQAfeVvEEche4lDGQGGNXqRgss:Sr5bENtZhe2ZIktGkVrijj58oWc=:eyJzY29wZSI6ImNoZWJ1dG91IiwiZGVhZGxpbmUiOjE1MTA3NDE1NTR9'
+                    }
+                });
 
-                  uploader.on('error', function(type) {
-                      alert('上传失败，请重新上传');
-                  });
+                uploader.on('error', function(type) {
+                    alert('上传失败，请重新上传');
+                });
 
-                  uploader.on('uploadAccept', function(file, returnData) {
-                      $('.webuploader-pick').css('background', 'url("http://oka19npup.bkt.clouddn.com/' + returnData.key + '") no-repeat');
-                      if ($('#carPhoto').length > 0) {
-                          $('#carPhoto').remove();
-                      }
-                      $('<input type="hidden" name="carPhoto" id="carPhoto" value="' + returnData.key + '"/>').insertAfter('#file');
-                      $('.webuploader-pick').html('').removeClass('webuploader-progress');
-                  });
+                uploader.on('uploadAccept', function(file, returnData) {
+                    $('.webuploader-pick').css('background', 'url("http://oka19npup.bkt.clouddn.com/' + returnData.key + '") no-repeat');
+                    if ($('#carPhoto').length > 0) {
+                        $('#carPhoto').remove();
+                    }
+                    $('<input type="hidden" name="carPhoto" id="carPhoto" value="' + returnData.key + '"/>').insertAfter('#file');
+                    $('.webuploader-pick').html('').removeClass('webuploader-progress');
+                });
 
-                  uploader.on( 'uploadProgress', function( file, percentage ) {
+                uploader.on('uploadProgress', function(file, percentage) {
                     $('.webuploader-pick').html('文件上传中').addClass('webuploader-progress');
-                  });
-              }
-          });
+                });
+            }
+        });
 
-          $('#pipei').on('click',function(){
+        $('#pipei').on('click', function() {
             var carPhoto = $('#carPhoto').val();
             var carNumber = $.trim($('#carNumber').val());
-            if(!carPhoto){
-              alert('照片未上传');
-              return false;
+            if (!carPhoto) {
+                alert('照片未上传');
+                return false;
             }
-            if( !carNumber ){
-              alert('车牌号未填写');
-              return false;
+            if (!carNumber) {
+                alert('车牌号未填写');
+                return false;
             }
+            window.latitude = window.latitude ? window.latitude : '';
+            window.longitude = window.longitude ? window.longitude : '';
+            var fingerprint;
+            if (!window.latitude && !window.longitude) {
+                fingerprint = '';
+            }
+            // $('.pipei_error').removeClass('hide');
+            $.ajax({
+                url: REQUESTROOT + '/trace/upload',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    carPhoto: carPhoto,
+                    carNumber: carNumber,
+                    fingerprint: fingerprint
+                },
+                success: function(returnData) {
+                    var data = returnData.data;
+                    if (returnData.code === "SUCCESS") {
+                        traceId = data.traceId;
+                        isMatch = data.isMatch;
+                        $('.login-box').addClass('hide');
+                        $('.login-box1').addClass('hide');
+                        $('#add-location').removeClass('hide');
+                        if (data.isMatch == "false") {
+                            $('.pipei_error').removeClass('hide');
+                        }else{
+                            $('.pipei_Success').removeClass('hide');
+                        }
+                    } else {
+                        alert(returnData.msg);
+                    }
+                }
+            });
+        });
 
-            // $.ajax({
-            //     url: REQUESTROOT + '/trace/upload',
-            //     method: 'post',
-            //     dataType: 'json',
-            //     data:{
-            //       carPhoto: carPhoto,
-            //       carNumber: carNumber,
-            //       fingerprint: window.latitude + ',' + window.longitude
-            //     },
-            //     success: function(returnData) {
-            //         if(returnData.data.){
-            //           traceId = returnData.data.traceId;
-            //         }
-            //     }
-            // });
-          });
-      });      
+        /**
+         * 添加描述位置
+         */
+        $('#submitLocation').on('click',function(){
+          var me = $(this);
+          var location = $.trim($('#location').val());
+          if(!location){
+            alert('请描述位置信息');
+            return false;
+          }
+          $.ajax({
+                url: REQUESTROOT + '/trace/updateLocation',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    id: traceId,
+                    location: location
+                },
+                success: function(returnData) {
+                    var data = returnData.data;
+                    if (returnData.code === "SUCCESS") {
+                      var tips = isMatch == "false" ? "提交成功" : "提交成功，请继续追踪该车！"; 
+                        alert(tips);
+                    } else {
+                        alert(returnData.msg);
+                    }
+                    window.location.href = ROOTURL + "/carList.html";
+                }
+            });
+        });
+    });
     </script>
 </body>
 

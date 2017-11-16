@@ -213,9 +213,18 @@ input:-webkit-autofill {
     text-align: right;
 }
 
+#add-location {
+    padding-top: 50px;
+    text-align: center;
+}
+
 #add-location img {
     width: 120px;
     height: 120px;
     margin: 0 auto;
     display: block;
+}
+
+#add-location .pipei_pic {
+    padding-bottom: 20px;
 }
