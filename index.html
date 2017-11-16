@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>任务委托-车捕头</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+    <div class="loginForm">
+        <div class="wrapper" style="padding-top: 100px;">
+            <img src="images/logo-off.png" class="logoImg">
+        </div>
+        <div class="wrapper login-box ">
+            <form id="login">
+                <table>
+                    <tr>
+                        <td>
+                            <label>用户名</label>
+                        </td>
+                        <td>
+                            <input type="text" name="adasd" placeholder="请输入用户名" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>密码</label>
+                        </td>
+                        <td>
+                            <input type="password" name="adasd" placeholder="请输入密码" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="登录" id="login">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="wrapper login-register hide">
+            <table>
+                <tr>
+                    <td>
+                        <label>姓名</label>
+                    </td>
+                    <td>
+                        <input type="text" name="name" placeholder="请输入姓名" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>工作城市</label>
+                    </td>
+                    <td>
+                        <input type="text" name="city" placeholder="请输入" 点击选择工作地点/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>手机号</label>
+                    </td>
+                    <td>
+                        <input type="text" name="phone" placeholder="请输入手机号" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>推荐码</label>
+                    </td>
+                    <td>
+                        <input type="text" name="code" placeholder="请输入推荐码" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="注册" id="register"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="nav-menu">
+            <div class="wrapper">
+                <ul>
+                    <li class="active">
+                        <label>登录</label>
+                    </li>
+                    <li>
+                        <label>注册</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        wx.config({
+            debug: true,
+            appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+            timestamp: '1510730450032',
+            nonceStr: '5uw5f1t6h34nl39',
+            signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
+            jsApiList: ['getLocation']
+        });
+
+        wx.ready(() => {
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: (res) => {
+                    window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                }
+            });
+
+            $('#login').on('click',function(){
+              var datas = FormToJSON('#');
+            });
+
+            $('.nav-menu').on('click','li',function(){
+                var me = $(this);
+                var ind = me.index();
+                if(ind){
+                    $('.login-register').removeClass('hide');
+                    $('.login-box').addClass('hide');
+                }else{
+                    $('.login-register').addClass('hide');
+                    $('.login-box').removeClass('hide');
+                }
+                me.addClass('active').siblings().removeClass('active');
+            });
+        });
+
+        function FormToJSON(form) {
+            var arr = $(form).serializeArray();
+            var final_json = {};
+            $.each(arr, function(index, item) {
+                var attrName = item.name;
+                var attrVal = item.value;
+                if (typeof final_json[attrName] === 'undefined') {
+                    final_json[attrName] = attrVal;
+                } else {
+                    var tempStr = final_json[attrName];
+                    if (jh.utils.isArray(tempStr)) {
+                        final_json[attrName].push(attrVal);
+                    } else {
+                        var newArr = [];
+                        newArr.push(tempStr);
+                        newArr.push(attrVal);
+                        final_json[attrName] = newArr;
+                    }
+                }
+            });
+
+            var radios = $('input[type=radio],input[type=checkbox]', $(form));
+            $.each(radios, function(index, item) {
+                if (!final_json.hasOwnProperty(item.name)) {
+                    final_json[item.name] = '';
+                }
+            });
+            return final_json;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,196 @@
+a, address, b, td, th, body, code, dd, del, div, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, html, i, iframe, img, ins, label, legend, li, ol, p, pre, small, span, strong, ul, input {
+    margin: 0;
+    padding: 0;
+    color: #666;
+    outline: none;
+}
+
+body {
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    font: 14px/150% Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
+    display: block;
+}
+
+hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+}
+
+button, html input[type=button], input[type=submit] {
+    -webkit-apperance: button;
+    cursor: pointer;
+}
+
+input, select, img {
+    vertical-align: middle;
+}
+
+button[disabled], html input[disabled] {
+    cursor: default;
+}
+
+input[readonly] {
+    background-color: #eef1f6;
+    color: #bbb;
+    cursor: not-allowed;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+em, i {
+    font-style: normal;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: transparent;
+    width: 100%;
+}
+
+th, td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 8px !important;
+}
+
+td {
+    border: 0;
+}
+
+th {
+    background: #eef1f6;
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:link {
+    color: #333;
+}
+
+a:visited {
+    color: #333;
+}
+
+a:hover, a:active, a:focus {
+    color: #333;
+    -moz-outline: none;
+    outline: none;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.webuploader-container {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+
+.webuploader-container .webuploader-pick {
+    width: 120px;
+    height: 120px;
+    background: url('../images/upload.png') -3px -2px;
+}
+
+.webuploader-container .webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+.hide {
+    display: none;
+}
+
+.wrapper {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.wrapper .logoImg {
+    display: block;
+    width: 90%;
+    margin: 0 auto 100px;
+}
+
+.loginForm {
+    width: 100vw;
+    height: 100vh;
+    background-color: #3f4950;
+}
+
+.loginForm tr {
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.loginForm label {
+    color: #000;
+}
+
+.loginForm input[type="text"], .loginForm input[type="password"] {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border: 0;
+}
+
+.loginForm #login {
+    width: 100%;
+    height: 30px;
+    color: #fff;
+    background-color: #f06d27;
+    border: 1px solid #f06d27;
+    border-radius: 5px;
+}
+
+.loginForm .nav-menu {
+    margin: 50px auto;
+}
+
+.loginForm .nav-menu li {
+    float: left;
+    width: 50%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.loginForm .nav-menu li.active label {
+    color: #fff;
+}
+
+.loginForm .nav-menu label {
+    color: #999;
+}
+
+.login-register tr td:nth-child(odd) {
+    text-align: right;
+}
+
+.loginForm #register {
+    width: 100%;
+    height: 30px;
+    color: #fff;
+    background-color: #f06d27;
+    border: 1px solid #f06d27;
+    border-radius: 5px;
+}
