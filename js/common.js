@@ -8,3 +8,9 @@ var REQUESTROOT = '/hunterServer'; /*服务器默认为/manager 当本地开发�
 if(window.location.hostname === 'local.cbt.com'){
     REQUESTROOT = 'http://test.cbt.com:8080/hunterServer';
 }
+$.ajaxSetup({
+  beforeSend:function(xhr){
+    var token = $.cookie('X-Token');
+    xhr.setRequestHeader("X-Token", token);
+  }
+})
