@@ -13,10 +13,10 @@
 
 <body>
     <div class="loginForm" style="background: #f3f3f3;">
-        <div class="wrapper" style="padding-top: 50px;">
+        <div class="wrapper" style="padding-top: 50px;padding-bottom: 30px;">
             <div id="file"></div>
         </div>
-        <div class="wrapper login-box ">
+        <div class="wrapper login-box">
             <table>
                 <tr>
                     <td>
@@ -28,13 +28,32 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="button" value="提交" id="login">
+                        <a href="javascript:;" id="pipei" class="submit">提交</a>
                     </td>
                 </tr>
             </table>
         </div>
+        <div id="add-location">
+          <div class="pipei_pic">
+            <div class="pipei_error hide"><img src="images/sorry.png"></div>
+            <div class="pipei_success hide"><img src="images/succs.png"></div>
+          </div>
+          <div class="pipei_note">
+            <p class="pipei_error hide">该车暂未匹配到任务</p>
+            <p class="pipei_success hide">匹配成功,该车为可疑车辆!</p>
+          </div>
+          <div class="addLocation_note">
+            <p class="addLocation_success hide">描述车辆位置后，请继续追踪该车。</p>
+            <p class="addLocation_success hide">期间我们或与您主动联系，</p>
+            <p class="addLocation_success hide">您也可主动联系我们: 0571-87001678</p>
+            <p class="addLocation_error hide"></p>
+            
+          </div>
+
+        </div>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
     <script type="text/javascript" src="js/webuploader.min.js"></script>
     <script type="text/javascript">
@@ -56,12 +75,15 @@
               }
           });
 
-          var uploader;
 
-          // $.ajax({
-          //     url: 'http://test.cbt.com:8080/adminServer/qiniu/getToken',
-          //     dataType: 'json',
-          //     success: function(returnData) {
+          $.ajax({
+              url: 'http://test.cbt.com:8080/adminServer/qiniu/getToken',
+              dataType: 'json',
+              success: function(returnData) {
+                  if(returnData.code !== 'SUCCESS'){
+                    alert('获取信息失败');
+                    return false;
+                  }
                   uploader = WebUploader.create({
                       auto: true, //自动上传
                       server: 'http://up.qiniu.com/', //后台server
@@ -89,11 +111,16 @@
                           $('#carPhoto').remove();
                       }
                       $('<input type="hidden" name="carPhoto" id="carPhoto" value="' + returnData.key + '"/>').insertAfter('#file');
+                      $('.webuploader-pick').html('').removeClass('webuploader-progress');
                   });
-          //     }
-          // });
 
-          $('#login').on('click',function(){
+                  uploader.on( 'uploadProgress', function( file, percentage ) {
+                    $('.webuploader-pick').html('文件上传中').addClass('webuploader-progress');
+                  });
+              }
+          });
+
+          $('#pipei').on('click',function(){
             var carPhoto = $('#carPhoto').val();
             var carNumber = $.trim($('#carNumber').val());
             if(!carPhoto){

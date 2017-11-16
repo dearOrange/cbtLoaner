@@ -13,18 +13,18 @@
 
 <body>
     <div class="loginForm">
-        <div class="wrapper" style="padding-top: 100px;">
+        <div class="wrapper" style="padding-top: 50px;">
             <img src="images/logo-off.png" class="logoImg">
         </div>
         <div class="wrapper login-box ">
-            <form id="login">
+            <form id="loginForms">
                 <table>
                     <tr>
                         <td>
                             <label>用户名</label>
                         </td>
                         <td>
-                            <input type="text" name="adasd" placeholder="请输入用户名" />
+                            <input type="text" name="phone" placeholder="请输入手机号" />
                         </td>
                     </tr>
                     <tr>
@@ -32,57 +32,75 @@
                             <label>密码</label>
                         </td>
                         <td>
-                            <input type="password" name="adasd" placeholder="请输入密码" />
+                            <input type="password" name="password" placeholder="请输入密码" />
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" value="登录" id="login">
+                            <a href="javascript:;" id="login" class="submit">登录</a>
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
         <div class="wrapper login-register hide">
-            <table>
-                <tr>
-                    <td>
-                        <label>姓名</label>
-                    </td>
-                    <td>
-                        <input type="text" name="name" placeholder="请输入姓名" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>工作城市</label>
-                    </td>
-                    <td>
-                        <input type="text" name="city" placeholder="请输入" 点击选择工作地点/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>手机号</label>
-                    </td>
-                    <td>
-                        <input type="text" name="phone" placeholder="请输入手机号" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>推荐码</label>
-                    </td>
-                    <td>
-                        <input type="text" name="code" placeholder="请输入推荐码" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="注册" id="register"/>
-                    </td>
-                </tr>
-            </table>
+            <form id="registerForms">
+                <table>
+                    <tr>
+                        <td>
+                            <label>姓名</label>
+                        </td>
+                        <td>
+                            <input type="text" name="name" placeholder="请输入姓名" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>工作城市</label>
+                        </td>
+                        <td>
+                            <input type="text" name="city" placeholder="请输入" 点击选择工作地点/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>手机号</label>
+                        </td>
+                        <td>
+                            <input type="text" name="phone" placeholder="请输入手机号" id="registerPhone"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>验证码</label>
+                        </td>
+                        <td>
+                            <input type="text" name="authCode" placeholder="请输入验证码" style="float:left;width:40%;" /><a href="javascript:;" id="getAuthCode">获取验证码</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>密码</label>
+                        </td>
+                        <td>
+                            <input type="text" name="password" placeholder="请输入密码">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>推荐码</label>
+                        </td>
+                        <td>
+                            <input type="text" name="referrer" placeholder="请输入推荐码" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a href="javascript:;" id="register" class="submit">注册</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
         <div class="nav-menu">
             <div class="wrapper">
@@ -98,7 +116,9 @@
         </div>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
         wx.config({
             debug: true,
@@ -118,17 +138,108 @@
                 }
             });
 
-            $('#login').on('click',function(){
-              var datas = FormToJSON('#');
+            $('#login').on('click', function() {
+                var me = $(this);
+                var datas = FormToJSON('#loginForms');
+                if (!$.trim(datas.phone)) {
+                    alert('请填写手机号');
+                }
+                if (!$.trim(datas.password)) {
+                    alert('请填写密码');
+                }
+                $.ajax({
+                    url: REQUESTROOT + '/user/login',
+                    dataType: 'json',
+                    method: 'post',
+                    data: datas,
+                    success: function(returnData) {
+                        if (returnData.code === 'SUCCESS') {
+                            $.cookie('X-Token',returnData.data.token);
+                            window.location.href = ROOTURL + '/searchCar.html';
+                        } else {
+                            alert(returnData.msg);
+                        }
+                    }
+                });
+                return false;
             });
 
-            $('.nav-menu').on('click','li',function(){
+            $('#getAuthCode').on('click', function() {
+                var me = $(this);
+                var phone = $.trim($('#registerPhone').val());
+                if (!phone || !/^1[3|4|5|8|7][0-9]{9}$/.test(phone)) {
+                    alert('请填写正确手机号');
+                    return false;
+                }
+                me.prop('disabled', true);
+                $.ajax({
+                    url: REQUESTROOT + '/user/getSMSCode',
+                    dataType: 'json',
+                    data: {
+                        mobile: $.trim($('#registerPhone').val())
+                    },
+                    success: function(returnData) {
+                        if (returnData.code !== "SUCCESS") {
+                            alert(returnData.msg);
+                        } else {
+                            me.prop('disabled', false);
+                            alert('验证码发送成功');
+                        }
+                    }
+                });
+            });
+
+            $('#register').on('click', function() {
+                var me = $(this);
+                var datas = FormToJSON('#registerForms');
+                console.log(datas);
+                if (!$.trim(datas.name)) {
+                    alert('请填写姓名');
+                    return false;
+                }
+                if (!$.trim(datas.city)) {
+                    alert('请填写城市');
+                    return false;
+                }
+                if (!$.trim(datas.phone) || !/^1[3|4|5|8|7][0-9]{9}$/.test(datas.phone)) {
+                    alert('请填写手机号');
+                    return false;
+                }
+                if (!$.trim(datas.authCode)) {
+                    alert('请填写验证码');
+                    return false;
+                }
+                if (!$.trim(datas.password)) {
+                    alert('请填写密码');
+                    return false;
+                }
+                if (!$.trim(datas.referrer)) {
+                    alert('请填写推荐码');
+                    return false;
+                }
+                $.ajax({
+                    url: REQUESTROOT + '/user/register',
+                    dataType: 'json',
+                    method: 'post',
+                    data: datas,
+                    success: function(returnData) {
+                        if (returnData.code !== "SUCCESS") {
+                            alert(returnData.msg);
+                        } else {
+                            me.prop('disabled', false);
+                        }
+                    }
+                });
+                return false;
+            });
+
+            $('.nav-menu').on('click', 'li', function() {
                 var me = $(this);
                 var ind = me.index();
-                if(ind){
+                if (ind) {
                     $('.login-register').removeClass('hide');
                     $('.login-box').addClass('hide');
-                }else{
+                } else {
                     $('.login-register').addClass('hide');
                     $('.login-box').removeClass('hide');
                 }
@@ -141,12 +252,12 @@
             var final_json = {};
             $.each(arr, function(index, item) {
                 var attrName = item.name;
-                var attrVal = item.value;
+                var attrVal = $.trim(item.value);
                 if (typeof final_json[attrName] === 'undefined') {
                     final_json[attrName] = attrVal;
                 } else {
                     var tempStr = final_json[attrName];
-                    if (jh.utils.isArray(tempStr)) {
+                    if (Array.isArray(tempStr)) {
                         final_json[attrName].push(attrVal);
                     } else {
                         var newArr = [];
