@@ -73,24 +73,122 @@
     <script type="text/javascript" src="js/webuploader.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
-    // wx.config({
-    //     debug: true,
-    //     appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
-    //     timestamp: '1510730450032',
-    //     nonceStr: '5uw5f1t6h34nl39',
-    //     signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
-    //     jsApiList: ['getLocation']
-    // });
 
-    // wx.ready(() => {
-    //     wx.getLocation({
-    //         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-    //         success: (res) => {
-    //             debugger
-    //             window.latitude = res.latitude ? res.latitude : ''; // 纬度，浮点数，范围为90 ~ -90
-    //             window.longitude = res.longitude ? res.longitude : ''; // 经度，浮点数，范围为180 ~ -180。
-    //         }
-    //     });
+        function sha1(s) {
+            var data = new Uint8Array(encodeUTF8(s))
+            var i, j, t;
+            var l = ((data.length + 8) >>> 6 << 4) + 16,
+                s = new Uint8Array(l << 2);
+            s.set(new Uint8Array(data.buffer)), s = new Uint32Array(s.buffer);
+            for (t = new DataView(s.buffer), i = 0; i < l; i++) s[i] = t.getUint32(i << 2);
+            s[data.length >> 2] |= 0x80 << (24 - (data.length & 3) * 8);
+            s[l - 1] = data.length << 3;
+            var w = [],
+                f = [
+                    function() { return m[1] & m[2] | ~m[1] & m[3]; },
+                    function() { return m[1] ^ m[2] ^ m[3]; },
+                    function() { return m[1] & m[2] | m[1] & m[3] | m[2] & m[3]; },
+                    function() { return m[1] ^ m[2] ^ m[3]; }
+                ],
+                rol = function(n, c) { return n << c | n >>> (32 - c); },
+                k = [1518500249, 1859775393, -1894007588, -899497514],
+                m = [1732584193, -271733879, null, null, -1009589776];
+            m[2] = ~m[0], m[3] = ~m[1];
+            for (i = 0; i < s.length; i += 16) {
+                var o = m.slice(0);
+                for (j = 0; j < 80; j++)
+                    w[j] = j < 16 ? s[i + j] : rol(w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16], 1),
+                    t = rol(m[0], 5) + f[j / 20 | 0]() + m[4] + w[j] + k[j / 20 | 0] | 0,
+                    m[1] = rol(m[1], 30), m.pop(), m.unshift(t);
+                for (j = 0; j < 5; j++) m[j] = m[j] + o[j] | 0;
+            };
+            t = new DataView(new Uint32Array(m).buffer);
+            for (var i = 0; i < 5; i++) m[i] = t.getUint32(i << 2);
+
+            var hex = Array.prototype.map.call(new Uint8Array(new Uint32Array(m).buffer), function(e) {
+                return (e < 16 ? "0" : "") + e.toString(16);
+            }).join("");
+
+            return hex;
+        };
+
+        var signIt = function (params) {
+          var string1 = [];
+          var keys  = Object.keys(params).sort();
+
+          for (var key of keys) {
+            string1.push(key + '=' + params[key]);
+          }
+          console.log(string1)
+          var str = sha1(string1.join('&'));
+          return str;
+        };
+        var timestamp = parseInt(new Date().getTime() / 1000) + '';
+        var noncestr = Math.random().toString(36).substr(2, 15);
+        var url = window.location.href.split('#')[0];
+
+        var access_token , ticket;
+        if(!$.cookie('access_token')){
+            $.ajax({
+                url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx8bbcc4d675dd42dd&secret=3025c1419f22e502ca451e066b467f20',
+                dataType: 'json',
+                success: function(returnData) {
+                    if(returnData.access_token){
+                        access_token = returnData.access_token;
+                        $.ajax({
+                            url: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='+returnData.access_token+'&type=jsapi',
+                            dataType: 'json',
+                            success: function(data) {
+                                if(data.errcode===0){
+                                    ticket = data.ticket;
+                                    $.cookie('access_token',access_token);
+                                    $.cookie('jsApi_ticket',ticket);
+
+                                    var params = {
+                                        url: url,
+                                        timestamp: timestamp,
+                                        noncestr: noncestr,
+                                        jsapi_ticket: ticket
+                                    }
+                                    var signature = signIt(params);
+
+                                    wx.config({
+                                        debug: false,
+                                        appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+                                        timestamp: timestamp,
+                                        nonceStr: noncestr,
+                                        signature: signature,
+                                        jsApiList: ['getLocation']
+                                    });
+
+                                }else{
+                                    alert('微信验证失败，请刷新后重试');
+                                }
+                            }
+                        });
+                    }else{
+                        alert('微信验证失败，请刷新后重试');
+                    }
+                }
+            });
+        }else{
+            var params = {
+                url: url,
+                timestamp: timestamp,
+                noncestr: noncestr,
+                jsapi_ticket: $.cookie('jsApi_ticket')
+            }
+            var signature = signIt(params);
+
+            wx.config({
+                debug: false,
+                appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+                timestamp: timestamp,
+                nonceStr: noncestr,
+                signature: signature,
+                jsApiList: ['getLocation']
+            });
+        }
 
         cbt.utils.bottomBar.init();
 

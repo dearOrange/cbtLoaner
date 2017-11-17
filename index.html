@@ -176,92 +176,67 @@
         var url = window.location.href.split('#')[0];
 
         var access_token , ticket;
+        if(!$.cookie('access_token')){
+            $.ajax({
+                url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx8bbcc4d675dd42dd&secret=3025c1419f22e502ca451e066b467f20',
+                dataType: 'json',
+                success: function(returnData) {
+                    if(returnData.access_token){
+                        access_token = returnData.access_token;
+                        $.ajax({
+                            url: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='+returnData.access_token+'&type=jsapi',
+                            dataType: 'json',
+                            success: function(data) {
+                                if(data.errcode===0){
+                                    ticket = data.ticket;
+                                    $.cookie('access_token',access_token);
+                                    $.cookie('jsApi_ticket',ticket);
 
-        $.ajax({
-            url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx8bbcc4d675dd42dd&secret=3025c1419f22e502ca451e066b467f20',
-            dataType: 'json',
-            success: function(returnData) {
-                if(returnData.access_token){
-                    access_token = returnData.access_token;
-                    $.ajax({
-                        url: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='+returnData.access_token+'&type=jsapi',
-                        dataType: 'json',
-                        success: function(data) {
-                            if(data.errcode===0){
-                                ticket = data.ticket;
-                                $.cookie('access_token',access_token);
-                                $.cookie('jsApi_ticket',ticket);
+                                    var params = {
+                                        url: url,
+                                        timestamp: timestamp,
+                                        noncestr: noncestr,
+                                        jsapi_ticket: ticket
+                                    }
+                                    var signature = signIt(params);
 
-                                var params = {
-                                    url: url,
-                                    timestamp: timestamp,
-                                    noncestr: noncestr,
-                                    jsapi_ticket: ticket
+                                    wx.config({
+                                        debug: false,
+                                        appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+                                        timestamp: timestamp,
+                                        nonceStr: noncestr,
+                                        signature: signature,
+                                        jsApiList: ['getLocation']
+                                    });
+
+                                }else{
+                                    alert('微信验证失败，请刷新后重试');
                                 }
-                                var signature = signIt(params);
-
-                                wx.config({
-                                    debug: false,
-                                    appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
-                                    timestamp: timestamp,
-                                    nonceStr: noncestr,
-                                    signature: signature,
-                                    jsApiList: ['getLocation']
-                                });
-
-                            }else{
-                                alert('微信验证失败，请刷新后重试');
                             }
-                        }
-                    });
-                }else{
-                    alert('微信验证失败，请刷新后重试');
+                        });
+                    }else{
+                        alert('微信验证失败，请刷新后重试');
+                    }
                 }
+            });
+        }else{
+            var params = {
+                url: url,
+                timestamp: timestamp,
+                noncestr: noncestr,
+                jsapi_ticket: $.cookie('jsApi_ticket')
             }
-        });
+            var signature = signIt(params);
 
-        // var params = {
-        //     url: url,
-        //     timestamp: timestamp,
-        //     noncestr: noncestr,
-
-        // }
-
-        // var signature = signIt(params);
-
-
-        // const generateConfig = function () {
-        //     return getTicketPrms().then(jsapi_ticket => {
-        //         let timestamp = parseInt(new Date().getTime() / 1000) + '';
-        //         let noncestr  = Math.random().toString(36).substr(2, 15);
-        //         let url       = 'http://wechat.chebutou.com.cn/';
-
-        //         let params = {
-        //             url,
-        //             timestamp,
-        //             noncestr,
-        //             jsapi_ticket,
-        //         };
-
-        //         let signature = signIt(params);
-
-        //         return {
-        //             timestamp,
-        //             signature,
-        //             noncestr
-        //         }
-        //     });
-        // };    
-
-
-        // wx.config({
-        //     debug: true,
-        //     appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
-        //     timestamp: '1510730450032',
-        //     nonceStr: '5uw5f1t6h34nl39',
-        //     signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
-        //     jsApiList: ['getLocation']
-        // });
+            wx.config({
+                debug: false,
+                appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+                timestamp: timestamp,
+                nonceStr: noncestr,
+                signature: signature,
+                jsApiList: ['getLocation']
+            });
+        }
 
         wx.ready(() => {
             wx.getLocation({
