@@ -228,3 +228,30 @@ input:-webkit-autofill {
 #add-location .pipei_pic {
     padding-bottom: 20px;
 }
+.applyBoxHead{
+    width:100%;
+    height:40px;
+    background:dodgerblue;
+    line-height: 40px;
+    text-align:center;
+    color:white;
+}
+.applyBoxHead .backLast{
+    width:50px;
+    height:40px;
+    position:absolute;
+    left:20px;
+    color:white;
+}
+.applyFooter{
+  width:90%;
+  margin:0 auto;
+}
+.storage{
+  width:100%;
+  height:40px;
+  background:dodgerblue;
+  color:#fff;
+  text-align:center;
+  line-height: 40px;
+}
