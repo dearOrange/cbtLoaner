@@ -97,7 +97,7 @@
         var traceId = '',isMatch;
 
         $.ajax({
-            url: 'http://test.cbt.com:8080/adminServer/qiniu/getToken',
+            url: qiniuURL + '/qiniu/getToken',
             dataType: 'json',
             success: function(returnData) {
                 if (returnData.code !== 'SUCCESS') {
@@ -117,7 +117,6 @@
                     fileVal: 'file',
                     formData: {
                         token: returnData.data.uploadToken
-                        // token: 'Oa_h69810SW3XaHQAfeVvEEche4lDGQGGNXqRgss:Sr5bENtZhe2ZIktGkVrijj58oWc=:eyJzY29wZSI6ImNoZWJ1dG91IiwiZGVhZGxpbmUiOjE1MTA3NDE1NTR9'
                     }
                 });
 
