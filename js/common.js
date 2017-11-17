@@ -27,7 +27,7 @@ cbt.utils.bottomBar = {
     _this.initActiveState();
   },
   initHtml:function(){
-    var role = $.cookie('userROle');
+    var role = $.cookie('userRole');
     var source = '<div id="bottomBar">'
     +    '<ul>'
     +        '<li data-target="'+ROOTURL+'/searchCar.html"><i class="searchCar"></i></li>'
