@@ -12,12 +12,21 @@
 	<style type="text/css">
 		.withdrawalInfo{
 			width:100%;
-			height:106px;
+			height:140px;
 			border-bottom:1px solid #ccc;
+			font-size:10px;
 		}
 		.withdrawalTime{
 			float:right;
 			height:100px;
+			font-size:10px;
+		}
+		.withSuccess{
+			float:left;
+			width:22px;
+			height:22px;
+			background:url(images/success.png) no-repeat center;
+			background-size: cover;
 		}
 	</style>
 </head>
@@ -25,20 +34,8 @@
 <body>
     <div class="loginForm" style="background: #f3f3f3;">
         <div class="applyBoxHead">
-        	<span class="backLast">返回</span>
+        	<a href="./personCenter.html"><span class="backLast">返回</span></a>
         	提现记录
-        </div>
-        <div class="withdrawalInfo">
-        	<div style="width:90%;margin:10px auto;">
-        		<div style="width:66%;float:left;margin-top:3px;">
-        			<div style="font-size: 22px;margin-bottom: 10px;">￥190.00</div>
-        			<div style="margin-left:20px;font-size: 12px;color:#ccc;">
-        				<p>体现方式主机房监控横跨是否能宁静的不是vhjfd</p>
-        				<p>订单号会随机发货时间发货九点半</p>
-        			</div>
-        		</div>
-        		<span class="withdrawalTime">2017-11-14</span>
-        	</div>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -66,22 +63,25 @@
               }
           });
 	        $.ajax({
-//	        	type:'post',
-//	          	url: REQUESTROOT + '/user/setWithdrawalWay',
-//	            dataType: 'json',
-//	            contentType: 'application/json',
-//	            data: JSON.stringify({
-//	              	alipay:""
-//				 	bankCard:""
-//				 	bankName:""
-
-//	            }),
-//	            success: function(res) {
-//	              if(res.code == 'SUCCESS'){
-//	              	console.log(res)
-//	              	
-//	              }
-//	            }
+	        	type:'post',
+	          	url: REQUESTROOT + '/user/applyWithdrawRecord',
+	            dataType: 'json',
+	            contentType: 'application/json',
+	            data: JSON.stringify({
+	              	"pageNum": 1,
+		            "pageSize": 300,
+		            "params": {}
+	            }),
+	            success: function(res) {
+	            	var cashData = res.data.list;
+	            	var cashStr = '';
+	              if(res.code == 'SUCCESS'){
+	              	for(var i = 0;i<cashData.length;i++){
+	              		cashStr += '<div class="withdrawalInfo"><div style="width:96%;margin:10px auto;"><div style="width:64%;float:left;margin-top:3px;"><div style="font-size: 22px;margin-bottom: 10px;"><i class="withSuccess"></i><span>￥'+cashData[i].amount+'</span></div><div style="margin-left:20px;font-size: 10px;color:#ccc;"><p>提现方式：</p><p>支付宝：'+sessionStorage.getItem("applyData")+',</p><p>'+sessionStorage.getItem("bankNameData")+':</p><p>'+sessionStorage.getItem("bankCardData")+'</p><p>订单号：'+cashData[i].flow+'</p></div></div><span class="withdrawalTime">'+cashData[i].createAt+'</span></div></div>'
+	              	}
+	              	$('.loginForm').append(cashStr)
+	              }
+	            }
 	        });
 
           

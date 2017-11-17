@@ -15,11 +15,20 @@
 			height:40px;
 			border-top:1px solid #ccc;
 			background:#fff;
-			padding:25px 0 10px 10px;
+			padding-left: 10px;
+			margin-top:25px;
 		}
 		.applyCash>input#withdralCash{
-			width:75%;
+			width:72%;
 			margin-left:25px;
+		}
+		.applyMoney{
+		  width:100%;
+		  height:40px;
+		  background:dodgerblue;
+		  color:#fff;
+		  text-align:center;
+		  line-height: 40px;
 		}
 	</style>
 </head>
@@ -27,7 +36,7 @@
 <body>
     <div class="loginForm" style="background: #f3f3f3;">
         <div class="applyBoxHead">
-        	<span class="backLast">返回</span>
+        	<a href="./personCenter.html"><span class="backLast">返回</span></a>
         	提现
         </div>
         <div class="applyCash">
@@ -36,7 +45,7 @@
         <div class="applyFooter">
           <p style="margin-top:30px;">温馨提示：</p>
           <p style="margin-bottom: 30px">打款优先通过支付宝，如没有支付宝则通过银行卡的方式</p>
-          <div class="storage">申请提现</div>
+          <div class="applyMoney">申请提现</div>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -63,24 +72,22 @@
                   window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
               }
           });
-	        $.ajax({
-//	        	type:'post',
-//	          	url: REQUESTROOT + '/user/setWithdrawalWay',
-//	            dataType: 'json',
-//	            contentType: 'application/json',
-//	            data: JSON.stringify({
-//	              	alipay:""
-//				 	bankCard:""
-//				 	bankName:""
-
-//	            }),
-//	            success: function(res) {
-//	              if(res.code == 'SUCCESS'){
-//	              	console.log(res)
-//	              	
-//	              }
-//	            }
+          $('.applyMoney').click(function(){
+          	$.ajax({
+	        	type:'post',
+	          	url: REQUESTROOT + '/user/applyWithdraw',
+	            dataType: 'json',
+	            data: {
+	            	figure:$('#withdralCash').val()
+	            },
+	            success: function(res) {
+	              if(res.code == 'SUCCESS'){
+	              	window.location.href = './personCenter.html'
+	              }
+	            }
 	        });
+          })
+	        
 
           
       });      

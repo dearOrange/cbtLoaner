@@ -116,6 +116,25 @@
 			text-align: center;
 			line-height: 40px;
 		}
+		.personImg,.cashImg,.recordImg{
+			float:left;
+			margin-top:15px;
+			width:20px;
+			height:20px;
+		}
+		.personImg{
+			background:url(images/person.png) no-repeat center;
+			background-size: cover;
+		}
+		.cashImg{
+			background:url(images/withcash.png) no-repeat center;
+			background-size: cover;
+		}
+		.recordImg{
+			margin-left:10px;
+			background:url(images/record.png) no-repeat center;
+			background-size: cover;
+		}
 	</style>
 </head>
 
@@ -137,11 +156,11 @@
 	    	</div>
         </div>
     	<div class="personList">
-    		<div class="codeNum"><span>推荐码</span><span class="recommendCode"></span></div>
-    		<div class="codeNum"><span>提现方式</span><a href="applyStyle.html"><span class="setting">设置</span></a></div>
-    		<div><span style="margin-left:10px;margin-bottom:20px;">推荐码</span><a href="#"><span class="findRecord">查看记录</span></a></div>
+    		<div class="codeNum"><i class="personImg"></i><span>推荐码</span><span class="recommendCode"></span></div>
+    		<div class="codeNum"><i class="cashImg"></i><span>提现方式</span><a href="./applyStyle.html"><span class="setting">设置</span></a></div>
+    		<div><i class="recordImg"></i><span style="margin-bottom:20px;">提现记录</span><a href="./withdrawalRecord.html"><span class="findRecord">查看记录</span></a></div>
     	</div>
-    	<div class="applyCash">申请提现</div>
+    	<a href="./widthDrawal.html"><div class="applyCash">申请提现</div></a>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -173,7 +192,11 @@
 	            contentType: 'application/json',
 	            success: function(res) {
 	              if(res.code == 'SUCCESS'){
+	              	console.log(res.data)
 	              	var datas = res.data.downStream
+	              	sessionStorage.setItem("applyData",datas.alipay)
+	              	sessionStorage.setItem("bankCardData",datas.bankCard)
+	              	sessionStorage.setItem("bankNameData",datas.bankName)
 	              	$('.personName').html(datas.name)
 	              	$('.personAdress').html(datas.province+'-'+datas.city)
 	              	$('.poolMoney').html(datas.fund+'.00')
@@ -181,6 +204,14 @@
 	              }
 	            }
 	        });
+	        $('.exit').click(function(){
+	        	$.ajax({
+		            url: REQUESTROOT + '/user/logout',
+		            success: function() {
+		              	window.location.href = './index.html'
+		            }
+		        });
+	        })
       });      
     </script>
 </body>

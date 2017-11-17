@@ -39,19 +39,27 @@
       padding-left:10px;
       border-bottom:1px solid #ccc;
     }
-		.applyCode>input#zhifubao,.cardCode>input#kahao,.bankDeposit>input#yinhangka{
-			width:75%;
-      float:right;
-			margin-right:20px;
-			height:38px;
-		}
+	.applyCode>input#zhifubao,.cardCode>input#kahao,.bankDeposit>input#yinhangka{
+		width:75%;
+  		float:right;
+		margin-right:20px;
+		height:38px;
+	}
+	.storage{
+	  width:100%;
+	  height:40px;
+	  background:dodgerblue;
+	  color:#fff;
+	  text-align:center;
+	  line-height: 40px;
+	}
 	</style>
 </head>
 
 <body>
     <div class="loginForm" style="background: #f3f3f3;">
         <div class="applyBoxHead">
-        	<span class="backLast">返回</span>
+        	<a href="./personCenter.html"><span class="backLast">返回</span></a>
         	提现方式设置
         </div>
         <div class="applyFirst">
@@ -93,24 +101,31 @@
                   window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
               }
           });
-	        $.ajax({
-//	        	type:'post',
-//	          	url: REQUESTROOT + '/user/setWithdrawalWay',
-//	            dataType: 'json',
-//	            contentType: 'application/json',
-//	            data: JSON.stringify({
-//	              	alipay:""
-//				 	bankCard:""
-//				 	bankName:""
-
-//	            }),
-//	            success: function(res) {
-//	              if(res.code == 'SUCCESS'){
-//	              	console.log(res)
-//	              	
-//	              }
-//	            }
+          	var applys = sessionStorage.getItem("applyData")
+		 	var bankCard = sessionStorage.getItem("bankCardData")
+		 	var bankName = sessionStorage.getItem("bankNameData")
+		 	$('#zhifubao').val(applys)
+			$('#kahao').val(bankCard)
+			$('#yinhangka').val(bankName)
+          $('.storage').click(function(){
+          	$.ajax({
+	        	type:'post',
+	          	url: REQUESTROOT + '/user/setWithdrawalWay',
+	            dataType: 'json',
+	            contentType: 'application/json',
+	            data: JSON.stringify({
+	              	alipay:$('#zhifubao').val(applys),
+				 	bankCard:$('#kahao').val(bankCard),
+				 	bankName:$('#yinhangka').val(bankName)
+	            }),
+	            success: function(res) {
+	              if(res.code == 'SUCCESS'){
+	              	window.location.href = './personCenter.html'
+	              }
+	            }
 	        });
+          })
+	        
 
           
       });      
