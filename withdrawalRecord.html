@@ -45,23 +45,23 @@
     <script type="text/javascript" src="js/webuploader.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
-      wx.config({
-          debug: true,
-          appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
-          timestamp: '1510730450032',
-          nonceStr: '5uw5f1t6h34nl39',
-          signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
-          jsApiList: ['getLocation']
-      });
+      // wx.config({
+      //     debug: true,
+      //     appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+      //     timestamp: '1510730450032',
+      //     nonceStr: '5uw5f1t6h34nl39',
+      //     signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
+      //     jsApiList: ['getLocation']
+      // });
 
-      wx.ready(() => {
-          wx.getLocation({
-              type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-              success: (res) => {
-                  window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                  window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-              }
-          });
+      // wx.ready(() => {
+      //     wx.getLocation({
+      //         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+      //         success: (res) => {
+      //             window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+      //             window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+      //         }
+      //     });
 	        $.ajax({
 	        	type:'post',
 	          	url: REQUESTROOT + '/user/applyWithdrawRecord',
@@ -85,7 +85,7 @@
 	        });
 
           
-      });      
+      // });      
     </script>
 </body>
 
