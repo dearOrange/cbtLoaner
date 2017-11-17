@@ -159,10 +159,8 @@
                             url: REQUESTROOT + '/user/getUserInfo',
                             dataType: 'json',
                             success: function(returnData) {
-                                console.log(returnData);
-                                debugger
                                 if (returnData.code === 'SUCCESS') {
-                                    $.cookie('userRole', returnData.data.role);
+                                    $.cookie('userRole', returnData.data.downStream.role);
                                     window.location.href = ROOTURL + '/searchCar.html';
                                 } else {
                                     alert(returnData.msg);
