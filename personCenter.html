@@ -1,9 +1,188 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>任务委托-车捕头</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+	<style type="text/css">
+		.personBox{
+			width:100%;
+			height:30%;
+		}
+		.personBox .personInfo{
+			/*width:200px;
+			height:50px;*/
+			padding:50px 0 50px 20px;
+		}
+		.personBox .exit{
+			float:left;
+			width:50px;
+			height:50px;
+			border-radius: 25px;
+			background:dodgerblue;
+			text-align: center;
+			line-height: 50px;
+			color:#fff;
+		}
+		.info{
+			float:left;
+			margin-left:20px;
+		}
+		.info p{
+			height:25px;
+			line-height: 25px;
+		}
+		.backShow{
+			width:100%;
+			height:60px;
+			background:#fff;
+			border-bottom:1px solid #ccc;
+			position:relative;
+		}
+		.bonusPool{
+			width:90%;
+			
+			height:90px;
+			background:#fff;
+			border-radius:5px 5px 0 0;
+			position:absolute;
+			bottom:10px;
+			left:5%;
+		}
+		.poolMoney{
+			font-size:24px;
+			color:dodgerblue;
+			height:45px;
+			text-align: center;
+			line-height: 76px;
+		}
+		.poolContent{
+			height:45px;
+			text-align: center;
+			line-height: 45px;
+			color:#ccc;
+		}
+		.personList{
+			height:30%;
+			width:100%;
+		}
+		.personList div{
+			margin-top:5px;
+			height:45px;
+			border-bottom:1px solid #ccc;
+			line-height: 50px;
+		}
+		.personList .codeNum{
+			margin-left:10px;
+		}
+		.recommendCode{
+			float:right;
+			margin-right:10px;
+		}
+		.personList div span.setting{
+			float:right;
+			height:34px;
+			padding:0 5px;
+			border:1px solid dodgerblue;
+			margin-right:10px;
+			margin-top:3px;
+			color:dodgerblue;
+			text-align: center;
+			line-height: 34px;
+			border-radius:5px;
+		}
+		.personList div span.findRecord{
+			float:right;
+			height:34px;
+			padding:0 5px;
+			border:1px solid dodgerblue;
+			margin-right:10px;
+			margin-top:3px;
+			color:dodgerblue;
+			text-align: center;
+			line-height: 34px;
+			border-radius:5px;
+		}
+		.applyCash{
+			width:100%;
+			height:40px;
+			background:dodgerblue;
+			color:white;
+			text-align: center;
+			line-height: 40px;
+		}
+	</style>
+</head>
+
+<body>
+    <div class="loginForm" style="background: #f3f3f3;">
+        <div class="personBox">
+        	<div class="personInfo">
+        		<div class="exit">退出</div>
+        		<div class="info">
+        			<p class='personName'>fsf</p>
+        			<p class="personAdress">fbsnb</p>
+        		</div>
+        	</div>
+        </div>
+        <div class="backShow">
+        	<div class="bonusPool">
+	    		<div class="poolMoney"></div>
+	    		<div class="poolContent">赏金池（元）</div>
+	    	</div>
+        </div>
+    	<div class="personList">
+    		<div class="codeNum"><span>推荐码</span><span class="recommendCode"></span></div>
+    		<div class="codeNum"><span>提现方式</span><a href="applyStyle.html"><span class="setting">设置</span></a></div>
+    		<div><span style="margin-left:10px;margin-bottom:20px;">推荐码</span><a href="#"><span class="findRecord">查看记录</span></a></div>
+    	</div>
+    	<div class="applyCash">申请提现</div>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script src="js/jquery.lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript" src="js/webuploader.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript">
+      wx.config({
+          debug: true,
+          appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+          timestamp: '1510730450032',
+          nonceStr: '5uw5f1t6h34nl39',
+          signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
+          jsApiList: ['getLocation']
+      });
+
+      wx.ready(() => {
+          wx.getLocation({
+              type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+              success: (res) => {
+                  window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                  window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+              }
+          });
+	        $.ajax({
+	          	url: REQUESTROOT + '/user/getUserInfo',
+	            dataType: 'json',
+	            contentType: 'application/json',
+	            success: function(res) {
+	              if(res.code == 'SUCCESS'){
+	              	var datas = res.data.downStream
+	              	$('.personName').html(datas.name)
+	              	$('.personAdress').html(datas.province+'-'+datas.city)
+	              	$('.poolMoney').html(datas.fund+'.00')
+	              	$('.recommendCode').html(datas.recommendCode)
+	              }
+	            }
+	        });
+      });      
+    </script>
+</body>
+
 </html>

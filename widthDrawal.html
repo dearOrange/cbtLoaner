@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>任务委托-车捕头</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+	<style type="text/css">
+		.applyCash{
+			width:100%;
+			height:40px;
+			border-top:1px solid #ccc;
+			background:#fff;
+			padding:25px 0 10px 10px;
+		}
+		.applyCash>input#withdralCash{
+			width:75%;
+			margin-left:25px;
+		}
+	</style>
+</head>
+
+<body>
+    <div class="loginForm" style="background: #f3f3f3;">
+        <div class="applyBoxHead">
+        	<span class="backLast">返回</span>
+        	提现
+        </div>
+        <div class="applyCash">
+        	<label>提现金额</label><input id="withdralCash" type="text" placeholder="请输入要提现的金额"/>
+        </div>
+        <div class="applyFooter">
+          <p style="margin-top:30px;">温馨提示：</p>
+          <p style="margin-bottom: 30px">打款优先通过支付宝，如没有支付宝则通过银行卡的方式</p>
+          <div class="storage">申请提现</div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script src="js/jquery.lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript" src="js/webuploader.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript">
+      wx.config({
+          debug: true,
+          appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
+          timestamp: '1510730450032',
+          nonceStr: '5uw5f1t6h34nl39',
+          signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
+          jsApiList: ['getLocation']
+      });
+
+      wx.ready(() => {
+          wx.getLocation({
+              type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+              success: (res) => {
+                  window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                  window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+              }
+          });
+	        $.ajax({
+//	        	type:'post',
+//	          	url: REQUESTROOT + '/user/setWithdrawalWay',
+//	            dataType: 'json',
+//	            contentType: 'application/json',
+//	            data: JSON.stringify({
+//	              	alipay:""
+//				 	bankCard:""
+//				 	bankName:""
+
+//	            }),
+//	            success: function(res) {
+//	              if(res.code == 'SUCCESS'){
+//	              	console.log(res)
+//	              	
+//	              }
+//	            }
+	        });
+
+          
+      });      
+    </script>
+</body>
+
+</html>
