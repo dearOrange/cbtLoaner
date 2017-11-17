@@ -22,14 +22,16 @@ cbt.utils.bottomBar = {
     _this.initActiveState();
   },
   initHtml:function(){
+    var role = $.cookie('userROle');
     var source = '<div id="bottomBar">'
     +    '<ul>'
     +        '<li data-target="'+ROOTURL+'/searchCar.html"><i class="searchCar"></i></li>'
     +        '<li data-target="'+ROOTURL+'/carList.html"><i class="list"></i></li>'
-    +        '<li data-target="'+ROOTURL+'/personCenter.html"><i class="userCenter"></i></li>'
-    +        '<li data-target="'+ROOTURL+'/inCome.html"><i class="log"></i></li>'
-    +   '</ul>'
-    + '</div>';    
+    +        '<li data-target="'+ROOTURL+'/personCenter.html"><i class="userCenter"></i></li>';
+    if( role==="type_A" ){
+      source += '<li data-target="'+ROOTURL+'/inCome.html"><i class="log"></i></li>';
+    }
+    source += '</ul></div>';
     $('body').find('#bottomBar').remove();
     $('body').append(source);
   },
@@ -44,6 +46,9 @@ cbt.utils.bottomBar = {
   initActiveState:function(){
     var pathname = window.location.pathname;
     var list = $('#bottomBar').find('li');
+    if(list.length===3){
+      list.css('width','33.3%');
+    }
     for(var i = 0;i<list.length;i++){
       var item = list.eq(i);
       if(item.data('target') === pathname){
