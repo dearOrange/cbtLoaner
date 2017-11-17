@@ -91,13 +91,18 @@
 	            }),
 	            success: function(res) {
 	              if(res.code == 'SUCCESS'){
-	              	console.log(res)
 	              	var incomeArr = res.data.list
 	              	var incomeStr = ''
 	              	for(var i = 0;i<incomeArr.length;i++){
-	              		if(incomeArr[i].source == "activity"){
+	              		if(incomeArr[i].source == "task"){
+	              			incomeArr[i].source = '任务最佳答案'
+	              		}else if(incomeArr[i].source == "referrer"){
+	              			incomeArr[i].source = '作为推荐人'
+	              		}else if(incomeArr[i].source == "first"){
+	              			incomeArr[i].source = '首发现人'
+	              		}else if(incomeArr[i].source == "activity"){
 	              			incomeArr[i].source = '活动奖励'
-	              		}
+	              		} 
 	              		incomeStr += '<li><p>￥<span class="amount">'+incomeArr[i].amount+'</span></p><p><span>'+incomeArr[i].source+'</span><span>'+incomeArr[i].createAt+'</span></p></li>'
 	              	}
 	              	$('ul').append(incomeStr)

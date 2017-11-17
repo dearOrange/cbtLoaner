@@ -190,7 +190,6 @@
 	        $.ajax({
 	          	url: REQUESTROOT + '/user/getUserInfo',
 	            dataType: 'json',
-	            contentType: 'application/json',
 	            success: function(res) {
 	              if(res.code == 'SUCCESS'){
 	              	var datas = res.data.downStream

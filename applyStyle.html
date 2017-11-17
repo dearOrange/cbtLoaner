@@ -112,16 +112,14 @@
 	        	type:'post',
 	          	url: REQUESTROOT + '/user/setWithdrawalWay',
 	            dataType: 'json',
-	            contentType: 'application/json',
-	            data: JSON.stringify({
-	              	alipay:$('#zhifubao').val(applys),
-				 	bankCard:$('#kahao').val(bankCard),
-				 	bankName:$('#yinhangka').val(bankName)
-	            }),
+	            data: {
+	              	alipay:$('#zhifubao').val(),
+				 	bankCard:$('#kahao').val(),
+				 	bankName:$('#yinhangka').val()
+	            },
 	            success: function(res) {
 	              if(res.code == 'SUCCESS'){
-//	              	window.location.href = './personCenter.html'
-console.log(1)
+	              	window.location.href = './personCenter.html'
 	              }
 	            }
 	        });
