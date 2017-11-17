@@ -119,6 +119,9 @@
                         token: returnData.data.uploadToken
                     }
                 });
+                uploader.on('ready', function() { 
+                    $('input[type="file"]').attr('capture','camera');
+                });
 
                 uploader.on('error', function(type) {
                     alert('上传失败，请重新上传');
