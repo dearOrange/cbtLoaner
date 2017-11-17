@@ -188,21 +188,24 @@ input:-webkit-autofill {
 }
 
 .loginForm .nav-menu {
-    position: fixed;
-    bottom: 10px;
-    left: 0;
     width: 100%;
 }
 
 .loginForm .nav-menu li {
     float: left;
     width: 50%;
+    height: 40px;
+    line-height: 40px;
     cursor: pointer;
     text-align: center;
 }
 
+.loginForm .nav-menu li.active {
+    background: #fff;
+}
+
 .loginForm .nav-menu li.active label {
-    color: #fff;
+    color: #000;
 }
 
 .loginForm .nav-menu label {
