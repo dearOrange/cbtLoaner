@@ -14,3 +14,7 @@ $.ajaxSetup({
     xhr.setRequestHeader("X-Token", token);
   }
 });
+
+cbt.utils.bottomBar = function(){
+  
+};
