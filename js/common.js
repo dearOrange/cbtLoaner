@@ -14,7 +14,42 @@ $.ajaxSetup({
     xhr.setRequestHeader("X-Token", token);
   }
 });
-
-cbt.utils.bottomBar = function(){
-  
+cbt.utils.bottomBar = {
+  init:function(){
+    var _this = this;
+    _this.initHtml();
+    _this.initEvents();
+    _this.initActiveState();
+  },
+  initHtml:function(){
+    var source = '<div id="bottomBar">'
+    +    '<ul>'
+    +        '<li data-target="'+ROOTURL+'/searchCar.html"><i class="searchCar"></i></li>'
+    +        '<li data-target="'+ROOTURL+'/carList.html"><i class="list"></i></li>'
+    +        '<li data-target="'+ROOTURL+'/personCenter.html"><i class="userCenter"></i></li>'
+    +        '<li data-target="'+ROOTURL+'/inCome.html"><i class="log"></i></li>'
+    +   '</ul>'
+    + '</div>';    
+    $('body').find('#bottomBar').remove();
+    $('body').append(source);
+  },
+  initEvents:function(){
+    $('#bottomBar').off('click','li').on('click','li',function(){
+      var me = $(this);
+      me.addClass('active').siblings().removeClass('active');
+      var targetTo = me.data('target');
+      window.location.href = targetTo;
+    });
+  },
+  initActiveState:function(){
+    var pathname = window.location.pathname;
+    var list = $('#bottomBar').find('li');
+    for(var i = 0;i<list.length;i++){
+      var item = list.eq(i);
+      if(item.data('target') === pathname){
+        item.addClass('active').siblings().removeClass('active');
+        break;
+      }
+    }
+  }
 };

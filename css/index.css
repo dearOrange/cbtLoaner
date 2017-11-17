@@ -228,30 +228,91 @@ input:-webkit-autofill {
 #add-location .pipei_pic {
     padding-bottom: 20px;
 }
-.applyBoxHead{
-    width:100%;
-    height:40px;
-    background:dodgerblue;
+
+.applyBoxHead {
+    width: 100%;
+    height: 40px;
+    background: dodgerblue;
     line-height: 40px;
-    text-align:center;
-    color:white;
+    text-align: center;
+    color: white;
 }
-.applyBoxHead .backLast{
-    width:50px;
-    height:40px;
-    position:absolute;
-    left:20px;
-    color:white;
+
+.applyBoxHead .backLast {
+    width: 50px;
+    height: 40px;
+    position: absolute;
+    left: 20px;
+    color: white;
 }
-.applyFooter{
-  width:90%;
-  margin:0 auto;
+
+.applyFooter {
+    width: 90%;
+    margin: 0 auto;
 }
-.storage{
-  width:100%;
-  height:40px;
-  background:dodgerblue;
-  color:#fff;
-  text-align:center;
-  line-height: 40px;
+
+.storage {
+    width: 100%;
+    height: 40px;
+    background: dodgerblue;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+}
+
+#bottomBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    background-color: #fafafa;
+}
+
+#bottomBar ul {
+    width: 100%;
+}
+
+#bottomBar ul li {
+    float: left;
+    width: 25%;
+    cursor: pointer;
+    line-height: 45px;
+    text-align: center;
+}
+
+#bottomBar ul li.active {
+    background-color: #e6e6e6;
+}
+
+#bottomBar ul li.active i {
+    background: url(../images/bottomBar_hover.png);
+    background-size: cover;
+}
+
+#bottomBar li i {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 8px auto;
+    background: url(../images/bottomBar.png);
+    background-size: cover;
+}
+
+#bottomBar i.searchCar {
+    background-position: 0 0;
+}
+
+#bottomBar i.list {
+    background-position: -31px 0;
+}
+
+#bottomBar i.userCenter {
+    background-position: -61px 0;
+}
+
+#bottomBar i.log {
+    background-position: -90px 0;
 }
