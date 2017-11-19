@@ -139,80 +139,80 @@
 </head>
 
 <body>
-    <div class="loginForm" style="background: #f3f3f3;">
-        <div class="personBox">
-        	<div class="personInfo">
-        		<div class="exit">退出</div>
-        		<div class="info">
-        			<p class='personName'>fsf</p>
-        			<p class="personAdress">fbsnb</p>
-        		</div>
-        	</div>
-        </div>
-        <div class="backShow">
-        	<div class="bonusPool">
-	    		<div class="poolMoney"></div>
-	    		<div class="poolContent">赏金池（元）</div>
-	    	</div>
-        </div>
-    	<div class="personList">
-    		<div class="codeNum"><i class="personImg"></i><span>推荐码</span><span class="recommendCode"></span></div>
-    		<div class="codeNum"><i class="cashImg"></i><span>提现方式</span><a href="./applyStyle.html"><span class="setting">设置</span></a></div>
-    		<div><i class="recordImg"></i><span style="margin-bottom:20px;">提现记录</span><a href="./withdrawalRecord.html"><span class="findRecord">查看记录</span></a></div>
-    	</div>
-    	<a href="./widthDrawal.html"><div class="applyCash">申请提现</div></a>
-    </div>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script src="js/jquery.lazyload.min.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-    <script type="text/javascript" src="js/webuploader.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript">
-      // wx.config({
-      //     debug: true,
-      //     appId: 'wx54b6ec4eef54f77b', //secret:49d9994c34fe01967eec42900f706227
-      //     timestamp: '1510730450032',
-      //     nonceStr: '5uw5f1t6h34nl39',
-      //     signature: 'ff5226e725eafddd4d481e84770171803a3dce17',
-      //     jsApiList: ['getLocation']
-      // });
+  <div class="loginForm" style="background: #f3f3f3;">
+      <div class="personBox">
+          <div class="personInfo">
+              <div class="exit">退出</div>
+              <div class="info">
+                  <p class='personName'></p>
+                  <p class="personAdress"></p>
+              </div>
+          </div>
+      </div>
+      <div class="backShow">
+          <div class="bonusPool">
+              <div class="poolMoney"></div>
+              <div class="poolContent">赏金池（元）</div>
+          </div>
+      </div>
+      <div class="personList hide" id="personTypeA">
+          <div class="codeNum"><i class="personImg"></i><span>推荐码</span><span class="recommendCode"></span></div>
+          <div class="codeNum"><i class="cashImg"></i><span>提现方式</span><a href="./applyStyle.html"><span class="setting">设置</span></a></div>
+          <div><i class="recordImg"></i><span style="margin-bottom:20px;">提现记录</span><a href="./withdrawalRecord.html"><span class="findRecord">查看记录</span></a></div>
+      </div>
+      <div class="personList hide" id="personTypeB">
+          <div class="codeNum"><i class="personImg"></i><span>公司</span><span class="recommendCode"></span></div>
+      </div>
+      <a href="./widthDrawal.html">
+          <div class="applyCash hide">申请提现</div>
+      </a>
+  </div>
 
-      // wx.ready(() => {
-      //     wx.getLocation({
-      //         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-      //         success: (res) => {
-      //             window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-      //             window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-      //         }
-      //     });
-          cbt.utils.bottomBar.init();
-	        $.ajax({
-	          	url: REQUESTROOT + '/user/getUserInfo',
-	            dataType: 'json',
-	            success: function(res) {
-	              if(res.code == 'SUCCESS'){
-	              	var datas = res.data.downStream
-	              	sessionStorage.setItem("applyData",datas.alipay)
-	              	sessionStorage.setItem("bankCardData",datas.bankCard)
-	              	sessionStorage.setItem("bankNameData",datas.bankName)
-	              	$('.personName').html(datas.name)
-	              	$('.personAdress').html(datas.province+'-'+datas.city)
-	              	$('.poolMoney').html(datas.fund+'.00')
-	              	$('.recommendCode').html(datas.recommendCode)
-	              }
-	            }
-	        });
-	        $('.exit').click(function(){
-	        	$.ajax({
-		            url: REQUESTROOT + '/user/logout',
-		            success: function() {
-		              	window.location.href = './index.html'
-		            }
-		        });
-	        })
-      // });      
-    </script>
+  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="js/jquery.lazyload.min.js"></script>
+  <script type="text/javascript" src="js/webuploader.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript">
+    cbt.utils.bottomBar.init();
+    $.ajax({
+      	url: REQUESTROOT + '/user/getUserInfo',
+        dataType: 'json',
+        success: function(res) {
+          if(res.code == 'SUCCESS'){
+            
+            var datas = res.data.downStream;
+            $('.personName').html(datas.name);
+            $('.personAdress').html(datas.province+'-'+datas.city);
+
+            if($.cookie('userRole')==="type_A"){
+              sessionStorage.setItem("applyData",datas.alipay)
+              sessionStorage.setItem("bankCardData",datas.bankCard)
+              sessionStorage.setItem("bankNameData",datas.bankName)
+              $('.poolMoney').html(datas.fund+'.00')
+              $('.recommendCode').html(datas.recommendCode);
+              $('#personTypeA').removeClass('hide');
+              $('.applyCash').removeClass('hide');
+            }else{
+              $('.poolMoney').text('捕头');
+              $('.poolContent').text('身份');
+              $('#personTypeB .recommendCode').html(datas.company);
+              $('#personTypeB').removeClass('hide');
+            }
+          	
+          }
+        }
+    });
+    $('.exit').click(function(){
+    	$.ajax({
+          url: REQUESTROOT + '/user/logout',
+          success: function() {
+            	window.location.href = './index.html'
+          }
+      });
+    });
+  </script>
 </body>
 
 </html>

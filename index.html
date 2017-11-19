@@ -153,6 +153,8 @@
             }
         });
 
+        var smsCountDownTimerId = null;
+
         mapSelect('register');
         $('#login').on('click', function() {
             var me = $(this);
@@ -210,6 +212,7 @@
                         alert(returnData.msg);
                     } else {
                         me.prop('disabled', false);
+                        smsCountDownTimerId= window.setInterval(smsCountDown,1000);
                         alert('验证码发送成功');
                     }
                 }
@@ -257,7 +260,8 @@
                     if (returnData.code !== "SUCCESS") {
                         alert(returnData.msg);
                     } else {
-                        me.prop('disabled', false);
+                        $.cookie('countDownTime',60);
+                        window.location.reload();
                     }
                 }
             });
@@ -276,6 +280,31 @@
             }
             me.addClass('active').siblings().removeClass('active');
         });
+
+        function smsCountDown(){
+            var time = $.cookie('countDownTime');
+            var str = '';
+            if(!time){
+                time = 60;
+                $.cookie('countDownTime',60);
+            }else{
+                time = parseInt(time,10);
+            }
+            
+            if(time<=0){
+                str = '获取验证码';
+                $.cookie('countDownTime',60);
+                clearInterval(smsCountDownTimerId);
+                $('#getAuthCode').prop('disabled',false);
+                $('#getAuthCode').text(str);
+                return false
+            }else{
+                str = '重新发送 '+time;
+            }
+            time--;
+            $.cookie('countDownTime',time);
+            $('#getAuthCode').text(str);
+        }
 
         function FormToJSON(form) {
             var arr = $(form).serializeArray();
