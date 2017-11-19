@@ -3,7 +3,7 @@ var cbt = cbt || {
 };
 cbt.utils = cbt.utils || {}; //公共函数
 
-var ROOTURL = ''; /*项目根目录名称 谨慎修改*/
+var ROOTURL = '/hunter'; /*项目根目录名称 谨慎修改*/
 var REQUESTROOT = '/hunterServer'; /*服务器默认为/manager 当本地开发时切换为域名映射*/
 var qiniuURL = '/adminServer';
 // if (window.location.hostname === 'local.cbt.com') {
@@ -42,7 +42,7 @@ function mapSelect(name, callback) {
         $.each(subArr, function(index, value) {
             str += '<option value="' + value + '">' + value + '</option>';
         });
-        $('#' + name + '_city').html(cityHtml + str).select2();;
+        $('#' + name + '_city').html(cityHtml + str);
 
     });
 
