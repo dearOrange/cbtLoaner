@@ -20,6 +20,12 @@
 			height:100%;
 			overflow: auto;
 		}
+		.listForm .listBox .carInfo{
+			width:100%;
+			height:30px;
+			text-align: center;
+			line-height: 30px;
+		}
 		.listForm dl{
 			display:block;
 			overflow: hidden;
@@ -106,19 +112,28 @@
 	              if(res.code == 'SUCCESS'){
 	              	var dataArr = res.data.list
 	              	var dataStr = ''
-	              	for(var i = 0;i<dataArr.length;i++){
-	              		if(dataArr[i].state == "stored"){
-	              			dataArr[i].state = '库存'
-	              		}else if(dataArr[i].state == "new"){
-	              			dataArr[i].state = '待审核'
-	              		}else if(dataArr[i].state == "located"){
-	              			dataArr[i].state = '有效情报'
-	              		}else if(dataArr[i].state == "finished"){
-	              			dataArr[i].state = '已完成'
-	              		}
-	              		dataStr += '<dl><dt><p>'+dataArr[i].state+'</p></dt><dd><p>'+dataArr[i].carNumber+'</p><span>'+dataArr[i].createAt+'</span></dd></dl>'
+	              	if(dataArr.length == 0){
+	              		$('.listBox').append('<p class="carInfo">暂无记录</p>')
+	              	}else{
+	              		for(var i = 0;i<dataArr.length;i++){
+		              		if(dataArr[i].state == "stored"){
+		              			dataArr[i].state = '库存'
+		              		}else if(dataArr[i].state == "new"){
+		              			dataArr[i].state = '待审核'
+		              		}else if(dataArr[i].state == "located"){
+		              			dataArr[i].state = '有效情报'
+		              		}else if(dataArr[i].state == "finished"){
+		              			dataArr[i].state = '已完成'
+		              		}else if(dataArr[i].state == "useless"){
+		              			dataArr[i].state = '无效的情报'
+		              		}else if(dataArr[i].state == "closed"){
+		              			dataArr[i].state = '关闭'
+		              		}
+		              		dataStr += '<dl><dt><p>'+dataArr[i].state+'</p></dt><dd><p>'+dataArr[i].carNumber+'</p><span>'+dataArr[i].createAt+'</span></dd></dl>'
+		              	}
+		              	$('.listBox').append(dataStr)
 	              	}
-	              	$('.listBox').append(dataStr)
+	              	
 	              }
 	            }
 	        });
