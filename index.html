@@ -88,7 +88,7 @@
                             <label>验证码</label>
                         </td>
                         <td>
-                            <input type="text" name="authCode" placeholder="请输入验证码" style="float:left;width:40%;" /><a href="javascript:;" id="getAuthCode">获取验证码</a>
+                            <input type="text" name="authCode" placeholder="请输入验证码" style="float:left;width:40%;" /><a href="javascript:;" class="" id="getAuthCode">获取验证码</a>
                         </td>
                     </tr>
                     <tr>
@@ -201,6 +201,9 @@
                 return false;
             }
             me.prop('disabled', true);
+            if(me.hasClass('disabled')){
+                return false;
+            }
             $.ajax({
                 url: REQUESTROOT + '/user/getSMSCode',
                 dataType: 'json',
@@ -211,7 +214,7 @@
                     if (returnData.code !== "SUCCESS") {
                         alert(returnData.msg);
                     } else {
-                        me.prop('disabled', false);
+                        me.addClass('disabled');
                         smsCountDownTimerId= window.setInterval(smsCountDown,1000);
                         alert('验证码发送成功');
                     }
@@ -295,8 +298,7 @@
                 str = '获取验证码';
                 $.cookie('countDownTime',60);
                 clearInterval(smsCountDownTimerId);
-                $('#getAuthCode').prop('disabled',false);
-                $('#getAuthCode').text(str);
+                $('#getAuthCode').prop('disabled',false).removeClass('disabled').text(str);
                 return false
             }else{
                 str = '重新发送 '+time;
