@@ -83,7 +83,9 @@
 	            success: function(res) {
 	              if(res.code == 'SUCCESS'){
 	              	window.location.href = './personCenter.html'
-	              }
+	              }else{
+                  alert(res.msg);
+                }
 	            }
 	        });
           })
