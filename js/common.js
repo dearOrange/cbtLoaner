@@ -3,16 +3,13 @@ var cbt = cbt || {
 };
 cbt.utils = cbt.utils || {}; //公共函数
 
-var ROOTURL = '/hunter'; /*项目根目录名称 谨慎修改*/
+var ROOTURL = ''; /*项目根目录名称 谨慎修改*/
 var REQUESTROOT = '/hunterServer'; /*服务器默认为/manager 当本地开发时切换为域名映射*/
 var qiniuURL = '/adminServer';
-   // if (window.location.hostname === 'local.cbt.com') {
-   //     REQUESTROOT = 'http://test.cbt.com:8080/hunterServer';
-   //     qiniuURL = 'http://test.cbt.com:8080/adminServer';
-   // } else {
-   //     REQUESTROOT = 'http://192.168.2.181:8080/hunterServer';
-   //     qiniuURL = 'http://192.168.2.181:8080/adminServer';
-   // }
+if(window.location.host.indexOf('.cbt.com')!==-1){
+    REQUESTROOT = 'http://qa.cbt.com:8080' + REQUESTROOT;
+    qiniuURL = 'http://qa.cbt.com:8080' + qiniuURL;
+}
 $.ajaxSetup({
     beforeSend: function(xhr) {
         var token = $.cookie('X-Token');
