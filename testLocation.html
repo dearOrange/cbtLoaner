@@ -91,7 +91,7 @@
                     var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                     localStorage.setItem('click-Storage-jd',res.longitude);
                     localStorage.setItem('click-Storage-wd',res.latitude);
-                    alert('经度：'res.longitude + '--维度：'+res.longitude);
+                    alert('经度：'+res.longitude + '--维度：'+res.longitude);
                 },
                 fail:function(e){
                     console.log('获取地址位置出错，信息是'+e);
