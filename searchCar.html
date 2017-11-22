@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <a href="javascript:;" id="pipei" class="submit">提交</a>
+                        <a href="javascript:;" id="pipei" class="submit" onclick="">提交</a>
                     </td>
                 </tr>
             </table>
@@ -53,7 +53,7 @@
                         </tr>
                         <tr>
                           <td colspan="2">
-                            <a href="javascript:;" class="submit" id="submitLocation">提交</a>
+                            <a href="javascript:;" class="submit" id="submitLocation" onclick="">提交</a>
                           </td>
                         </tr>
                     </tbody>
@@ -96,7 +96,6 @@
                         success: function(res) {
                             window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                             window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                            console.log(window.latitude+ ','+window.longitude);
                         }
                     });
                 });
@@ -158,50 +157,71 @@
         });
 
         $('#pipei').on('click', function() {
-            var carPhoto = $('#carPhoto').val();
-            var carNumber = $.trim($('#carNumber').val());
-            if (!carPhoto) {
-                alert('照片未上传');
-                return false;
-            }
-            if (!carNumber) {
-                alert('车牌号未填写');
-                return false;
-            }
-            window.latitude = window.latitude ? window.latitude : '';
-            window.longitude = window.longitude ? window.longitude : '';
-            var fingerprint;
-            if (!window.latitude && !window.longitude) {
-                fingerprint = '';
-            }
-            // $('.pipei_error').removeClass('hide');
-            $.ajax({
-                url: REQUESTROOT + '/trace/upload',
-                method: 'post',
-                dataType: 'json',
-                data: {
-                    carPhoto: carPhoto,
-                    carNumber: carNumber,
-                    fingerprint: fingerprint
-                },
-                success: function(returnData) {
-                    var data = returnData.data;
-                    if (returnData.code === "SUCCESS") {
-                        traceId = data.traceId;
-                        isMatch = data.isMatch;
-                        $('.login-box').addClass('hide');
-                        $('.login-box1').addClass('hide');
-                        $('#add-location').removeClass('hide');
-                        if (data.isMatch == "false") {
-                            $('.pipei_error').removeClass('hide');
-                        } else {
-                            $('.pipei_success').removeClass('hide');
-                        }
-                    } else {
-                        alert(returnData.msg);
+
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function(res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+
+                    var carPhoto = $('#carPhoto').val();
+                    var carNumber = $.trim($('#carNumber').val());
+                    if (!carPhoto) {
+                        alert('照片未上传');
+                        return false;
                     }
+                    if (!carNumber) {
+                        alert('车牌号未填写');
+                        return false;
+                    }
+                    latitude = latitude ? latitude : '';
+                    longitude = longitude ? longitude : '';
+                    var fingerprint;
+                    if (!latitude && !longitude) {
+                        fingerprint = '';
+                    }else{
+                        fingerprint = longitude + ','+latitude;
+                    }
+                    // $('.pipei_error').removeClass('hide');
+                    $.ajax({
+                        url: REQUESTROOT + '/trace/upload',
+                        method: 'post',
+                        dataType: 'json',
+                        data: {
+                            carPhoto: carPhoto,
+                            carNumber: carNumber,
+                            fingerprint: fingerprint
+                        },
+                        success: function(returnData) {
+                            var data = returnData.data;
+                            if (returnData.code === "SUCCESS") {
+                                traceId = data.traceId;
+                                isMatch = data.isMatch;
+                                $('.login-box').addClass('hide');
+                                $('.login-box1').addClass('hide');
+                                $('#add-location').removeClass('hide');
+                                if (data.isMatch == "false") {
+                                    $('.pipei_error').removeClass('hide');
+                                } else {
+                                    $('.pipei_success').removeClass('hide');
+                                }
+                            } else {
+                                alert(returnData.msg);
+                            }
+                        }
+                    });
+
+                },
+                fail:function(e){
+                    console.log('获取地址位置出错，信息是');
+                    console.log(e);
+                },
+                cancel: function (res) {
+                    alert('用户拒绝授权获取地理位置');
                 }
             });
+
+            
         });
 
         /**
