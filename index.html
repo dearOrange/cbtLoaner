@@ -123,43 +123,6 @@
     <script type="text/javascript">
 
         var url = encodeURIComponent(window.location.href.split('#')[0]);
-        $.ajax({
-            url: REQUESTROOT + '/user/weChatSign',
-            dataType: 'json',
-            data:{
-                url: url
-            },
-            success: function(returnData) {
-                wx.config({
-                    debug: false,
-                    appId: 'wx8bbcc4d675dd42dd',
-                    timestamp: returnData.data.timestamp,
-                    nonceStr: returnData.data.nonceStr,
-                    signature: returnData.data.signature,
-                    jsApiList: ['getLocation']
-                });
-
-                wx.ready(() => {
-                    wx.getLocation({
-                        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                        success: function(res) {
-                            window.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                            window.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                            localStorage.setItem('btd-jd',res.longitude);
-                            localStorage.setItem('btd-wd',res.latitude);
-                        },
-                        fail:function(e){
-                            console.log('获取地址位置出错，信息是');
-                            console.log(e);
-                        },
-                        cancel: function (res) {
-                            alert('用户拒绝授权获取地理位置');
-                        }
-                    });
-                });
-            }
-        });
-
         var smsCountDownTimerId = null;
 
         mapSelect('register');
