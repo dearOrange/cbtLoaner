@@ -6,10 +6,10 @@ cbt.utils = cbt.utils || {}; //公共函数
 var ROOTURL = ''; /*项目根目录名称 谨慎修改*/
 var REQUESTROOT = '/hunterServer'; /*服务器默认为/manager 当本地开发时切换为域名映射*/
 var qiniuURL = '/adminServer';
-// if(window.location.host.indexOf('.cbt.com')!==-1){
+if(window.location.host.indexOf('.cbt.com')!==-1){
     REQUESTROOT = 'http://192.168.2.181:8080' + REQUESTROOT;
     qiniuURL = 'http://192.168.2.181:8080' + qiniuURL;
-// }
+}
 $.ajaxSetup({
     beforeSend: function(xhr) {
         var token = $.cookie('X-Token');
