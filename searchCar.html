@@ -147,18 +147,18 @@
         });
 
         $('#pipei').on('click', function() {
-
+            var _this = $(this);
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                 success: function(res) {
                     var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                     var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                    addTask(longitude,latitude);
+                    addTask(longitude,latitude,_this);
                 },
                 fail:function(e){
                     console.log('获取地址位置出错，信息是');
                     console.log(e);
-                    addTask('','');
+                    addTask('','',_this);
                 },
                 cancel: function (res) {
                     alert('用户拒绝授权获取地理位置');
@@ -167,15 +167,21 @@
             
         });
 
-        function addTask(longitude,latitude){
+        function addTask(longitude,latitude,obj){
+            if(obj.hasClass('disabled')){
+                return false;
+            }
+            obj.addClass('disabled');
             var carPhoto = $('#carPhoto').val();
             var carNumber = $.trim($('#carNumber').val());
             if (!carPhoto) {
                 alert('照片未上传');
+                obj.removeClass('disabled');
                 return false;
             }
             if (!carNumber) {
                 alert('车牌号未填写');
+                obj.removeClass('disabled');
                 return false;
             }
             latitude = latitude ? latitude : '';
@@ -186,7 +192,7 @@
             }else{
                 fingerprint = longitude + ','+latitude;
             }
-            // $('.pipei_error').removeClass('hide');
+
             $.ajax({
                 url: REQUESTROOT + '/trace/upload',
                 method: 'post',
@@ -212,6 +218,7 @@
                     } else {
                         alert(returnData.msg);
                     }
+                    obj.removeClass('disabled');
                 }
             });
         }
