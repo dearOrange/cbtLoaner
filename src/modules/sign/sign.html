@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <title>签约-杭州车捕头信息技术有限公司</title>
+    <meta name="description" content="杭州车捕头信息技术有限公司">
+    <meta name="keywords" content="杭州车捕头信息技术有限公司">
+    <style>
+        body{
+            background-color: #fbf4ec;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .hide{
+            display: none;
+        }
+        #signInfo{
+            position: fixed;
+            left:50%;
+            top:50%;
+            margin-left: -150px;
+            margin-top: -150px;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+        }
+        a{
+            text-decoration: none;
+        }
+        p{
+            height: 40px;
+            line-height: 40px;
+        }
+        .button,a.button{
+            display: inline-block;
+            padding: 5px 80px;
+            border: 1px solid #7373f1;
+            margin-top: 25px;
+        }
+        .successText{
+            font-size: 30px;
+            color: green;
+            font-weight: bold;
+        }
+        .errorText{
+            font-size: 20px;
+            color: red;
+        }
+        .mt25{
+            margin-top: 25px;
+        }
+        .icon-success{
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            vertical-align: middle;
+            background-image: url(http://javadev.tunnel.ifugle.cn/loaner/src/img/icon-success.png);
+            margin-right: 10px;
+        }
+        .icon-error{
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            vertical-align: middle;
+            background-image: url(http://javadev.tunnel.ifugle.cn/loaner/src/img/icon-error.png);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="signInfo">
+        <div id="signSuccess" class="hide">
+            <p class="successText"><i class="icon-success"></i>签约成功</p>
+            <p class="mt25">流水号：<span id="lsh"></span></p>
+            <p>签约时间：<span id="currentDate"></span></p>
+            <p>
+                <a href="http://customer.chebutou.com/src/modules/sign/sign-close.html" class="button" onclick="closeWindow()">返回</a>
+            </p>
+        </div>
+        <div id="signError" class="hide">
+            <p class="errorText"><i class="icon-error"></i>签约失败</p>
+            <p>
+                <a href="http://customer.chebutou.com/src/modules/sign/sign-close.html" class="button" onclick="closeWindow()">返回</a>
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    //获取url参数
+    function GetQueryString(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    function closeWindow(){
+        if(IsPC()){
+            parent.jh.utils.closeArt();
+        }
+    }
+
+    if(IsPC()){
+        var aList = document.getElementsByTagName('a');
+        for(var ai=0;ai<aList.length;ai++){
+            var item = aList[ai];
+            item.setAttribute('href','javascript:;');
+        }
+    }
+
+    var signNo = GetQueryString('signNo');
+    var status = GetQueryString('status');
+    var id = status == 1 ? 'signSuccess' : 'signError';
+    var target = document.getElementById(id);
+    var lshTarget = document.getElementById('lsh');
+    var currentDate = document.getElementById('currentDate');
+    target.className = '';
+    lshTarget.innerText = signNo;
+
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份 
+            "d+": this.getDate(), //日 
+            "H+": this.getHours(), //小时 
+            "m+": this.getMinutes(), //分 
+            "s+": this.getSeconds(), //秒 
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+            "S": this.getMilliseconds() //毫秒 
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    
+    var dateStr = new Date().Format("yyyy-MM-dd HH:mm:ss"); 
+    currentDate.innerText = dateStr;
+</script>
+
+</html>

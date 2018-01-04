@@ -1,0 +1,251 @@
+<div class="dataContent personContent">
+    <div class="search-container center-site">
+        <ul class="person-option personRemove">
+            <li class="changePassword">
+                <i class="icon icon-username"></i>
+                <span>修改密码</span>
+            </li>
+            <li class="removePhone">
+                <i class="icon icon-phone"></i>
+                <span>解绑手机</span>
+            </li>
+        </ul>
+        <form id="personCenter-baseInfo-form">
+            <img src="/src/img/loading.gif" alt="数据加载中" style="margin: 100px 50%;">
+        </form>
+    </div>
+</div>
+<script type="text/template" id="personCenter-baseInfo-template">
+    <ul>
+        <li style="border-right:0">
+            <label>用户名</label>
+            <span class="personUser">{{userName}}</span>
+        </li>
+        <li>
+            <label>手机号</label>
+            <span class="personPhone">{{mobile}}</span>
+        </li>
+    </ul>
+    <ul>
+    	<li style="width:96.2%;">
+            <label>主体类型</label>
+            <select id="serviceType" name="type" class="required">
+                <option value="UPSTREAM_INSURANCE">保险公司</option>
+                <option value="UPSTREAM_BANK">银行</option>
+                <option value="UPSTREAM_FACTORY">厂家金融</option>
+                <option value="UPSTREAM_LEASE">融资租赁</option>
+                <option value="UPSTREAM_P2P">P2P平台</option>
+                <option value="UPSTREAM_LAWFIRM">律师事务所</option>
+                <option value="UPSTREAM_PERSONAL">个人</option>
+                <option value="UPSTREAM_OTHER">其他</option>
+            </select>
+        </li>
+    </ul>
+    <ul class="select-other" id="mainTypeBox"></ul>
+    <ul>
+        <li style="border-right:0">
+            <label>负责人</label>
+            <input type="text" class="search-input isChinese required" maxlength="11" name="linkman" placeholder="输入负责人" value="{{linkman}}"/>
+        </li>
+        <li>
+            <label>联系电话</label>
+            <input type="text" class="search-input isMobile required" maxlength="11" name="contactPhone" placeholder="输入联系电话" value="{{contactPhone}}"/>
+        </li>
+        <li style="border-bottom:1px solid #eee;border-right:0">
+            <label>微信账号</label>
+            <input type="text" class="search-input required" name="wechat" maxlength="40" placeholder="输入微信账号" value="{{wechat}}"/>
+        </li>
+        <li style="border-bottom:1px solid #eee;">
+            <label>邮箱</label>
+            <input type="text" class="search-input isEmail required" id="emailCon" name="email" maxlength="40" placeholder="输入邮箱" value="{{if email}}{{email}}{{/if}}" {{if email}}readonly="readonly"{{/if}}/>
+        </li>
+    </ul>
+    <div style="margin-top:10px;color:#ddd">
+    	温馨提示：营业执照和邮箱信息后期修改需要联系平台协助修改，首次填写请核对后提交！！！
+    </div>
+    <div class="mainfile">
+        <p>资质上传</p>
+        <div class="upimg">
+            <dl class="businessImg">
+                <dt class="upload-pa">
+                    <div id="businessLicense"></div>
+                    <div class="upload-list businessLicense">
+                    	{{if businessLicense }}
+                        <div class="upfile-item">
+                            <img class="preview-img" src="{{viewImgRoot}}{{businessLicense}}"/>
+                            <span class="delete-img"></span>
+                            <input type="hidden" name="businessLicense" value="{{businessLicense}}" />
+                        </div>
+                        {{/if}}
+                    </div>
+                </dt>
+                <dd>营业执照</dd>
+            </dl>
+            <dl class="businessImg">
+                <dt class="upload-pa">
+                    <div id="legalPersonIdImg"></div>
+                    <div class="upload-list">
+                    	{{if legalPersonIdImg }}
+                        <div class="upfile-item">
+                            <img class="preview-img" src="{{viewImgRoot}}{{legalPersonIdImg}}" />
+                            <span class="delete-img"></span>
+                            <input type="hidden" name="legalPersonIdImg" value="{{legalPersonIdImg}}" />
+                        </div>
+                        {{/if}}
+                    </div>
+                </dt>
+                <dd>法人身份证照片</dd>
+            </dl>
+            <dl class="businessImg">
+                <dt class="upload-pa">
+                    <div id="legalPersonHandIdImg"></div>
+                    <div class="upload-list">
+                    	{{if legalPersonHandIdImg }}
+                        <div class="upfile-item">
+                            <img class="preview-img" src="{{viewImgRoot}}{{legalPersonHandIdImg}}" />
+                            <span class="delete-img"></span>
+                            <input type="hidden" name="legalPersonHandIdImg" value="{{legalPersonHandIdImg}}" />
+                        </div>
+                        {{/if}}
+                    </div>
+                </dt>
+                <dd>法人手持身份证正面照片</dd>
+            </dl>
+            <dl>
+                <dt class="upload-pa">
+                    <div id="linkmanIdImg"></div>
+                    <div class="upload-list personImg">
+                    	{{if linkmanIdImg }}
+                        <div class="upfile-item">
+                            <img class="preview-img" src="{{viewImgRoot}}{{linkmanIdImg}}" />
+                            <span class="delete-img"></span>
+                            <input type="hidden" name="linkmanIdImg" value="{{linkmanIdImg}}" />
+                        </div>
+                        {{/if}}
+                    </div>
+                </dt>
+                <dd>负责人身份证照片</dd>
+            </dl>
+            <dl>
+                <dt class="upload-pa">
+                    <div id="linkmanHandIdImg"></div>
+                    <div class="upload-list personImg">
+                    	{{if linkmanHandIdImg }}
+                        <div class="upfile-item">
+                            <img class="preview-img" src="{{viewImgRoot}}{{linkmanHandIdImg}}" />
+                            <span class="delete-img"></span>
+                            <input type="hidden" name="linkmanHandIdImg" value="{{linkmanHandIdImg}}" />
+                        </div>
+                        {{/if}}
+                    </div>
+                </dt>
+                <dd>负责人手持身份证正面照片</dd>
+            </dl>
+        </div>
+    </div>
+    {{if isState === "new"}}
+    <div class="buttonAnt firstChange">
+        <input class="pull-left button bigButton" type="submit" value="提交认证" />
+    
+    {{else}}
+    
+        <input class="pull-left button bigButton" type="submit" value="重新提交认证" />
+        <a href="javascript:;" class="clearEdit pull-left button bigButton">取消编辑</a>
+    </div>
+    {{/if}}
+    {{if isState === "unavailable"}}
+    <div class="clearfix"></div>
+    <hr />
+    <p style="">认证不通过原因：{{reason}}</p>
+    {{/if}}
+</script>
+<script type="text/template" id="task_changePassword_template">
+	<div class="change-width">
+        <p class="pull-left">
+            修改密码
+        </p>
+        <div class="clearfix"></div>
+        <hr /><br />
+        <form class="changeForm" id="form_change">
+			<div class="inputGroup">
+                <label>手机号</label>
+                <label for="mobile" class="changePhone">{{mobile}}</label>
+                <span class="loginCode" id="changePwdPhone">获取验证码</span>
+            </div>
+            <div class="inputGroup">
+            	<label>短信验证码   </label>
+                <input class="txt required find-checkcode" type="text" maxlength="40" name="code" placeholder="请输入6位数字验证码" id="checkcode"/>        
+            </div>
+			<div class="inputGroup">
+				<label>新密码   </label>
+                <input class="txt required find-newpwd" type="password" maxlength="40" name="password" placeholder="请输入新密码" id="newpwd">
+            </div>
+            <div class="inputGroup">
+            	<label>再次输入新密码   </label>
+                <input class="txt required find-repnewpwd" type="password" maxlength="40" name="confirm-password" placeholder="请再次输入新密码" id="repnewpwd"/>        
+            </div>
+        </form>
+    </div>
+</script>
+<script type="text/template" id="task_removePhone_template">
+	<div class="change-width">
+        <p class="pull-left">
+            解绑手机
+        </p>
+        <div class="clearfix"></div>
+        <hr /><br />
+        <form class="changeForm" id="form_change">
+			<div class="inputGroup">
+                <label>手机号</label>
+                <label for="mobile" class="changePhone">{{mobile}}</label>
+                <span class="loginCode" id="bangdingPhone">获取验证码</span>
+            </div>
+            <div class="inputGroup">
+            	<label>短信验证码   </label>
+                <input class="txt required find-checkcode" type="text" maxlength="40" name="code" placeholder="请输入6位数字验证码" id="checkcode"/>        
+            </div>
+			<div class="inputGroup">
+				<label>新手机号   </label>
+                <input class="txt isMobile find-mobile" type="text" maxlength="40" name="mobile" placeholder="请输入新手机号" id="phoneNumber">
+            </div>
+        </form>
+    </div>
+</script>
+<script type="text/template" id="personCenter_businessInfo_template">
+    <li style="width:96.2%;">
+        <label>主体名称</label>
+        <input type="text" style="width:85%;" class="search-input required disabledInp" maxlength="20" name="companyName" value="{{companyName}}"/>
+    </li>
+    <li style="width:96.2%;">
+        <label>主体地址</label>
+        <input type="text" style="width:85%;" name="address" maxlength="40" class="search-input required disabledInp" value="{{address}}"/>
+    </li>
+    <li style="border-right:0">
+        <label>法人代表</label>
+        <input type="text" class="search-input required disabledInp" maxlength="11" name="legalPerson" value="{{legalPerson}}"/>
+    </li>
+    <li>
+        <label>法人代表身份证号</label>
+        <input type="text" class="search-input required disabledInp" maxlength="18" name="legalIdentityCard" value="{{identityCard}}"/>
+    </li>
+    <li style="border-right:0">
+        <label>法人代表手机号</label>
+        <input type="text" class="search-input required isMobile disabledInp" maxlength="11" name="legalPersonMobile" value="{{legalPersonMobile}}"/>
+    </li>
+    <li>
+        <label>营业执照编号</label>
+        <input type="text" class="search-input required disabledInp" maxlength="20" name="businessLicenseNo" value="{{if businessLicenseNo}}{{businessLicenseNo}}{{/if}}" {{if businessLicenseNo}}readonly="readonly"{{/if}}/>
+    </li>
+</script>
+<script type="text/template" id="personCenter_personInfo_template">
+    <li style="width:96.2%;">
+        <label>身份证号</label>
+        <input type="text" style="width:85%;" class="search-input required disabledInp" maxlength="18" name="identityCard" value="{{identityCard}}"/>
+    </li>
+</script>
+<script type="text/javascript">
+seajs.use('modules/person/person-center', function(PersonCenter) {
+    var PersonCenter = new PersonCenter();
+    PersonCenter.init();
+});
+</script>

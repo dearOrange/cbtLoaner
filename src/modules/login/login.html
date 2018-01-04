@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>车捕头债权方管理系统</title>
+    <meta name="description" content="车捕头债权方管理系统" />
+    <meta name="keywords" content="车捕头 债权方 管理 系统" />
+    <link href="../../css/base.css?version=20170609" rel="stylesheet" />
+    <link href="../../css/modules.css?version=20170609" rel="stylesheet" />
+</head>
+<body class="login">
+	<div id="topbar">
+        <div class="container">
+        	<div class="pull-left" style="margin-left:80px;">
+        		<a class="gray-text" id="wechat" href="#">微信关注</a>
+                <div id="wechatImg" class="hide">
+                    <img src="../../img/erweima.jpg" alt="车捕头微信公众号" width="180">
+                </div>
+        	</div>
+            <div class="pull-right">
+            	<a class="gray-text" id="serverPhone" href="javascript:;">0571-87001678</a>
+                <span> | </span>
+                <a class="gray-text" id="onlineTime" href="javascript:;">在线时间  8:30-20:00</a>
+                <span> | </span>
+                <a class="gray-text goLogin" id="login" href="javascript:;">登录</a>
+                <span> | </span>
+                <a class="gray-text" id="register" href="../register/register.html">注册</a>
+            </div>
+        </div>
+    </div>
+    <div class="login-logo" style="width: 100%;overflow:hidden;">
+    	<div class="logo-img">
+    		<div class="logoBox">
+    			<p>不良资产清收优质服务平台</p>
+    			<span>Best platform for help liquidating cars NPA</span>
+    		</div>
+    	</div>
+    	<div class="login-form">
+	        <form class="loginForm" id="form_login" method="post">
+				<h2>债权方登录</h2>
+				<ul>
+					<li class="tab-login active">手机号登录</li>
+					<li class="tab-login">账号密码登录</li>			
+				</ul>
+				<div class="tab-page" id="login-active">
+					<div class="inputGroup inputLogin">
+		                <input class="txt required phoneNumber isMobile" type="text" maxlength="11" name="mobile" placeholder="请输入手机号码" id="phoneNumber">
+		                <span class="loginCode" id="phoneLogin-getCheckcode">获取验证码</span>
+		            </div>
+		            <div class="inputGroup inputLogin">
+		                <input class="txt required checkcode" style="width:99%;" type="text" maxlength="6" name="code" placeholder="请输入6位数字验证码" id="checkcode"/>        
+		            </div>
+		        </div>
+		        <div class="username-login tab-page">
+					<div class="inputGroup inputLogin">
+		                <input class="txt required username" type="text" maxlength="11" name="username" placeholder="请输入账号" id="username">
+		            </div>
+		            <div class="inputGroup inputLogin">
+		                <input class="txt required password" type="password" maxlength="20" name="password" placeholder="请输入密码" id="password"/>        
+		            </div>
+		            <div class="forgetPwd" style="color:#fff;">忘记密码？</div>
+				</div>
+	            <div class="inputGroup noborder inputLogin">
+	                <input type="submit" value="登录"/>
+	            </div>
+	        </form>
+	        <form class="loginForm forgetForm" id="form_forget">
+	            <p>忘记密码？不用着急，通过手机号找回密码</p>
+				<h2>找回密码</h2>
+				<div class="tab-page" id="login-active">
+					<div class="inputGroup inputLogin">
+		                <input class="txt required phoneNumber telphone isMobile" type="text" maxlength="11" name="mobile" placeholder="请输入手机号码" id="getphoneNumber">
+		                <span class="loginCode" id="findPassword-getCheckcode">获取验证码</span>
+		            </div>
+		            <div class="inputGroup inputLogin">
+		                <input class="txt required checkcode" type="text" maxlength="6" style="width:99%;" name="code" placeholder="请输入6位数字验证码" id="forgetPass-checkcode"/>        
+		            </div>
+					<div class="inputGroup inputLogin">
+		                <input class="txt required newpwd" type="password" maxlength="20" style="width:99%;" name="password" placeholder="请输入新密码" id="newpwd">
+		            </div>
+		            <div class="inputGroup inputLogin">
+		                <input class="txt required repnewpwd" type="password" maxlength="20" style="width:99%;" name="confirm-password" placeholder="请再次输入新密码" id="repnewpwd"/>        
+		            </div>
+				</div>
+	            <div class="inputGroup noborder inputLogin">
+	                <input type="submit" value="找回密码"/>
+	            </div>
+	        </form>
+	    </div>	
+    </div>
+    <script type="text/javascript" src="../../js/lib/seajs/3.0.1/sea.js?version=20170609"></script>
+    <script type="text/javascript">
+        seajs.use('modules/login/login', function(Login) {
+            var login = new Login();
+            login.init();
+        });
+    </script>
+</body>
+</html>

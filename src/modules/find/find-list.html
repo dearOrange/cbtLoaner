@@ -1,0 +1,234 @@
+<div class="dataContent">
+	<div class="search-container">
+        <form id="custmoer-findList-form">
+            <table class="common_query textLeft">
+                <tr>
+                    <td>
+                        <label class="label">车 牌 号：</label>
+                        <select name="carNumber_province" class="search-select carSelect public-select" style="width:72px;">
+                            <option value="">区域</option>
+                            <option value="京">京</option>
+                            <option value="粤">粤</option>
+                            <option value="皖">皖</option>
+                            <option value="闽">闽</option>
+                            <option value="甘">甘</option>
+                            <option value="桂">桂</option>
+                            <option value="贵">贵</option>
+                            <option value="琼">琼</option>
+                            <option value="冀">冀</option>
+                            <option value="豫">豫</option>
+                            <option value="黑">黑</option>
+                            <option value="鄂">鄂</option>
+                            <option value="湘">湘</option>
+                            <option value="吉">吉</option>
+                            <option value="苏">苏</option>
+                            <option value="赣">赣</option>
+                            <option value="辽">辽</option>
+                            <option value="蒙">蒙</option>
+                            <option value="宁">宁</option>
+                            <option value="青">青</option>
+                            <option value="鲁">鲁</option>
+                            <option value="晋">晋</option>
+                            <option value="陕">陕</option>
+                            <option value="陕">陕</option>
+                            <option value="沪">沪</option>
+                            <option value="川">川</option>
+                            <option value="津">津</option>
+                            <option value="藏">藏</option>
+                            <option value="新">新</option>
+                            <option value="云">云</option>
+                            <option value="浙">浙</option>
+                            <option value="渝">渝</option>
+                            <option value="港">港</option>
+                            <option value="澳">澳</option>
+                            <option value="台">台</option>
+                        </select>
+                        <input type="text" class="search-input" name="carNumber" placeholder="输入车牌">
+                    </td>
+                    <td>
+                        <label class="label">任务类型：</label>
+                        <select name="entrust" class="search-select">
+                        	<option value="">全部</option>
+                            <option value="all">无定位需找+拖</option>
+                            <option value="trace">无定位只需找车</option>
+                            <option value="recycle">有定位只需拖车</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="label">任务状态：</label>
+                        <select name="state" class="search-select">
+                            <option value="">全部</option>
+                            <option value="unconfirmed">待确认</option>
+                            <option value="voucherChecking">凭证审核中</option>
+                            <option value="voucherInvalid">凭证审核未通过</option>
+                            <option value="hunterUnreceive">捕头未接受</option>
+                            <option value="hunterReceive">捕头已接受</option>
+                            <option value="platReceive">平台已收车</option>
+                            <option value="upstreamReceive">债权方已收车</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" value="查询" class="button search-button">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="data-container">
+        <table class="dataShow">
+            <thead>
+                <tr>
+                    <th width="5%">&nbsp;</th>
+                    <th width="8%">车牌号</th>
+                    <th width="8%">品牌</th>
+                    <th width="8%">车系</th>
+                    <th width="15%">任务类型</th>
+                    <th width="15%">任务状态</th>
+                    <th width="15%">提供线索时间</th>
+                    <th width="6%">操作</th>
+                </tr>
+            </thead>
+            <tbody id="find_list_container" class="trColor">
+            </tbody>
+        </table>
+        <div class="page-box pagination" id="page_container"></div>
+    </div>
+</div>
+<script type="text/template" id="findList-contentTemplate">
+    {{ each list item index }}
+    <tr class="trData">
+        <td>{{index + 1}}</td>
+        <td>{{item.carNumber}}</td>
+        <td>{{item.carBrand}}</td>
+        <td>{{item.carSeries}}</td>
+        <td>{{menuState(item.entrust)}}</td>
+        <td>{{menuState(item.state)}}</td>
+        <td>{{item.createAt}}</td>
+        <td>
+            <ul class="operaitem">
+                <li>
+                    <a data-id="{{item.id}}" class="detail button">详情</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+<script type="text/template" id="find-detail-template">
+    <div class="dialog-width">
+    	<form id="custmoer-upload-form">
+	    	<input type="text" name="taskId" value="{{data.id}}" style="visibility: hidden;"/>
+	        <p class="pull-left">
+	            任务详情
+	        </p>
+	        <p class="pull-right">{{menuState(data.state)}}</p>
+	        <div class="clearfix"></div>
+	        <hr /><br />
+	        <p>基本信息</p><br />
+	        <table>
+	        	<tr>
+	        		<th>任务号：</th>
+	        		<td>{{data.taskNo}}</td>
+	        		<th>任务类型：</th>
+	        		<td>{{menuState(data.entrust)}}</td>
+	        		<th>任务发起：</th>
+	        		<td>{{data.upstreamName}}</td>
+	        	</tr>
+	        	<tr>
+	        		<th>车牌号：</th>
+	        		<td>{{data.carNumber}}</td>
+	        		<th>车型：</th>
+	        		<td>{{data.carBrand}}-{{data.carSeries}}-{{data.carModel}}</td>
+	        		<th>颜色：</th>
+	        		<td>{{data.carColor}}</td>
+	        	</tr>
+	        	<tr>
+	        		<th>车辆识别号：</th>
+	        		<td>{{data.carId}}</td>
+	        		<th>车辆发动机号：</th>
+	        		<td>{{data.engineId}}</td>
+	        		<th>任务发布时间：</th>
+	        		<td>{{data.createAt}}</td>
+	        	</tr>
+	        </table>
+	        <div class="remark">{{data.remark}}</div>
+	        <div class="imgRecord" style="border:0;">
+	            <p>催收记录资料</p>
+	            {{each data.attachmentVoList item index}}
+	            <img src="{{viewImgRoot}}{{item.url}}?imageMogr2/auto-orient/thumbnail/100x100" class="preview-img">
+	            {{/each}}
+	        </div>
+	        <div class="mainfile">
+                <p>凭证资料</p>
+                {{if data.state === "unconfirmed" || data.state === "voucherInvalid" }}
+                <div>
+                    <br>
+                    <span>委托书原件</span>
+                    <br />
+                    <span>支持格式：jpg、png、bmp</span>
+                    <div class="upimg" style="width:740px;">
+                        <div class="ordinary">
+                            <div id="entrustUrl" class="mt10">上传委托书</div>
+                            <br>
+                            <div class="upload-list uploaderRequired mt10">
+                            {{each data.entrustVoList item index}}
+                                <div class="upfile-item">
+                                    <img class="preview-img" src="{{viewImgRoot}}{{item.url}}?imageMogr2/auto-orient/thumbnail/100x100" />
+                                    <span class="delete-img"></span>
+                                    <input type="hidden" name="entrustUrl" value="{{item.url}}"/>
+                                </div>
+                            {{/each}}
+                            </div>
+                        </div>
+                    </div>                    
+                    <br><br>
+                </div>
+	        	<div>
+	        		<span>资料清单包含：</span>
+                    <span>债务方身份证, 债务方行驶证, 车辆登记证书, 公证书, 按揭服务协议 抵押合同 垫付款凭证 法院判决书  还款确认书</span>
+	        		<br />
+	        		<span>支持格式：jpg、png、bmp</span>
+	        	</div>
+	        	<div class="upimg" style="width:740px;">
+                    <div class="ordinary">
+                        <div id="voucherUrl" class="mt10">上传凭证</div>
+                        <br>
+                        <div class="upload-list uploaderRequired mt10">
+                        {{each data.voucherVoList item index}}
+                            <div class="upfile-item">
+                                <img class="preview-img" src="{{viewImgRoot}}{{item.url}}?imageMogr2/auto-orient/thumbnail/100x100" />
+                                <span class="delete-img"></span>
+                                <input type="hidden" name="voucherUrl" value="{{item.url}}"/>
+                            </div>
+                        {{/each}}
+                        </div>
+                    </div>
+		        </div>
+                {{else}}
+                <div class="upimg" style="width:740px;">
+                    <div class="ordinary">
+                        <div class="upload-list">
+                        {{each data.voucherVoList item index}}
+                            <div class="upfile-item">
+                                <img class="preview-img" src="{{viewImgRoot}}{{item.url}}?imageMogr2/auto-orient/thumbnail/100x100" />
+                                <input type="hidden" name="voucherUrl" value="{{item.url}}"/>
+                            </div>
+                        {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+	        </div>
+	        {{if data.state === 'voucherInvalid'}}
+	        <hr />
+	        <div>{{data.auditOpinion}}</div>
+	        {{/if}}
+        </form>
+    </div>
+</script>
+<script type="text/javascript">
+seajs.use('modules/find/find-list', function(FindList) {
+    var findList = new FindList();
+    findList.init();
+});
+</script>
