@@ -25,7 +25,7 @@ if(window.location.host.indexOf('.cbt.com')!==-1){
     serverHost = 'http://javadev:8180';
     viewImageRoot = 'http://p0znn0pti.bkt.clouddn.com/';
 }
-if(window.location.host.indexOf('javadev')!==-1){
+if(window.location.host.indexOf('javadev')!==-1 || window.location.host.indexOf('test.')!==-1){
     viewImageRoot = 'http://p0znn0pti.bkt.clouddn.com/';
 }
 
