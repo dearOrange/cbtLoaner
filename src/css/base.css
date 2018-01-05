@@ -200,36 +200,37 @@ input:-webkit-autofill {
 	margin-top: 40px;
 }
 
-.welcome ul {
-	margin-top: 20px;
-	font-size: 18px;
-	overflow: auto;
-}
-
 .welcome ul.img-list {
 	float: left;
 	width: 72%;
+	margin-top: 20px;
+	font-size: 18px;
 }
 
-.welcome ul.carinfo-list {
+.welcome div#carinfo-list {
 	float: right;
 	width: 230px;
 	height: 290px;
 	border: 2px solid #eee;
 	font-size: 16px;
+	margin-top: 20px;
 }
 
-.welcome ul.carinfo-list p {
+.welcome div#carinfo-list p {
 	font-weight: 900;
 	margin: 10px 26px;
 	border-bottom: 1px solid #eee;
 	padding-bottom: 8px;
 	color: #373737;
 }
-
-.welcome ul.carinfo-list li {
+.welcome div#carinfo-list div#carinfo-item {
+	height:240px;
+	overflow: hidden;
+}
+.welcome div#carinfo-list ul li {
 	font-size: 14px;
 	color: #373737;
+	height:30px;
 }
 
 .welcome ul li {
@@ -239,7 +240,7 @@ input:-webkit-autofill {
 
 .welcome ul.img-list li {
 	float: left;
-	width: 26%;
+	width: 29%;
 	height: 100px;
 	text-align: center;
 	line-height: 100px;
