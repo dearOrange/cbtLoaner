@@ -68,6 +68,12 @@ define(function(require, exports, module) {
         var regx = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/i;
         return this.optional(element) || (regx.test(value) || mobile.test(value));
     }, "请填写正确的手机号码/邮箱");
+    jQuery.validator.addMethod("isFixedPhone", function(value, element) {
+        var length = value.length;
+        var mobile2 = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+        var mobile3 = /^400-[0-9]{3}-[0-9]{4}$/;
+        return this.optional(element)  || (mobile2.test(value) || mobile3.test(value));
+    }, "请填写正确的电话号码");
     jQuery.validator.addMethod("isTelephone", function(value, element) {
         var length = value.length;
         var mobile1 = /^1[3|4|5|6|7|8][0-9]{9}$/;
