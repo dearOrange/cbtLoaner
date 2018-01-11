@@ -17,7 +17,7 @@
 </div>
 <script type="text/template" id="personCenter-baseInfo-template">
     <ul>
-        <li style="border-right:0">
+        <li>
             <label>用户名</label>
             <span class="personUser">{{userName}}</span>
         </li>
@@ -27,7 +27,7 @@
         </li>
     </ul>
     <ul>
-    	<li style="width:96.2%;">
+    	<li>
             <label>主体类型</label>
             <select id="serviceType" name="type" class="required">
                 <option value="UPSTREAM_INSURANCE">保险公司</option>
@@ -53,7 +53,7 @@
         </li>
         <li style="border-bottom:1px solid #eee;border-right:0">
             <label>固定电话</label>
-            <input type="text" class="search-input isMobile required" name="telephone" maxlength="40" placeholder="输入固定电话" value="{{telephone}}"/>
+            <input type="text" class="search-input isFixedPhone required" name="telephone" maxlength="13" placeholder="输入固定电话" value="{{telephone}}"/>
         </li>
         <li style="border-bottom:1px solid #eee;">
             <label>邮箱</label>
