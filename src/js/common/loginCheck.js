@@ -40,16 +40,16 @@ define(function(require, exports, module) {
         };
 
         this.checkLogin = function() {
-            if (isMobile.Android() || isMobile.iOS()) {
-                window.location.href = 'http://m.loaner.chebutou.com.cn';
-            } else {
+            // if (isMobile.Android() || isMobile.iOS()) {
+            //     window.location.href = 'http://m.loaner.chebutou.com.cn';
+            // } else {
                 var token = sessionStorage.getItem('customer-X-Token');
                 if (token) {
                     window.location.href = jh.config.pageIndex;
                 } else {
                     window.location.href = jh.config.pageLogin;
                 }
-            }
+            // }
         };
     }
     module.exports = CheckLogin;
