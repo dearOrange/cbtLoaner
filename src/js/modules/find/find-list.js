@@ -55,13 +55,15 @@ define(function(require, exports, module) {
                             //如果是待债权方确认状态则进行上传凭证与进行电子签章
                             if (returnData.data.state === 'unconfirmed' || returnData.data.state === 'voucherInvalid') {
                                 _this.uploadVouch(returnData.data);
+                                return false;
                             } else if (returnData.data.state === 'platReceive') {
+                                (new jh.ui.shadow()).init();
                                 //如果平台已收车，则债权方进行确认收车
                                 _this.confirmeReceive(taskId);
+                                return false;
                             } else {
-                            	return true;
+                                return true;
                             }
-//                          return false;
                         },
                         cancel: true
                     });
@@ -106,6 +108,7 @@ define(function(require, exports, module) {
             //以逗号连接数据
             datas.voucherUrl = jh.utils.isArray(datas.voucherUrl) ? datas.voucherUrl.join(',') : datas.voucherUrl;
             datas.entrustUrl = jh.utils.isArray(datas.entrustUrl) ? datas.entrustUrl.join(',') : datas.entrustUrl;
+            (new jh.ui.shadow()).init();
             //保存已上传凭证数据
             jh.utils.ajax.send({
                 url: '/task/confirmeEntrust',
@@ -113,10 +116,12 @@ define(function(require, exports, module) {
                 data: datas,
                 done: function(returnData) {
                     jh.utils.closeArt();
+                    returnDetail.contractState = 0;
                     if (returnDetail.contractState == 0) {
                         //保存成功后调用电子签章
                         _this.requestContractUrl(datas.taskId);
-                    }else{
+                    } else {
+                        (new jh.ui.shadow()).close();
                         _this.initContent();
                     }
                 }
@@ -139,13 +144,14 @@ define(function(require, exports, module) {
                         id: 'iframe-dialog',
                         width: width,
                         height: height,
-                        cancel: false,
+                        cancel: true,
                         cancelValue: '关闭',
                         fixed: true,
                         onclose: function() {
                             _this.initContent();
                         }
                     }).showModal();
+                    (new jh.ui.shadow()).close();
                 }
             });
         };
@@ -159,6 +165,8 @@ define(function(require, exports, module) {
                     taskId: taskId
                 },
                 done: function(urlData) {
+                    jh.utils.closeArt();
+                    (new jh.ui.shadow()).close();
                     jh.utils.alert({
                         content: '恭喜收到爱车！',
                         ok: function() {
