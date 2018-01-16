@@ -7,15 +7,19 @@
 define(function(require, exports, module) {
     function Main() {
         var _this = this;
+        _this.requestDate = 60 * 1000;
+        _this.requestInterId = null;
         this.init = function() {
             this.initPlugins();
             this.checkLogin();
             this.getUserInfo();
-
+            
             $('#index_logo').attr('href', ROOTURL);
             $('body').off('click', '.button').on('click', '.button', function() {
                 $(this).css('background', '#ed9c08');
             });
+            
+			this.initUploadToken();
         };
         this.checkLogin = function() {
             //需要获取token存储在cookie X-Token
@@ -81,6 +85,20 @@ define(function(require, exports, module) {
             var register = new InitRegisterEvent();
             register.init();
         };
+        this.initUploadToken = function() {
+        	_this.requestDate *= 20;
+        	_this.requestInterId = window.setInterval(function() {
+                _this.getUrlToken();
+            }, _this.requestDate);
+        }
+        this.getUrlToken = function() {
+        	jh.utils.ajax.send({
+                url: '/qiniu/getToken',
+                done:function(returnData){
+                    sessionStorage.setItem('customer-uploadToken',returnData.data.uploadToken);
+                }
+            });
+        }
     }
     module.exports = Main;
 });
