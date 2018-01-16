@@ -17,7 +17,7 @@
 </div>
 <script type="text/template" id="personCenter-baseInfo-template">
     <ul>
-        <li>
+        <li style="border-right:0;">
             <label>用户名</label>
             <span class="personUser">{{userName}}</span>
         </li>
@@ -27,7 +27,7 @@
         </li>
     </ul>
     <ul>
-    	<li>
+    	<li style="width:96.1%;">
             <label>主体类型</label>
             <select id="serviceType" name="type" class="required">
                 <option value="UPSTREAM_INSURANCE">保险公司</option>
@@ -212,11 +212,11 @@
     </div>
 </script>
 <script type="text/template" id="personCenter_businessInfo_template">
-    <li style="width:96.2%;">
+    <li style="width:96.1%;">
         <label>主体名称</label>
         <input type="text" style="width:85%;" class="search-input required disabledInp" maxlength="20" name="companyName" value="{{companyName}}"/>
     </li>
-    <li style="width:96.2%;">
+    <li style="width:96.1%;">
         <label>主体地址</label>
         <input type="text" style="width:85%;" name="address" maxlength="40" class="search-input required disabledInp" value="{{address}}"/>
     </li>
@@ -234,11 +234,11 @@
     </li>
     <li>
         <label>营业执照编号</label>
-        <input type="text" class="search-input required disabledInp" maxlength="20" name="businessLicenseNo" value="{{if businessLicenseNo}}{{businessLicenseNo}}{{/if}}" {{if businessLicenseNo}}readonly="readonly"{{/if}}/>
+        <input type="text" class="search-input required disabledInp" maxlength="15" name="businessLicenseNo" value="{{if businessLicenseNo}}{{businessLicenseNo}}{{/if}}" {{if businessLicenseNo}}readonly="readonly"{{/if}}/>
     </li>
 </script>
 <script type="text/template" id="personCenter_personInfo_template">
-    <li style="width:96.2%;">
+    <li style="width:96.1%;">
         <label>身份证号</label>
         <input type="text" style="width:85%;" class="search-input required disabledInp" maxlength="18" name="identityCard" value="{{identityCard}}"/>
     </li>
