@@ -47,7 +47,7 @@ define(function(require, exports, module) {
                     returnData.viewImgRoot = jh.config.viewImgRoot;
                     var alertStr = jh.utils.template('find-detail-template', returnData);
                     var okStr = returnData.data.state === 'platReceive' ? '收到车了' : '确定';
-
+                    
                     jh.utils.alert({
                         content: alertStr,
                         okValue: okStr,
@@ -116,8 +116,7 @@ define(function(require, exports, module) {
                 data: datas,
                 done: function(returnData) {
                     jh.utils.closeArt();
-                    returnDetail.contractState = 0;
-                    if (returnDetail.contractState == 0) {
+                    if (returnDetail.contractState === 0) {
                         //保存成功后调用电子签章
                         _this.requestContractUrl(datas.taskId);
                     } else {
