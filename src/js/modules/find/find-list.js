@@ -48,19 +48,6 @@ define(function(require, exports, module) {
                     var alertStr = jh.utils.template('find-detail-template', returnData);
                     var okStr = returnData.data.state === 'platReceive' ? '收到车了' : '确定';
                     
-                    jh.utils.uploader.init({
-                        fileNumLimit: 15,
-                        pick: {
-                            id: '#voucherUrl'
-                        }
-                    });
-
-                    jh.utils.uploader.init({
-                        fileNumLimit: 5,
-                        pick: {
-                            id: '#entrustUrl'
-                        }
-                    });
                     
                     jh.utils.alert({
                         content: alertStr,
@@ -82,6 +69,19 @@ define(function(require, exports, module) {
                         cancel: true
                     });
 
+                    jh.utils.uploader.init({
+                        fileNumLimit: 15,
+                        pick: {
+                            id: '#voucherUrl'
+                        }
+                    });
+
+                    jh.utils.uploader.init({
+                        fileNumLimit: 5,
+                        pick: {
+                            id: '#entrustUrl'
+                        }
+                    });
                 }
             });
         };
