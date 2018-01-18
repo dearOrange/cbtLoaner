@@ -144,7 +144,9 @@ define(function(require, exports, module) {
                         id: 'iframe-dialog',
                         width: width,
                         height: height,
-                        cancel: true,
+                        cancel: function(){
+                        	window.location.reload();
+                        },
                         cancelValue: '关闭',
                         fixed: true,
                         onclose: function() {
