@@ -59,7 +59,7 @@
             height: 32px;
             display: inline-block;
             vertical-align: middle;
-            background-image: url(http://www.chebutou.com.cn/icon-success.png);
+            background-image: url(http://www.chebutou.com.cn/images/icon-success.png);
             margin-right: 10px;
         }
         .icon-error{
@@ -67,7 +67,7 @@
             height: 32px;
             display: inline-block;
             vertical-align: middle;
-            background-image: url(http://www.chebutou.com.cn/icon-error.png);
+            background-image: url(http://www.chebutou.com.cn/images/icon-error.png);
             margin-right: 10px;
         }
     </style>
@@ -113,6 +113,8 @@
     function closeWindow(){
         if(IsPC()){
             parent.jh.utils.closeArt();
+        }else {
+        	parent.window.history.go(-1);
         }
     }
 
