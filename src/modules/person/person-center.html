@@ -226,7 +226,7 @@
     </li>
     <li>
         <label>法人代表身份证号</label>
-        <input type="text" class="search-input required disabledInp" maxlength="18" name="legalIdentityCard" value="{{identityCard}}"/>
+        <input type="text" class="search-input required isIdCardNo disabledInp" maxlength="18" name="legalIdentityCard" value="{{identityCard}}"/>
     </li>
     <li style="border-right:0">
         <label>法人代表手机号</label>
@@ -234,13 +234,13 @@
     </li>
     <li>
         <label>营业执照编号</label>
-        <input type="text" class="search-input required disabledInp" maxlength="18" name="businessLicenseNo" value="{{if businessLicenseNo}}{{businessLicenseNo}}{{/if}}" {{if businessLicenseNo}}readonly="readonly"{{/if}}/>
+        <input type="text" class="search-input businessLiNo required disabledInp" maxlength="18" name="businessLicenseNo" value="{{if businessLicenseNo}}{{businessLicenseNo}}{{/if}}" {{if businessLicenseNo}}readonly="readonly"{{/if}}/>
     </li>
 </script>
 <script type="text/template" id="personCenter_personInfo_template">
     <li style="width:96.1%;">
         <label>身份证号</label>
-        <input type="text" style="width:85%;" class="search-input required disabledInp" maxlength="18" name="identityCard" value="{{identityCard}}"/>
+        <input type="text" style="width:85%;" class="search-input isIdCardNo required disabledInp" maxlength="18" name="identityCard" value="{{identityCard}}"/>
     </li>
 </script>
 <script type="text/javascript">
