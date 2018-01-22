@@ -115,9 +115,9 @@ define(function(require, exports, module) {
         return this.optional(element) || (regx.test(value));
     }, "只能输入字母");
     jQuery.validator.addMethod("cnNumberLetter", function(value, element) {
-        var regx = /^[A-Za-z0-9]+$/;
+        var regx = /^[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
         return this.optional(element) || (regx.test(value));
-    }, "只能输入数字和字母");
+    }, "车牌号");
     jQuery.validator.addMethod("businessLiNo", function(value, element) {
         var regex1 = /^\d{13}$|^\d{18}|^[a-zA-Z]{18}|^[0-9a-zA-Z]{18}$/;
         var regex2 = /^\d{14}([0-9]|X|x)$/;
