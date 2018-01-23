@@ -160,7 +160,7 @@
 	        </div>
 	        <div class="mainfile">
                 <p>凭证资料</p>
-                {{if data.state === "unconfirmed" || data.state === "voucherInvalid" }}
+                {{if data.state !== "voucherChecking"}}
                 <div>
                     <br>
                     <span>委托书原件</span>
