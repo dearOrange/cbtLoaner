@@ -54,7 +54,7 @@ define(function(require, exports, module) {
                         okValue: okStr,
                         ok: function() {
                             //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                            if (returnData.data.state === 'unconfirmed' || returnData.data.state === 'voucherInvalid') {
+                            if (returnData.data.state !== 'voucherChecking') {
                                 _this.uploadVouch(returnData.data);
                                 return false;
                             } else if (returnData.data.state === 'platReceive') {
@@ -106,6 +106,7 @@ define(function(require, exports, module) {
                 });
                 return false;
             }
+            datas.type = returnDetail.state === 'unconfirmed'? 0 : 1;
             //以逗号连接数据
             datas.voucherUrl = jh.utils.isArray(datas.voucherUrl) ? datas.voucherUrl.join(',') : datas.voucherUrl;
             datas.entrustUrl = jh.utils.isArray(datas.entrustUrl) ? datas.entrustUrl.join(',') : datas.entrustUrl;
