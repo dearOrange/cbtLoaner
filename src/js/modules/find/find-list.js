@@ -54,7 +54,7 @@ define(function(require, exports, module) {
                         okValue: okStr,
                         ok: function() {
                             //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                            if (returnData.data.state !== 'voucherChecking') {
+                            if (returnData.data.state !== 'voucherChecking' && returnData.data.state !== 'platReceive' && data.state !== "upstreamReceive") {
                                 _this.uploadVouch(returnData.data);
                                 return false;
                             } else if (returnData.data.state === 'platReceive') {
@@ -63,8 +63,8 @@ define(function(require, exports, module) {
                                 _this.confirmeReceive(taskId);
                                 return false;
                             } else {
-                                return true;
-                            }
+			                    return true;
+			                }
                         },
                         cancel: true
                     });
@@ -123,7 +123,7 @@ define(function(require, exports, module) {
                         _this.requestContractUrl(datas.taskId);
                     } else {
                         (new jh.ui.shadow()).close();
-                        _this.initContent();
+                        window.location.reload();
                     }
                 }
             });
@@ -151,7 +151,7 @@ define(function(require, exports, module) {
                         cancelValue: '关闭',
                         fixed: true,
                         onclose: function() {
-                            _this.initContent();
+                            window.location.reload();
                         }
                     }).showModal();
                     (new jh.ui.shadow()).close();
