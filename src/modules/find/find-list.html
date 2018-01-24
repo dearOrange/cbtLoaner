@@ -160,7 +160,7 @@
 	        </div>
 	        <div class="mainfile">
                 <p>凭证资料</p>
-                {{if data.state !== "voucherChecking" ||  data.state !== "platReceive" ||  data.state !== "upstreamReceive"}}
+                {{if data.state === "unconfirmed" || data.state === "voucherInvalid" || data.state === "hunterUnreceive" || data.state === "hunterReceive"}}
                 <div>
                     <br>
                     <span>委托书原件</span>

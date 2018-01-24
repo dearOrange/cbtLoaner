@@ -47,17 +47,17 @@ define(function(require, exports, module) {
                     returnData.viewImgRoot = jh.config.viewImgRoot;
                     var alertStr = jh.utils.template('find-detail-template', returnData);
                     var okStr = returnData.data.state === 'platReceive' ? '收到车了' : '确定';
-                    
+                    var dataOne = returnData.data;
                     
                     jh.utils.alert({
                         content: alertStr,
                         okValue: okStr,
                         ok: function() {
                             //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                            if (returnData.data.state !== 'voucherChecking' && returnData.data.state !== 'platReceive' && data.state !== "upstreamReceive") {
+                            if (dataOne.state === "unconfirmed" || dataOne.state === "voucherInvalid" || dataOne.state === "hunterUnreceive" || dataOne.state === "hunterReceive") {
                                 _this.uploadVouch(returnData.data);
                                 return false;
-                            } else if (returnData.data.state === 'platReceive') {
+                            } else if (dataOne.state === 'platReceive') {
                                 (new jh.ui.shadow()).init();
                                 //如果平台已收车，则债权方进行确认收车
                                 _this.confirmeReceive(taskId);
