@@ -160,7 +160,7 @@
 	        </div>
 	        <div class="mainfile">
                 <p>凭证资料</p>
-                {{if data.state === "unconfirmed" || data.state === "voucherInvalid" || data.state === "hunterUnreceive" || data.state === "hunterReceive"}}
+                {{if data.state === "unconfirmed"}}
                 <div>
                     <br>
                     <span>委托书原件</span>
@@ -183,6 +183,22 @@
                     </div>                    
                     <br><br>
                 </div>
+                {{else}}
+                <span>委托书原件</span>
+                <div class="upimg" style="width:740px;">
+                    <div class="ordinary">
+                        <div class="upload-list">
+                        {{each data.entrustVoList item index}}
+                            <div class="upfile-item">
+                                <img class="preview-img" src="{{viewImgRoot}}{{item.url}}?imageMogr2/auto-orient/thumbnail/100x100" />
+                                <input type="hidden" name="entrustUrl" value="{{item.url}}"/>
+                            </div>
+                        {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+                {{if data.state === "unconfirmed" || data.state === "hunterUnreceive" || data.state === "hunterReceive"}}
 	        	<div>
 	        		<span>资料清单包含：</span>
                     <span>债务方身份证, 债务方行驶证, 车辆登记证书, 公证书, 按揭服务协议 抵押合同 垫付款凭证 法院判决书  还款确认书</span>
@@ -205,6 +221,7 @@
                     </div>
 		        </div>
                 {{else}}
+                <span>凭证资料清单</span>
                 <div class="upimg" style="width:740px;">
                     <div class="ordinary">
                         <div class="upload-list">
@@ -219,6 +236,9 @@
                 </div>
                 {{/if}}
 	        </div>
+	        {{if data.state === "hunterReceive"}}
+	        <input class="button search-button upload-voList" value="上传凭证" />
+	        {{/if}}
 	        {{if data.state === 'voucherInvalid'}}
 	        <hr />
 	        <div>{{data.auditOpinion}}</div>
