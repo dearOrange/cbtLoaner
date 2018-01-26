@@ -8,6 +8,7 @@
 define(function(require, exports, module) {
     function FindList() {
         var _this = this;
+        _this.data = '';
         _this.form = $('#custmoer-findList-form');
         this.init = function() {
             this.initContent();
@@ -46,18 +47,18 @@ define(function(require, exports, module) {
                     returnData.menuState = jh.utils.menuState;
                     returnData.viewImgRoot = jh.config.viewImgRoot;
                     var alertStr = jh.utils.template('find-detail-template', returnData);
-                    var okStr = returnData.data.state === 'platReceive' ? '收到车了' : '确定';
-                    var dataOne = returnData.data;
+                    var okStr = returnData.data.state === 'platReceive' || returnData.data.state === 'hunterReceive' ? '收到车了' : '确定';
+                    _this.data = returnData.data;
                     
                     jh.utils.alert({
                         content: alertStr,
                         okValue: okStr,
                         ok: function() {
                             //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                            if (dataOne.state === "unconfirmed" || dataOne.state === "voucherInvalid" || dataOne.state === "hunterUnreceive" || dataOne.state === "hunterReceive") {
-                                _this.uploadVouch(returnData.data);
+                            if (_this.data.state === "unconfirmed" || _this.data.state === "hunterUnreceive") {
+                                _this.uploadVouch(_this.data);
                                 return false;
-                            } else if (dataOne.state === 'platReceive') {
+                            } else if (_this.data.state === 'platReceive' || _this.data.state === "hunterReceive") {
                                 (new jh.ui.shadow()).init();
                                 //如果平台已收车，则债权方进行确认收车
                                 _this.confirmeReceive(taskId);
@@ -89,7 +90,9 @@ define(function(require, exports, module) {
         //上传凭证
         this.uploadVouch = function(returnDetail) {
             var datas = jh.utils.formToJson($('#custmoer-upload-form'));
+            datas.type = returnDetail.state === 'unconfirmed'? 0 : 1;
             //判断有无上传凭证
+//          if(datas.type === )
             if (!datas.voucherUrl) {
                 jh.utils.confirm({
                     content: '请上传相关凭证！',
@@ -106,7 +109,6 @@ define(function(require, exports, module) {
                 });
                 return false;
             }
-            datas.type = returnDetail.state === 'unconfirmed'? 0 : 1;
             //以逗号连接数据
             datas.voucherUrl = jh.utils.isArray(datas.voucherUrl) ? datas.voucherUrl.join(',') : datas.voucherUrl;
             datas.entrustUrl = jh.utils.isArray(datas.entrustUrl) ? datas.entrustUrl.join(',') : datas.entrustUrl;
@@ -197,7 +199,10 @@ define(function(require, exports, module) {
                     return false;
                 }
             });
-
+            
+			$('body').off('click', '.upload-voList').on('click', '.upload-voList', function() {
+                _this.uploadVouch(_this.data);
+            });
         };
     }
     module.exports = FindList;
