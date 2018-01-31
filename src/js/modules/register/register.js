@@ -46,7 +46,8 @@ define(function(require, exports, module) {
             		jh.utils.ajax.send({
 	            		url:'/user/getSMSCode',
 		                data: {
-		                    mobile: phone
+		                    mobile: phone,
+                            type: 2
 		                },
 		                done:function(returnData){
 		                	jh.utils.smsCountDown.init(id,'click');
