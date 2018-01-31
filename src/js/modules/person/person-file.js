@@ -111,12 +111,14 @@ define(function(require, exports, module) {
             $('body').off('click', '.loginCodeFile').on('click', '.loginCodeFile', function() {
                 var me = $(this);
                 var id = me.attr("id");
+                var typeNum = id === 'changesPasswordCode' ? 3 : 5;
                 var phone = me.siblings(".bangPhone").html();
                 if (phone && /^1[3|4|5|6|7|8][0-9]{9}$/.test(phone)) {
                     jh.utils.ajax.send({
                         url: '/user/getSMSCode',
                         data: {
-                            mobile: phone
+                            mobile: phone,
+                            type: typeNum
                         },
                         done: function(returnData) {
                             jh.utils.alert({

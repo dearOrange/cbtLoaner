@@ -68,12 +68,14 @@ define(function(require, exports, module) {
             $('.loginCode').click(function() {
                 var me = $(this);
                 var id = me.attr("id");
+                var typeNum = id === 'phoneLogin-getCheckcode' ? 1 : 4;
                 var phone = me.siblings(".phoneNumber").val();
                 if (phone && /^1[3|4|5|6|7|8][0-9]{9}$/.test(phone)) {
                     jh.utils.ajax.send({
                         url: '/user/getSMSCode',
                         data: {
-                            mobile: phone
+                            mobile: phone,
+                            type: typeNum
                         },
                         done: function(returnData) {
                             jh.utils.smsCountDown.init(id, 'click');
