@@ -92,7 +92,6 @@ define(function(require, exports, module) {
             var datas = jh.utils.formToJson($('#custmoer-upload-form'));
             datas.type = returnDetail.state === 'unconfirmed'? 0 : 1;
             //判断有无上传凭证
-//          if(datas.type === )
             if (!datas.voucherUrl) {
                 jh.utils.confirm({
                     content: '请上传相关凭证！',
@@ -141,6 +140,7 @@ define(function(require, exports, module) {
                 done: function(returnData) {
                     var width = $(window).width() * 0.95;
                     var height = $(window).height() * 0.9;
+                    (new jh.ui.shadow()).close();
                     //调用第三方电子签章
                     dialog({
                         url: returnData.data.signUrl,
@@ -156,7 +156,6 @@ define(function(require, exports, module) {
                             window.location.reload();
                         }
                     }).showModal();
-                    (new jh.ui.shadow()).close();
                 }
             });
         };
