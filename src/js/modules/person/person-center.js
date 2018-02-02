@@ -167,13 +167,14 @@ define(function(require, exports, module) {
                 id: 'personCenter-baseInfo-form',
                 submitHandler: function(form) {
                     var datas = jh.utils.formToJson(form); //表单数据
-                    
+                    (new jh.ui.shadow()).init();
                     jh.utils.ajax.send({
                         url: '/user/submitInfo',
                         method: 'post',
                         data: datas,
                         done: function(returnData) {
                             sessionStorage.setItem("customer-isState", returnData.data.state);
+                            (new jh.ui.shadow()).close();
                             jh.utils.alert({
                                 content: "提交成功，请等待审核！",
                                 ok: function() {
