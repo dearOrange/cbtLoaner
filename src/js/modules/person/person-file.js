@@ -51,7 +51,7 @@ define(function(require, exports, module) {
             //修改密码
             $('body').off('click', '.changePassword').on('click', '.changePassword', function() {
                 var phone = $('#show-userPhone').text();
-                var alertStr = jh.utils.template('taskfile_changePassword_template', {mobile: phone});
+                var alertStr = jh.utils.template('taskfile_changePassword_template', { mobile: phone });
                 jh.utils.alert({
                     content: alertStr,
                     ok: function() {
@@ -82,7 +82,7 @@ define(function(require, exports, module) {
             //解绑手机
             $('body').off('click', '.removePhone').on('click', '.removePhone', function() {
                 var mobile = $('#show-userPhone').text();
-                var alertStr = jh.utils.template('taskfile_removePhone_template', {mobile:mobile});
+                var alertStr = jh.utils.template('taskfile_removePhone_template', { mobile: mobile });
                 jh.utils.alert({
                     content: alertStr,
                     ok: function() {
@@ -122,9 +122,10 @@ define(function(require, exports, module) {
                         },
                         done: function(returnData) {
                             jh.utils.alert({
-                                content:'验证码发送成功'
+                                content: '验证码发送成功'
                             });
-                            jh.utils.smsCountDown.init(id, 'click');
+                            var temp = new jh.utils.smsCountDown();
+                            temp.init(id, 'click');
                         }
                     })
                 } else {

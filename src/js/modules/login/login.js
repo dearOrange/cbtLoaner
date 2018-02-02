@@ -13,8 +13,8 @@ define(function(require, exports, module) {
         this.init = function() {
             this.initPlugins();
             this.registerEvent();
-            $('.goLogin').click(function(){
-            	window.location.reload();
+            $('.goLogin').click(function() {
+                window.location.reload();
             })
         };
 
@@ -35,8 +35,8 @@ define(function(require, exports, module) {
                         method: 'post',
                         data: datas,
                         done: function(returnData) {
-                            datas.username&&sessionStorage.setItem('customer-username', datas.username);
-                            datas.mobile&&sessionStorage.setItem('customer-username', datas.mobile);
+                            datas.username && sessionStorage.setItem('customer-username', datas.username);
+                            datas.mobile && sessionStorage.setItem('customer-username', datas.mobile);
                             sessionStorage.setItem('customer-X-Token', returnData.data.token);
                             sessionStorage.setItem('customer-isState', returnData.data.state);
                             if (returnData.data.state == 'available') {
@@ -78,7 +78,11 @@ define(function(require, exports, module) {
                             type: typeNum
                         },
                         done: function(returnData) {
-                            jh.utils.smsCountDown.init(id, 'click');
+                            jh.utils.alert({
+                                content: '验证码发送成功'
+                            });
+                            var temp = new jh.utils.smsCountDown();
+                            temp.init(id, 'click');
                         }
                     })
                 } else {
@@ -99,7 +103,7 @@ define(function(require, exports, module) {
                 $('.forgetForm').css('display', 'block');
             })
 
-            $('body').on('click','#login',function(){
+            $('body').on('click', '#login', function() {
                 window.location.reload();
             });
         };
