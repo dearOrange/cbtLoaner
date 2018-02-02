@@ -14,10 +14,10 @@ define(function(require, exports, module) {
         this.init = function() {
             this.initContent();
             this.registerEvent();
-            if(isState === "available") {
-            	$(".personRemove").removeClass("hide");
-            }else{
-            	$(".personRemove").addClass("hide");
+            if (isState === "available") {
+                $(".personRemove").removeClass("hide");
+            } else {
+                $(".personRemove").addClass("hide");
             }
         };
         this.initContent = function() {
@@ -153,7 +153,8 @@ define(function(require, exports, module) {
                             jh.utils.alert({
                                 content: '验证码发送成功'
                             });
-                            jh.utils.smsCountDown.init(id, 'click');
+                            var temp = new jh.utils.smsCountDown();
+                            temp.init(id, 'click');
                         }
                     })
                 } else {
@@ -162,7 +163,7 @@ define(function(require, exports, module) {
                     })
                 }
             });
-			
+
             jh.utils.validator.init({
                 id: 'personCenter-baseInfo-form',
                 submitHandler: function(form) {
@@ -181,7 +182,7 @@ define(function(require, exports, module) {
                                     $('#leftMenu-box').addClass('hide');
                                     jh.utils.load('/src/modules/person/person-file');
                                     $('#userIsPassState').addClass('icon-nopass');
-            						$('#imgState').text("审核中");
+                                    $('#imgState').text("审核中");
                                 },
                                 cancel: false
                             });

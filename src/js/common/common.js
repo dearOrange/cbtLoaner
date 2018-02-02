@@ -738,8 +738,8 @@ define(function(require, exports, module) {
                 for (var i = 0, len = allMenu.length; i < len; ++i) {
                     var item = allMenu.eq(i);
                     var itemModule = item.children('a').data('url');
-                    var str1 = args.substring(0,args.lastIndexOf('/'));
-                    var str2 = itemModule.substring(0,args.lastIndexOf('/'));
+                    var str1 = args.substring(0, args.lastIndexOf('/'));
+                    var str2 = itemModule.substring(0, args.lastIndexOf('/'));
                     if (args === itemModule + '.html' || str1 === str2) {
                         if (typeof fn === 'function') {
                             fn(item);
@@ -1135,9 +1135,9 @@ define(function(require, exports, module) {
                     }
                 };
                 var opt = $.extend({}, options, opts); //合并参数
-                if(options.server === 'http://up.qiniu.com/'){
+                if (options.server === 'http://up.qiniu.com/') {
                     opt.formData.token = sessionStorage.getItem('customer-uploadToken');
-                }else{
+                } else {
                     opt.formData.token = sessionStorage.getItem('customer-X-Token');
                 }
                 var uploader = WebUploader.create(opt); //创建上传对象
@@ -1423,57 +1423,38 @@ define(function(require, exports, module) {
     })();
 
     (function() {
-        var SmsCountDown = {};
-        SmsCountDown.init = function(targetId, type) {
-            var _this = SmsCountDown;
-            _this.targetId = targetId;
-            _this.targetStr = targetId;
-            _this.showText = '';
-            var num = 60;
-            _this.localNumber = localStorage.getItem(targetId);
-
-            if ($('#' + targetId).hasClass('disabled')) {
-                return false;
-            }
-            $('#' + _this.targetId).addClass('disabled').prop('disabled', true);
-            if (type === 'click') {
-                _this.localNumber = num;
-            } else {
-                if (!_this.localNumber) {
-                    _this.localNumber = num;
-                    localStorage.setItem(targetStr, _this.localNumber);
-                } else {
-                    _this.localNumber = parseInt(_this.localNumber, 10);
-                }
-            }
-
-            if (_this.localNumber <= 0) {
-                _this.showText = '获取验证码';
-                localStorage.setItem(targetStr, num);
-                $('#' + _this.targetId).prop('disabled', false).removeClass('disabled').text(_this.showText);
-                return false;
-            } else {
-                _this.showText = '重新发送(' + _this.localNumber + ')';
-            }
-            localStorage.setItem(_this.targetStr, _this.localNumber);
-            $('#' + _this.targetId).text(_this.showText);
-
-            _this.targetStrIntervalId = window.setInterval('jh.utils.smsCountDown.countDown()', 1000);
-
-        };
-        SmsCountDown.countDown = function() {
-            var _this = SmsCountDown;
-            var localNumber = parseInt(localStorage.getItem(_this.targetStr), 10);
-            localNumber--;
-            if (localNumber <= 0) {
-                window.clearInterval(_this.targetStrIntervalId);
-                localStorage.removeItem(_this.targetStr);
-                $('#' + _this.targetId).prop('disabled', false).removeClass('disabled').text('获取验证码');
-            } else {
-                localStorage.setItem(_this.targetStr, localNumber);
-                $('#' + _this.targetId).text('重新发送(' + localNumber + ')');
-            }
+        function SmsCountDown() {
+            this.localNumber = 60;
         }
+        SmsCountDown.prototype = {
+            init: function(targetId, type) {
+                var _this = this;
+                _this.target = $('#' + targetId);
+                _this.targetStr = targetId;
+                _this.showText = '';
+                _this.target.addClass('disabled').prop('disabled', true);
+                _this.countDown();
+            },
+            countDown: function() {
+                var _this = this;
+                var timerId = window.setInterval(function() {
+                    _this.localNumber--;
+                    _this.refreshTime();
+                    if (_this.localNumber < 1) {
+                        clearInterval(timerId);
+                        _this.target.text('获取验证码)').prop('disabled', false).removeClass('disabled');
+                        return;
+                    }
+                }, 1000);
+            },
+            refreshTime: function() {
+                var _this = this;
+                if (_this.localNumber < 0) {
+                    _this.localNumber = 0;
+                }
+                _this.target.text('重新发送(' + _this.localNumber + ')');
+            }
+        };
         tammy.utils.smsCountDown = SmsCountDown;
     })();
 
