@@ -37,6 +37,7 @@ define(function(require, exports, module) {
                     var getStr = jh.utils.template('task_getAuditInfo_template', returnData);
                     $('.modelData').html(getStr);
                     _this.changeImgByUserType(returnData.data.type);
+                    
                 }
             });
         };

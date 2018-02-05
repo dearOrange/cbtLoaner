@@ -14,6 +14,8 @@ define(function(require, exports, module) {
         };
         this.registerEvent = function() {
             $('body').off('click', '.loginCode').on('click', '.loginCode', function() {
+            	var me = $(this);
+                var id = me.attr("id");
                 var phone = $("#bindPhoneNum").val();
                 if (phone && /^1[3|4|5|6|7|8][0-9]{9}$/.test(phone)) {
                     jh.utils.ajax.send({
@@ -36,7 +38,7 @@ define(function(require, exports, module) {
                 }
             });
             
-            $('body').off('click', '.bind-sure').on('click', '.bind-sure', function() {
+            $('.bind-sure').on('click', function() {
                 jh.utils.ajax.send({
                     url: '/user/bundling',
                     data: {
@@ -44,7 +46,7 @@ define(function(require, exports, module) {
                         code: $.trim($('#bindPhoneCode').val())
                     },
                     done: function(returnData) {
-                        window.location.reload();
+                        jh.utils.load("/src/modules/person/person-center");
                     }
                 })
             });
