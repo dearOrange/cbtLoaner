@@ -62,10 +62,6 @@ define(function(require, exports, module) {
                 done: function(returnData) {
                     sessionStorage.setItem('customer-userInfo', JSON.stringify(returnData.data));
                     _this.initUserName();
-                    if(!returnData.data.mobile) {
-                    	jh.utils.load("/src/modules/bind/binding-phone");
-                    	$('#leftMenu-box').addClass('hide');
-                    }
                 }
             });
         };
