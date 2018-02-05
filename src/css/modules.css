@@ -1431,3 +1431,51 @@ span.operatorTaskOpen, span.operatorTaskClose {
 	text-indent: 2em;
 	line-height:30px;
 }
+/*绑定手机号*/
+.binding-content {
+	width:100%;
+	text-align: center;
+	font-weight:900;
+}
+.binding-content h2 {
+	margin:56px 0;
+}
+
+.binding-content h2 .icon-bindPhone {
+	display: block;
+	width:170px;
+	height:200px;
+	background: url(../img/icon-bindimg.png) no-repeat center;
+	background-size:cover;
+	margin:20px auto;
+}
+.binding-content p {
+	font-size:16px;
+}
+.binding-content .bind-form div {
+	width:410px;
+	height:40px;
+	margin:20px auto;
+}
+.binding-content .bind-form div span {
+	float:left;
+	width:90px;
+	height:40px;
+	border:1px solid #ccc;
+	line-height: 40px;
+	text-align: center;
+}
+.binding-content .bind-form div input {
+	float:left;
+	border:0;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.binding-content .bind-form div.bind-sure {
+	width:80px;
+	height:40px;
+	border:1px solid #333;
+	border-radius: 4px;
+	line-height: 40px;
+	cursor: pointer;
+}
