@@ -32,6 +32,7 @@ define(function(require, exports, module) {
                             if (returnData.code === 'SUCCESS') {
                                 $('.registerForm').css('display', 'none');
                                 $('.registers-form').css('display', 'block');
+                                window.location.href = '/';
                             }
                         }
                     });
