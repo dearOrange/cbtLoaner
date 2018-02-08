@@ -29,11 +29,9 @@ define(function(require, exports, module) {
                         method: 'post',
                         data: datas,
                         done: function(returnData) {
-                            if (returnData.code === 'SUCCESS') {
-                                $('.registerForm').css('display', 'none');
-                                $('.registers-form').css('display', 'block');
-                                window.location.href = '/';
-                            }
+                            $('.registerForm').css('display', 'none');
+                            $('.registers-form').css('display', 'block');
+                            window.location.href = window.location.protocol + '//' + window.location.host;
                         }
                     });
                     return false;
