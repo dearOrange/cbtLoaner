@@ -137,7 +137,8 @@ define(function(require, exports, module) {
                                 jh.utils.alert({
                                     content: '任务发布成功！',
                                     ok: function() {
-                                        window.location.reload();
+                                    	jh.utils.closeArt();
+                                        _this.initContent();
                                     },
                                     cancel: false
                                 });
