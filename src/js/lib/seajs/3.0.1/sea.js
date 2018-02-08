@@ -19,14 +19,19 @@ var BaseUrl = '/src/js/';
 var REQUESTROOT = '/loanerServer'; /*服务器默认为/manager 当本地开发时切换为域名映射*/
 var serverHost = '';
 var viewImageRoot = 'http://oka19npup.bkt.clouddn.com/';
+//https://www.junziqian.com/redirect?url=
+//测试的 http://sandbox.junziqian.com/redirect?url=
+var signAdress = '';
 
 if(window.location.host.indexOf('.cbt.com')!==-1){
     REQUESTROOT = 'http://javadev:8180' + REQUESTROOT;
     serverHost = 'http://javadev:8180';
     viewImageRoot = 'http://p0znn0pti.bkt.clouddn.com/';
+    signAdress = 'https://www.junziqian.com/redirect?url=';
 }
 if(window.location.host.indexOf('javadev')!==-1 || window.location.host.indexOf('test.')!==-1){
     viewImageRoot = 'http://p0znn0pti.bkt.clouddn.com/';
+    signAdress = 'http://sandbox.junziqian.com/redirect?url=';
 }
 
 seajs.config({

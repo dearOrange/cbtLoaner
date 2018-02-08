@@ -39,20 +39,20 @@ define(function(require, exports, module) {
                             datas.mobile && sessionStorage.setItem('customer-username', datas.mobile);
                             sessionStorage.setItem('customer-X-Token', returnData.data.token);
                             sessionStorage.setItem('customer-isState', returnData.data.state);
-                            if (returnData.data.state == 'available') {
-                                window.location.href = jh.config.pageIndex;
-                            } else {
-                                window.location.href = ROOTURL + '/src/modules/index/index.html#routeModule=/src/modules/person/person-center#routeData=';
-                            }
+//                          if (returnData.data.state == 'available') {
+//                              window.location.href = jh.config.pageIndex;
+//                          } else {
+//                              window.location.href = ROOTURL + '/src/modules/index/index.html#routeModule=/src/modules/person/person-center#routeData=';
+//                          }
 
-                            // var targetUrl = window.location.protocol + '//' + window.location.host ;
-                            // if (returnData.data.state == 'available') {
-                            //     targetUrl +=jh.config.pageIndex;
-                            // } else {
-                            //     targetUrl +='/src/modules/index/index.html#routeModule=/src/modules/person/person-center#routeData=';
-                            // }
-                            // targetUrl = encodeURIComponent(targetUrl);
-                            // window.location.href = 'http://sandbox.junziqian.com/redirect?url=' + targetUrl;
+                           	var targetUrl = window.location.protocol + '//' + window.location.host ;
+                           	if (returnData.data.state == 'available') {
+                               	targetUrl +=jh.config.pageIndex;
+                           	} else {
+                               targetUrl +='/src/modules/index/index.html#routeModule=/src/modules/person/person-center#routeData=';
+                           	}
+                           	targetUrl = encodeURIComponent(targetUrl);
+                           	window.location.href = signAdress + targetUrl;
 
                         }
                     });
