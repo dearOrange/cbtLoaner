@@ -21,7 +21,7 @@ var serverHost = '';
 var viewImageRoot = 'http://oka19npup.bkt.clouddn.com/';
 //https://www.junziqian.com/redirect?url=
 //测试的 http://sandbox.junziqian.com/redirect?url=
-var signAdress = 'https://www.junziqian.com/redirect?url=';
+var signAdress = 'https://i.junziqian.com/redirect?url=';
 
 if(window.location.host.indexOf('.cbt.com')!==-1){
     REQUESTROOT = 'http://javadev:8180' + REQUESTROOT;
