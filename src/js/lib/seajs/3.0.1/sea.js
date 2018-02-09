@@ -27,11 +27,11 @@ if(window.location.host.indexOf('.cbt.com')!==-1){
     REQUESTROOT = 'http://javadev:8180' + REQUESTROOT;
     serverHost = 'http://javadev:8180';
     viewImageRoot = 'http://p0znn0pti.bkt.clouddn.com/';
-    signAdress = 'http://i.sandbox.junziqian.com/redirect';
+    signAdress = 'http://i.sandbox.junziqian.com/redirect?url=';
 }
 if(window.location.host.indexOf('javadev')!==-1 || window.location.host.indexOf('test.')!==-1){
     viewImageRoot = 'http://p0znn0pti.bkt.clouddn.com/';
-    signAdress = 'http://i.sandbox.junziqian.com/redirect';
+    signAdress = 'http://i.sandbox.junziqian.com/redirect?url=';
 }
 
 seajs.config({
