@@ -19,9 +19,9 @@ define(function(require, exports, module) {
     require('common/validator'); //表单验证扩展
     require('plugin/webuploader/webuploader.min'); //上传模块
 
-    require('plugin/icheck/icheck.min'); //复选框
+    // require('plugin/icheck/icheck.min'); //复选框
     require('plugin/select2/select2.min'); //下拉框
-    require('lib/cookie/jquery.cookie'); //cookie
+    // require('lib/cookie/jquery.cookie'); //cookie 债权方屏蔽cookie 使用时再放开
     require('plugin/scrollbar/scrollbar'); //scrollbar
 
     var FINAL_OPTIONS = {
@@ -1360,35 +1360,35 @@ define(function(require, exports, module) {
         tammy.utils.validator = validator;
     })();
 
-    (function() {
-        require('plugin/ueditor/ueditor.all.min');
+    // (function() {
+    //     require('plugin/ueditor/ueditor.all.min');
 
-        function UEditorExtend(id, opt) {
-            opt = opt || {};
-            opt.toolbars = [
-                ['135editor']
-            ];
-            opt.selfId = id;
-            if (window['ueditor'] === undefined) {
-                window['ueditor'] = {};
-            }
-            if (window['ueditor'][id] === undefined) {
-                window['ueditor'][id] = UE.getEditor(id, opt);
-            } else {
-                window['ueditor'][id].destroy();
-                window['ueditor'][id] = UE.getEditor(id, opt);
-            }
-            window['ueditor'][id].addListener('ready', function() {
-                $('[id$=_toolbarbox]').hide();
-            });
-            window['ueditor'][id].addListener('click', function(event) {
-                $('#' + opt.selfId).find('[id$=_body]').click();
-            });
+    //     function UEditorExtend(id, opt) {
+    //         opt = opt || {};
+    //         opt.toolbars = [
+    //             ['135editor']
+    //         ];
+    //         opt.selfId = id;
+    //         if (window['ueditor'] === undefined) {
+    //             window['ueditor'] = {};
+    //         }
+    //         if (window['ueditor'][id] === undefined) {
+    //             window['ueditor'][id] = UE.getEditor(id, opt);
+    //         } else {
+    //             window['ueditor'][id].destroy();
+    //             window['ueditor'][id] = UE.getEditor(id, opt);
+    //         }
+    //         window['ueditor'][id].addListener('ready', function() {
+    //             $('[id$=_toolbarbox]').hide();
+    //         });
+    //         window['ueditor'][id].addListener('click', function(event) {
+    //             $('#' + opt.selfId).find('[id$=_body]').click();
+    //         });
 
-            return window['ueditor'][id];
-        }
-        tammy.utils.ueditor = UEditorExtend;
-    })();
+    //         return window['ueditor'][id];
+    //     }
+    //     tammy.utils.ueditor = UEditorExtend;
+    // })();
     // 城市二级联动
     (function() {
         function mapSelect(name, callback) {
