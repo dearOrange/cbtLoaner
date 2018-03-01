@@ -57,6 +57,159 @@
     	</div>
     </div>
 </div>
+
+
+<script type="text/template" id="customer-addTask-template">
+    <div class="increated">
+        <form id="customer-addTask-form">
+            <p class="pull-left">
+                新增任务
+            </p>
+            <div class="clearfix"></div>
+            <hr /><br />
+            <div class="taskpull">
+            	<p class="pull-left" style="border-right:1px dashed #ccc;width: 40%;">
+    	            <label class="big-label">任务类型</label><br /><br />
+                    <select name="entrust" class="search-select required" style="border-color:#eee;outline: 0;" id="taskTypeFlag">
+                        <option value="all">无定位需找+拖</option>
+                    </select>
+    		    </p>
+    		    <p class="pull-left" style="padding-left:50px;">
+    	            <label class="big-label">债务人(车主)姓名</label>
+    	            <input type="text" style="width:220px;" class="search-input" name="debtor" maxlength="10" placeholder="请输入债务人姓名"><br />
+    	            <label class="big-label">债务人(车主)身份证号</label>
+    	            <input type="text" style="width:220px;" class="search-input isIdCard" name="debtorIdNumber" maxlength="18" placeholder="请输入债务人身份证号">
+    		    </p>
+            </div>
+            <div class="increateNewInfo">
+            	<p class="carsInfo">车辆信息</p>
+            	<div>
+            		<label class="newlabel">车 牌 号：</label>
+                    <select name="carNumber_province" class="search-select carSelect public-select" style="width:72px;">
+                    	<option value="">区域</option>
+                        <option value="京">京</option>
+                        <option value="粤">粤</option>
+                        <option value="皖">皖</option>
+                        <option value="闽">闽</option>
+                        <option value="甘">甘</option>
+                        <option value="桂">桂</option>
+                        <option value="贵">贵</option>
+                        <option value="琼">琼</option>
+                        <option value="冀">冀</option>
+                        <option value="豫">豫</option>
+                        <option value="黑">黑</option>
+                        <option value="鄂">鄂</option>
+                        <option value="湘">湘</option>
+                        <option value="吉">吉</option>
+                        <option value="苏">苏</option>
+                        <option value="赣">赣</option>
+                        <option value="辽">辽</option>
+                        <option value="蒙">蒙</option>
+                        <option value="宁">宁</option>
+                        <option value="青">青</option>
+                        <option value="鲁">鲁</option>
+                        <option value="晋">晋</option>
+                        <option value="陕">陕</option>
+                        <option value="陕">陕</option>
+                        <option value="沪">沪</option>
+                        <option value="川">川</option>
+                        <option value="津">津</option>
+                        <option value="藏">藏</option>
+                        <option value="新">新</option>
+                        <option value="云">云</option>
+                        <option value="浙">浙</option>
+                        <option value="渝">渝</option>
+                        <option value="港">港</option>
+                        <option value="澳">澳</option>
+                        <option value="台">台</option>
+                    </select>
+    		        <input type="text" class="search-input cnNumberLetter required" name="add_carNumber" maxlength="6" placeholder="输入车牌号">
+            	</div>
+    	        <div>
+    	        	<label class="newlabel">车辆信息：</label>
+    		        <select name="carBrand" class="search-select public-select" id="customer-addTask-carBrand">
+    		            <option value="" data-id="">请选择品牌</option>
+    		        </select>
+                    <input type="hidden" name="carBrandId" id="carBrandId">
+    		        <select name="carSeries" class="search-select public-select" id="customer-addTask-carSeries">
+    		            <option value="" data-id="">请选择车系</option>
+    		        </select>
+                    <input type="hidden" name="carSeriesId" id="carSeriesId">
+    		        <select name="carModel" class="search-select public-select" id="customer-addTask-carModel">
+    		            <option value="" data-id="">请选择车型</option>
+    		        </select>
+                    <input type="hidden" name="carModelId" id="carModelId">
+    	        </div>
+    	        <div>
+    	        	<label class="newlabel">车身颜色：</label>
+    	        	<input type="text" class="search-input" name="carColor" maxlength="10" placeholder="请输入车辆颜色">
+    	        	<label class="newlabel hide" style="margin-left:20px;width:70px;">定位区域：</label>
+                    <select name="location" class="search-select carSelect hide" style="width:72px;" id="dwLocation">
+                    	<option value="">区域</option>
+                        <option value="京">京</option>
+                        <option value="粤">粤</option>
+                        <option value="皖">皖</option>
+                        <option value="闽">闽</option>
+                        <option value="甘">甘</option>
+                        <option value="桂">桂</option>
+                        <option value="贵">贵</option>
+                        <option value="琼">琼</option>
+                        <option value="冀">冀</option>
+                        <option value="豫">豫</option>
+                        <option value="黑">黑</option>
+                        <option value="鄂">鄂</option>
+                        <option value="湘">湘</option>
+                        <option value="吉">吉</option>
+                        <option value="苏">苏</option>
+                        <option value="赣">赣</option>
+                        <option value="辽">辽</option>
+                        <option value="蒙">蒙</option>
+                        <option value="宁">宁</option>
+                        <option value="青">青</option>
+                        <option value="鲁">鲁</option>
+                        <option value="晋">晋</option>
+                        <option value="陕">陕</option>
+                        <option value="陕">陕</option>
+                        <option value="沪">沪</option>
+                        <option value="川">川</option>
+                        <option value="津">津</option>
+                        <option value="藏">藏</option>
+                        <option value="新">新</option>
+                        <option value="云">云</option>
+                        <option value="浙">浙</option>
+                        <option value="渝">渝</option>
+                        <option value="港">港</option>
+                        <option value="澳">澳</option>
+                        <option value="台">台</option>
+                    </select>
+    	        </div>
+    	        <div>
+    	        	<label class="newlabel">车辆识别号：</label>
+    	        	<input type="text" class="search-input" name="carId" maxlength="17" placeholder="请输入车辆识别号">
+    	        	<span style="color:#ffa500;">温馨提示：输入车架号后6位，车辆被找回的可能性会大幅增加</span>
+    	        </div>
+    	        
+    	        <div>
+    	        	<label class="newlabel">车辆发动机号：</label>
+    	        	<input type="text" class="search-input" name="engineId" maxlength="10" placeholder="请输入发动机号">
+    	        	<span style="color:#ffa500;">温馨提示：输入发动机号后6位，车辆被找回的可能性会大幅增加</span>
+    	        </div>
+    	        <textarea name="remark" style="width:800px;height:80px;resize:none;" placeholder="此处填写您需要特别说明的备注信息" maxlength="50"></textarea>
+            </div>
+            <div class="upimg ordinary">
+                <div id="attachment">上传催收记录资料</div>
+                <br><br>
+                <div class="upload-list"></div>
+            </div>
+            <div class="upimg ordinary courtDecision">
+                <div id="courtDecision">上传法院判决书</div>
+                <br><br>
+                <div class="upload-list"></div>
+            </div>
+        </form>
+    </div>
+</script>
+
 <script type="text/javascript">
 seajs.use('modules/welcome/welcome', function(WelcomeDetail) {
     var welcomeDetail = new WelcomeDetail();
