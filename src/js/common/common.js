@@ -30,8 +30,8 @@ define(function(require, exports, module) {
         pageSize: 10, //默认每页显示条数
         pageIndex: basePath + 'modules/index/index.html',
         pageLogin: basePath + 'modules/login/login.html', //登陆页面路径
-        page500: basePath + 'modules/error/500.html', //数据请求异常页面
-        page404: basePath + 'modules/error/404.html', // 加载异常页面
+        page500: basePath + 'modules/index/index.html', //数据请求异常页面
+        page404: basePath + 'modules/index/index.html', // 加载异常页面
         citylist: {
             "北京": ["北京"],
             "广东": ["广州", "深圳", "珠海", "汕头", "韶关", "佛山", "江门", "湛江", "茂名", "肇庆", "惠州", "梅州", "汕尾", "河源", "阳江", "清远", "东莞", "中山", "潮州", "揭阳", "云浮"],
@@ -694,6 +694,7 @@ define(function(require, exports, module) {
                 args: {}
             };
             hashs = hashs.replace(/[#*]/ig, '');
+            debugger
             var datas = hashs.substring(hashs.indexOf('routeData=') + 10);
             var moduleStr = hashs.substring(hashs.indexOf('routeModule=') + 12, hashs.indexOf('routeData='));
             returnData.module = moduleStr.indexOf('.html') === -1 ? moduleStr + '.html' : moduleStr;
