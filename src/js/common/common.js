@@ -792,6 +792,7 @@ define(function(require, exports, module) {
                 method: 'GET',
                 contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                 show_page_number: 5,
+                showPageTotal: true,
                 jump: true,
                 noData: '',
                 ident: '', //模块标识
@@ -923,7 +924,12 @@ define(function(require, exports, module) {
             var m = this,
                 s = m.settings,
                 arr = [];
-            arr.push('<div class="jh_pages">');
+            if (s.showPageTotal) {
+                arr.push('<div class="pull-left">');
+                arr.push('  <span id="jh_page_totalSize"> 总共：</span>');
+                arr.push('</div>');
+            }
+            arr.push('<div class="pull-right jh_pages">');
             //pre容器
             arr.push('<div class="jh_page_pre">');
             // arr.push('<span class="jh_first_page">' + s.firstText + '</span>'); //首页 不可点击状态
@@ -985,7 +991,6 @@ define(function(require, exports, module) {
                     //如果数据超过 1 页则进行分页显示
                     if (m.page_total > 1) {
                         if (s.page_container.children('.jh_pages').length === 0) {
-
                             s.page_container.html(m.makeHtml()); //如果分页容器未进行初始化，则进行初始化操作
                         }
                         m.create(pageNum); //处理分页
@@ -1003,6 +1008,7 @@ define(function(require, exports, module) {
                     } else {
                         s.page_container.empty();
                     }
+                    $('#jh_page_totalSize').html(' 总共: ' + response.total + ' 条');
                 }
             });
         };
@@ -1157,7 +1163,16 @@ define(function(require, exports, module) {
                 });
 
                 // 文件上传失败，显示上传出错。
-                uploader.on('uploadError', function(file) {
+                uploader.on('uploadError', function(file,reason) {
+                    if(reason === 'http'){
+                        tammy.utils.confirm({
+                            content: '网络错误，请刷新后重试！',
+                            ok: function() {
+                                window.location.reload();
+                            },
+                            cancel: false
+                        });
+                    }
                     var li = $('#' + file.id),
                         error = li.find('div.error');
                     // 避免重复创建
