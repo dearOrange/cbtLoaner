@@ -678,7 +678,7 @@ define(function(require, exports, module) {
                 dataStr += ',' + temp + '=' + item;
             }
             dataStr = dataStr.substring(1);
-            window.location.href = tammy.utils.BASEURL + '#routeModule=' + targetURL + '#routeData=' + dataStr;
+            window.location.href = tammy.utils.BASEURL + '#routeModule=' + targetURL + '*routeData=' + dataStr;
         };
         tammy.utils.load = kyload;
     })();
@@ -693,7 +693,7 @@ define(function(require, exports, module) {
                 module: '',
                 args: {}
             };
-            hashs = hashs.replace(/#/ig, '');
+            hashs = hashs.replace(/[#*]/ig, '');
             var datas = hashs.substring(hashs.indexOf('routeData=') + 10);
             var moduleStr = hashs.substring(hashs.indexOf('routeModule=') + 12, hashs.indexOf('routeData='));
             returnData.module = moduleStr.indexOf('.html') === -1 ? moduleStr + '.html' : moduleStr;
@@ -1166,7 +1166,7 @@ define(function(require, exports, module) {
                 uploader.on('uploadError', function(file,reason) {
                     if(reason === 'http'){
                         tammy.utils.confirm({
-                            content: '网络错误，请刷新后重试！',
+                            content: '网络开小差了！',
                             ok: function() {
                                 window.location.reload();
                             },
