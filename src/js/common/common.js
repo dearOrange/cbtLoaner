@@ -694,7 +694,6 @@ define(function(require, exports, module) {
                 args: {}
             };
             hashs = hashs.replace(/[#*]/ig, '');
-            debugger
             var datas = hashs.substring(hashs.indexOf('routeData=') + 10);
             var moduleStr = hashs.substring(hashs.indexOf('routeModule=') + 12, hashs.indexOf('routeData='));
             returnData.module = moduleStr.indexOf('.html') === -1 ? moduleStr + '.html' : moduleStr;
