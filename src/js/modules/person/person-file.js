@@ -28,6 +28,8 @@ define(function(require, exports, module) {
                         returnData.data.type = 'P2P平台'
                     } else if (returnData.data.type == 'UPSTREAM_LAWFIRM') {
                         returnData.data.type = '律师事务所'
+                    } else if (returnData.data.type == 'UPSTREAM_GUARANTEE') {
+                        returnData.data.type = '担保公司'
                     } else if (returnData.data.type == 'UPSTREAM_PERSONAL') {
                         returnData.data.type = '个人'
                     } else if (returnData.data.type == 'UPSTREAM_OTHER') {

@@ -105,7 +105,7 @@ define(function(require, exports, module) {
                     content: '<img src="' + src + '"/>'
                 });
             });
-
+            
             $('#logoutLink').on('click', function() {
                 var me = $(this);
                 jh.utils.alert({
