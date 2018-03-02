@@ -30,8 +30,8 @@ define(function(require, exports, module) {
         pageSize: 10, //默认每页显示条数
         pageIndex: basePath + 'modules/index/index.html',
         pageLogin: basePath + 'modules/login/login.html', //登陆页面路径
-        page500: basePath + 'modules/error/500.html', //数据请求异常页面
-        page404: basePath + 'modules/error/404.html', // 加载异常页面
+        page500: basePath + 'modules/index/index.html', //数据请求异常页面
+        page404: basePath + 'modules/index/index.html', // 加载异常页面
         citylist: {
             "北京": ["北京"],
             "广东": ["广州", "深圳", "珠海", "汕头", "韶关", "佛山", "江门", "湛江", "茂名", "肇庆", "惠州", "梅州", "汕尾", "河源", "阳江", "清远", "东莞", "中山", "潮州", "揭阳", "云浮"],
@@ -678,7 +678,7 @@ define(function(require, exports, module) {
                 dataStr += ',' + temp + '=' + item;
             }
             dataStr = dataStr.substring(1);
-            window.location.href = tammy.utils.BASEURL + '#routeModule=' + targetURL + '#routeData=' + dataStr;
+            window.location.href = tammy.utils.BASEURL + '#routeModule=' + targetURL + '*routeData=' + dataStr;
         };
         tammy.utils.load = kyload;
     })();
@@ -693,7 +693,7 @@ define(function(require, exports, module) {
                 module: '',
                 args: {}
             };
-            hashs = hashs.replace(/#/ig, '');
+            hashs = hashs.replace(/[#*]/ig, '');
             var datas = hashs.substring(hashs.indexOf('routeData=') + 10);
             var moduleStr = hashs.substring(hashs.indexOf('routeModule=') + 12, hashs.indexOf('routeData='));
             returnData.module = moduleStr.indexOf('.html') === -1 ? moduleStr + '.html' : moduleStr;
@@ -792,6 +792,7 @@ define(function(require, exports, module) {
                 method: 'GET',
                 contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                 show_page_number: 5,
+                showPageTotal: true,
                 jump: true,
                 noData: '',
                 ident: '', //模块标识
@@ -923,7 +924,12 @@ define(function(require, exports, module) {
             var m = this,
                 s = m.settings,
                 arr = [];
-            arr.push('<div class="jh_pages">');
+            if (s.showPageTotal) {
+                arr.push('<div class="pull-left">');
+                arr.push('  <span id="jh_page_totalSize"> 总共：</span>');
+                arr.push('</div>');
+            }
+            arr.push('<div class="pull-right jh_pages">');
             //pre容器
             arr.push('<div class="jh_page_pre">');
             // arr.push('<span class="jh_first_page">' + s.firstText + '</span>'); //首页 不可点击状态
@@ -985,7 +991,6 @@ define(function(require, exports, module) {
                     //如果数据超过 1 页则进行分页显示
                     if (m.page_total > 1) {
                         if (s.page_container.children('.jh_pages').length === 0) {
-
                             s.page_container.html(m.makeHtml()); //如果分页容器未进行初始化，则进行初始化操作
                         }
                         m.create(pageNum); //处理分页
@@ -1003,6 +1008,7 @@ define(function(require, exports, module) {
                     } else {
                         s.page_container.empty();
                     }
+                    $('#jh_page_totalSize').html(' 总共: ' + response.total + ' 条');
                 }
             });
         };
@@ -1157,7 +1163,16 @@ define(function(require, exports, module) {
                 });
 
                 // 文件上传失败，显示上传出错。
-                uploader.on('uploadError', function(file) {
+                uploader.on('uploadError', function(file,reason) {
+                    if(reason === 'http'){
+                        tammy.utils.confirm({
+                            content: '网络开小差了！',
+                            ok: function() {
+                                window.location.reload();
+                            },
+                            cancel: false
+                        });
+                    }
                     var li = $('#' + file.id),
                         error = li.find('div.error');
                     // 避免重复创建

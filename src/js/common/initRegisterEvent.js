@@ -43,7 +43,7 @@ define(function(require, exports, module) {
             /*地址栏变化事件*/
             $(window).on('hashchange', function() {
                 var currentHash = window.location.hash,
-                    repHash = currentHash.replace(/^[#]$/ig, '');
+                    repHash = currentHash.replace(/^[#*]$/ig, '');
                 var moduleInfo = jh.utils.getURLValue();
                 if (!currentHash || !repHash || !moduleInfo.module) {
                     $('#content-container').empty();
