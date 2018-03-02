@@ -1111,6 +1111,7 @@ color: orange;
 .content-header span {
 	color: #666;
 	font-weight: 600;
+	cursor: pointer;
 }
 
 .content-header h1 {

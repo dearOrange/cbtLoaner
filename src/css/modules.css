@@ -47,10 +47,16 @@ body.login {
     width: 46%;
     float: left;
 }
-
+.logo-img p.logo-take {
+    margin-left: 33%;
+    margin-top: 340px;
+    padding-left: 10px;
+    font-size: 38px;
+    color: #fff;
+}
 .logo-img .logoBox {
     margin-left: 34%;
-    margin-top: 340px;
+    margin-top: 20px;
     padding-left: 10px;
     border-left: 2px solid #fff;
 }
