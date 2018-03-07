@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             url: '/task-list',
             childrens: []
         },{
-            name: '车辆寻回',
+            name: '锁定车辆',
             icon: 'icon-supplier',
             module: '/src/modules/find',
             url: '/find-list',
