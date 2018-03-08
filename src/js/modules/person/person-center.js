@@ -27,9 +27,9 @@ define(function(require, exports, module) {
                     _this.data = returnData.data;
                     returnData.data.viewImgRoot = jh.config.viewImgRoot;
                     returnData.data.isState = isState;
-                    if(!returnData.data.mobile) {
-		            	jh.utils.load("/src/modules/bind/binding-phone");
-		            }
+                    /*if (!returnData.data.mobile) {
+                        jh.utils.load("/src/modules/bind/binding-phone");
+                    }*/
                     var str = jh.utils.template('personCenter-baseInfo-template', returnData.data);
                     $('#personCenter-baseInfo-form').html(str);
                     $('#serviceType').val(returnData.data.type);
