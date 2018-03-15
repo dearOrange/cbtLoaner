@@ -38,7 +38,7 @@ seajs.config({
     base: BaseUrl,
     charset: 'utf-8',
     alias: {
-        'jquery': 'lib/jQuery/3.2.1/jquery-3.2.1.min',
+        'jquery': 'lib/jQuery/1.10.2/jquery-1.10.2.min',
         'jquery.validate': 'plugin/validation/jquery.validation.min',
         'art-dialog': 'plugin/artDialog/dialog',
         'template': 'lib/template/4.0.0/template-web',
@@ -47,7 +47,7 @@ seajs.config({
         'mock': 'lib/Mock/mock',
         'main': 'common/main'
     },
-    preload: ['jquery','mock'],
+    preload: ['jquery'],
     map: [
         ['.js', '.js?v='+Math.random()],
         ['.html', '.html?v='+Math.random()]

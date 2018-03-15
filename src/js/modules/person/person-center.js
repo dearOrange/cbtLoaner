@@ -200,6 +200,12 @@ define(function(require, exports, module) {
                 jh.utils.load("/src/modules/person/person-file");
             });
 
+            //稍后认证
+            $('body').off('click', '.skipAuth').on('click', '.skipAuth', function() {
+                sessionStorage.setItem('skipAuth', 'true');
+                window.location.href = '/';
+            });
+
         };
     }
     module.exports = PersonCenter;

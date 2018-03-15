@@ -75,7 +75,7 @@ define(function(require, exports, module) {
         this.initMenu = function(res) {
             var menuData = require('menuJson/leftMenu');
             var menuHtml = jh.utils.template('main_leftMenu_template', menuData);
-            if (sessionStorage.getItem("customer-isState") == 'available') {
+            if (sessionStorage.getItem("customer-isState") == 'available' || sessionStorage.getItem('skipAuth') ) {
                 $('#leftMenu-box').html(menuHtml);
             }
         };

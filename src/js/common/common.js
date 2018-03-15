@@ -597,6 +597,7 @@ define(function(require, exports, module) {
                         sessionStorage.removeItem('customer-username');
                         sessionStorage.removeItem('customer-isState');
                         sessionStorage.removeItem('customer-uploadToken');
+                        sessionStorage.removeItem('skipAuth');
                         window.location.href = jh.config.pageLogin;
                     }
                 });
@@ -751,7 +752,8 @@ define(function(require, exports, module) {
                 }
             } else {
                 var isState = sessionStorage.getItem('customer-isState');
-                if (isState === 'new' || isState === 'unavailable') {
+                var skipAuth = sessionStorage.getItem('skipAuth');
+                if ( (isState === 'new' || isState === 'unavailable') && !skipAuth) {
                     jh.utils.load('/src/modules/person/person-center');
                 } else {
                     jh.utils.load('/src/modules/welcome/welcome.html');

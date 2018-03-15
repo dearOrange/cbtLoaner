@@ -20,6 +20,7 @@ define(function(require, exports, module) {
 
         this.initPlugins = function() {
             window.jh = require('common'); //自定义对象
+            debugger
             jh.utils.template = require('template'); //为自定义函数
         };
 
@@ -39,9 +40,10 @@ define(function(require, exports, module) {
                             datas.mobile && sessionStorage.setItem('customer-username', datas.mobile);
                             sessionStorage.setItem('customer-X-Token', returnData.data.token);
                             sessionStorage.setItem('customer-isState', returnData.data.state);
+                            var skipAuth = sessionStorage.getItem('skipAuth');
 
                             var targetUrl = window.location.protocol + '//' + window.location.host;
-                            if (returnData.data.state == 'available') {
+                            if (returnData.data.state == 'available' || (skipAuth && skipAuth=='true')) {
                                 targetUrl += jh.config.pageIndex;
                             } else {
                                 targetUrl += '/src/modules/index/index.html#routeModule=/src/modules/person/person-center*routeData=';

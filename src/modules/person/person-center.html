@@ -143,13 +143,12 @@
     {{if isState === "new"}}
     <div class="buttonAnt firstChange">
         <input class="pull-left button bigButton" type="submit" value="提交认证" />
-    
     {{else}}
-    
         <input class="pull-left button bigButton" type="submit" value="重新提交认证" />
         <a href="javascript:;" class="clearEdit pull-left button bigButton">取消编辑</a>
     </div>
     {{/if}}
+    <a href="javascript:;" class="pull-left button bigButton skipAuth">稍后认证</a>
     {{if isState === "unavailable"}}
     <div class="clearfix"></div>
     <hr />
