@@ -45,9 +45,12 @@ seajs.config({
         'common': 'common/common',
         'jsencrypt': 'common/jsencrypt.min',
         'mock': 'lib/Mock/mock',
+        'es5Shim': 'lib/es5-shim/es5-shim.min',
+        'es5Sham': 'lib/es5-shim/es5-sham.min',
+        'josn3': 'lib/es5-shim/json3.min',
         'main': 'common/main'
     },
-    preload: ['jquery'],
+    preload: ['jquery','es5Shim','es5Sham','json3'],
     map: [
         ['.js', '.js?v='+Math.random()],
         ['.html', '.html?v='+Math.random()]
