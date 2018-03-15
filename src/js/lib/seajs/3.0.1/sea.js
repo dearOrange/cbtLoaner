@@ -50,7 +50,7 @@ seajs.config({
         'json3': 'lib/es5-shim/json3.min',
         'main': 'common/main'
     },
-    preload: ['jquery','es5Shim','es5Sham','json3'],
+    preload: ['jquery','es5Shim'],
     map: [
         ['.js', '.js?v='+Math.random()],
         ['.html', '.html?v='+Math.random()]

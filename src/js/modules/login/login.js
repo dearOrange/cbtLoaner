@@ -20,7 +20,6 @@ define(function(require, exports, module) {
 
         this.initPlugins = function() {
             window.jh = require('common'); //自定义对象
-            debugger
             jh.utils.template = require('template'); //为自定义函数
         };
 
