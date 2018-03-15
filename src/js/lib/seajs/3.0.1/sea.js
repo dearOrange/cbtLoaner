@@ -47,7 +47,7 @@ seajs.config({
         'mock': 'lib/Mock/mock',
         'es5Shim': 'lib/es5-shim/es5-shim.min',
         'es5Sham': 'lib/es5-shim/es5-sham.min',
-        'josn3': 'lib/es5-shim/json3.min',
+        'json3': 'lib/es5-shim/json3.min',
         'main': 'common/main'
     },
     preload: ['jquery','es5Shim','es5Sham','json3'],
