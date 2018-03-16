@@ -47,13 +47,21 @@ define(function(require, exports, module) {
           taskId: taskId
         },
         done: function(returnData) {
+          //任务状态
           returnData.menuState = jh.utils.menuState;
+          //图片预览
           returnData.viewImgRoot = jh.config.viewImgRoot;
+          //任务展示
           var alertStr = jh.utils.template('find-detail-template', returnData);
+          //确定按钮显示文字
           var okStr = (returnData.data.state === 'platReceive' || returnData.data.state === 'hunterReceive') ? '收到车了' : '确定';
           _this.data = returnData.data;
 
           okStr = returnData.data.state === 'unconfirmed' ? '电子签章' : okStr;
+
+          if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
+            okStr = '电子签章';
+          }
 
           var alertOption = {
             content: alertStr,
@@ -61,7 +69,7 @@ define(function(require, exports, module) {
             ok: function() {
               if (auth === 'available') {
                 //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                if (_this.data.state === "unconfirmed" || _this.data.state === "hunterUnreceive") {
+                if (_this.data.state === "unconfirmed" || _this.data.state === "hunterUnreceive" || _this.data.state === "upstreamReceive") {
                   _this.uploadVouch(_this.data);
                   return false;
                 } else if (_this.data.state === 'platReceive' || _this.data.state === "hunterReceive") {
@@ -73,7 +81,12 @@ define(function(require, exports, module) {
                   return true;
                 }
               } else {
-                jh.utils.load('/src/modules/person/person-center');
+                var authArr = ['unconfirmed', 'upstreamReceive'];
+                if (authArr.indexOf(returnData.data.state) !== -1 && _this.data.contractState === 0) {
+                  jh.utils.load('/src/modules/person/person-center');
+                } else if (_this.data.state === "hunterUnreceive") {
+                  _this.uploadVouch(_this.data);
+                }
                 return true;
               }
             }
@@ -84,7 +97,6 @@ define(function(require, exports, module) {
               value: '直接确认拖车',
               callback: function() {
                 _this.uploadVouch(_this.data, 'skip');
-
                 return false;
               }
             }];
@@ -93,7 +105,6 @@ define(function(require, exports, module) {
           }
 
           jh.utils.alert(alertOption);
-
           jh.utils.uploader.init({
             fileNumLimit: 15,
             pick: {
@@ -113,6 +124,10 @@ define(function(require, exports, module) {
 
     //上传凭证
     this.uploadVouch = function(returnDetail, skip) {
+      if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
+        _this.requestContractUrl(_this.data.taskId);
+        return false;
+      }
       var datas = jh.utils.formToJson($('#custmoer-upload-form'));
       datas.type = returnDetail.state === 'unconfirmed' ? 0 : 1;
       //判断有无上传凭证
@@ -147,24 +162,28 @@ define(function(require, exports, module) {
             jh.utils.ajax.send({
               url: '/task/skip',
               data: {
-                taskId: taskId
+                taskId: datas.taskId
               },
               done: function() {
                 jh.utils.alert({
                   content: '操作成功！',
                   ok: function() {
+                    (new jh.ui.shadow()).close();
                     jh.utils.closeArt();
+                    _this.initContent();
                   }
                 });
               }
             });
+            return false;
           }
-          if (returnDetail.contractState === 0) {
+          if (returnDetail.contractState === 0 && _this.data.state === "unconfirmed") {
             //保存成功后调用电子签章
             _this.requestContractUrl(datas.taskId);
           } else {
             (new jh.ui.shadow()).close();
-            window.location.reload();
+            jh.utils.closeArt();
+            _this.initContent();
           }
         }
       });

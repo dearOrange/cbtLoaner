@@ -698,7 +698,7 @@ input.button.bigButton {
  */
 
 .loading {
-	z-index: 1030;
+	z-index: 1025;
 	background-color: #000;
 	opacity: 0.6;
 	filter: alpha(opacity=60);
