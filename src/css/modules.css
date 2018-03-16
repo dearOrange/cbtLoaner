@@ -1485,3 +1485,19 @@ span.operatorTaskOpen, span.operatorTaskClose {
 	line-height: 40px;
 	cursor: pointer;
 }
+.embedBox {
+    border-bottom: 1px solid #ccc;
+    padding:10px 0;
+}
+.public-result {
+    padding:36px 0;
+}
+.textTable td {
+    border: 1px solid #eef1f6;
+    text-align: left;
+    min-width: 270px;
+}
+.textTable th {
+    border: 1px solid #eef1f6;
+    background: aliceblue;
+}

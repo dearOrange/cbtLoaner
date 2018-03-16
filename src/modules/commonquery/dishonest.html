@@ -1,0 +1,99 @@
+<div class="dataContent">
+    <div class="embedBox search-container">
+        <form id="dishonest-form">
+            <table class="common_query textLeft">
+                <tr>
+                    <td>
+                        <label>被执行人姓名/名称：</label>
+                        <input type="text" class="search-input required" name="name" placeholder="请输入被执行人姓名或名称" style="width:50%;">
+                    </td>
+                    <td>
+                        <label>身份证号码/组织机构代码：</label>
+                        <input type="text" class="search-input" name="idNumber" placeholder="请输入身份证号码或组织机构代码" style="width:50%;">
+                    </td>
+                    <td>
+                        <input type="submit" class="button search-button" value="查询" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="dishonest-content" class="public-result">
+        
+    </div>
+</div>
+
+<script type="text/template" id="dishonest-result-template">
+    <div>
+        <span>查询结果：</span>
+        {{if data.isResult === 0}}
+        <span>暂无结果</span>
+        {{else}}
+        <div class="data-container">
+            <table class="dataShow">
+                <thead>
+                    <tr>
+                        <th width="6%">序号</th>
+                        <th width="10%">被执行人姓名/组织机构</th>
+                        <th width="10%">案号</th>
+                        <th width="10%">详情</th>
+                    </tr>
+
+                </thead>
+                <tbody id="search-violation-container">
+                    {{ each data.dishonestList item index }}
+                    <tr>
+                        <td>{{index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.caseCode}}</td>
+                        <td>
+                            <a href="javascript:;" data-id="{{index}}" id="find-dishonest-detail">查看详情</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/if}}
+    </div>
+</script>
+
+<script type="text/template" id="dishonest-detail-template">
+    <table class="dataShow textTable">
+        <tr>
+            <td>执行法院：</td>
+            <td>{{courtName}}</td>
+        </tr>
+        <tr>
+            <td>省份：</td>
+            <td>{{areaName}}</td>
+        </tr>
+        <tr>
+            <td>案号：</td>
+            <td>{{caseCode}}</td>
+        </tr>
+        <tr>
+            <td>生效法律文书确定的义务：</td>
+            <td>{{duty}}</td>
+        </tr>
+        <tr>
+            <td>被执行人的履行情况：</td>
+            <td>{{performance}}</td>
+        </tr>
+        <tr>
+            <td>实行被执行人具体情形：</td>
+            <td>{{disruptTypeName}}</td>
+        </tr>
+        <tr>
+            <td>发布时间：</td>
+            <td>{{publishDate}}</td>
+        </tr>
+    </table>
+</script>
+
+<script type="text/javascript">
+    seajs.use('modules/commonquery/dishonest', function(Dishonest) {
+        var dishonest = new Dishonest();
+        dishonest.init();
+    });
+</script>

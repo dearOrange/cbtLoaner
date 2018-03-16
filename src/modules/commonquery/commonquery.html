@@ -1,0 +1,35 @@
+<div class="welcome">
+    <ul class="img-list">
+        <li class="vehicle-violation">
+            <i class="icon icon-violation"></i>
+            <span>车辆违章查询</span>
+        </li>
+        <li class="vehicle-residual">
+            <i class="icon icon-residual"></i>
+            <span>车辆残值查询</span>
+        </li>
+        <li class="search-idCard">
+            <i class="icon icon-idCard"></i>
+            <span>身&nbsp;份&nbsp;证&nbsp;查&nbsp;询</span>
+        </li>
+        <li class="search-vinNo">
+            <i class="icon icon-vinNo"></i>
+            <span>车&nbsp;架&nbsp;号&nbsp;查&nbsp;询</span>
+        </li>
+        <li class="search-noPromise">
+            <i class="icon icon-noPromise"></i>
+            <span>失信人名单查询</span>
+        </li>
+        <li class="search-blacklist">
+            <i class="icon icon-blacklist"></i>
+            <span>行业黑名单查询</span>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+seajs.use('modules/commonquery/commonquery', function(CommonQuery) {
+    var CommonQuery = new CommonQuery();
+    CommonQuery.init();
+});
+</script>

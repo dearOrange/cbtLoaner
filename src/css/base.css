@@ -274,6 +274,32 @@ input:-webkit-autofill {
 	background-color: #ab3c7f;
 }
 
+
+/*查询*/
+.welcome ul.img-list li.vehicle-violation{
+    background-color: #7762b4;
+}
+
+.welcome ul.img-list li.vehicle-residual {
+    background-color: #ffb044;
+}
+
+.welcome ul.img-list li.search-idCard{
+    background-color: #41a8fe;
+}
+
+.welcome ul.img-list li.search-vinNo {
+    background-color: #37d2ca;
+}
+
+.welcome ul.img-list li.search-noPromise {
+    background-color: #ee3576;
+}
+
+.welcome ul.img-list li.search-blacklist {
+    background-color: #4bba4e;
+}
+
 .welcome ul.img-list li span {
 	color: #fff;
 	margin-left: 10px;
@@ -552,6 +578,50 @@ input.button.bigButton {
 	height: 20px;
 	background-size: cover;
 	background-image: url(../img/icon-nopass.png);
+}
+
+/*查询图标*/
+.icon.icon-violation {
+    width: 50px;
+    height: 50px;
+    background: url(../img/login/violation.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.icon.icon-residual {
+    width: 50px;
+    height: 50px;
+    background: url(../img/login/residual.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.icon.icon-idCard {
+    width: 50px;
+    height: 50px;
+    background: url(../img/login/idCard.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.icon.icon-vinNo {
+    width: 50px;
+    height: 50px;
+    background: url(../img/login/vinNo.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.icon.icon-noPromise {
+    width: 50px;
+    height: 50px;
+    background: url(../img/login/noPromise.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.icon.icon-blacklist {
+    width: 50px;
+    height: 50px;
+    background: url(../img/login/blacklist.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
 }
 
 /**
