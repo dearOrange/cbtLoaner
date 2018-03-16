@@ -25,6 +25,12 @@ define(function(require, exports, module) {
             module: '/src/modules/person',
             url: '/person-file',
             childrens: []
+        },{
+            name: '常用查询',
+            icon: 'icon-operate',
+            module: '/src/modules/commonquery',
+            url: '/commonquery',
+            childrens: []
         }]
     };
     module.exports = FINAL_MENU_DATA_JSON;

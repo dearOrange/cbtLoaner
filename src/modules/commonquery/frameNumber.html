@@ -1,0 +1,81 @@
+<div class="dataContent">
+    <div class="embedBox search-container">
+        <form id="frameNumber-form">
+          <table class="common_query textLeft">
+          <tr>
+            <td>
+               <label>车架号 (VIN码)：</label>
+               <input type="text" class="search-input required" name="carId" placeholder="请输入17位车架号" maxlength="17" style="width: 30%;"> 
+            </td>
+            <td>
+                <input type="submit" class="button search-button" value="查询"/>
+            </td>
+          </tr>
+          </table>
+        </form>
+    </div>
+    <div id="frameNumber-content" class="public-result">
+      
+    </div>
+</div>
+
+<script type="text/template" id="frameNumber-detail-template">
+    <div class="data-container">
+        <span>查询结果：</span>
+        {{if data.isResult === 0}}
+        <span>暂无结果</span>
+        {{else}}
+        <table class="dataShow textTable">
+            <tr>
+                <th>品牌</th>
+                <td>{{data.brandName}}</td>
+                <th>车型</th>
+                <td>{{data.carModelName}}</td>
+            </tr>
+            <tr>
+                <th>厂家</th>
+                <td>{{data.factoryName}}</td>
+                <th>排量</th>
+                <td>{{data.volume}}</td>
+            </tr>
+            <tr>
+                <th>年款</th>
+                <td>{{data.year}}</td>
+                <th>发动机</th>
+                <td>{{data.engine}}</td>
+            </tr>
+            <tr>
+                <th>驱动方式</th>
+                <td>{{data.driveMode}}</td>
+                <th>变速箱类型</th>
+                <td>{{data.transmission}}</td>
+            </tr>
+            <tr>
+                <th>销售名称</th>
+                <td>{{data.saleName}}</td>
+                <th>上市年份</th>
+                <td>{{data.marketYear}}</td>
+            </tr>
+            <tr>
+                <th>停产年份</th>
+                <td>{{data.stopYear}}</td>
+                <th>发动机最大功率</th>
+                <td>{{data.engineMaxGL}}</td>
+            </tr>
+            <tr>
+                <th>车型备注</th>
+                <td>{{data.area}}</td>
+                <th>&nbsp;</th>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        {{/if}}
+    </div>
+</script>
+
+<script type="text/javascript">
+  seajs.use('modules/commonquery/frameNumber', function(FrameNumber) {
+      var frameNumber = new FrameNumber();
+      frameNumber.init();
+  });
+</script>
