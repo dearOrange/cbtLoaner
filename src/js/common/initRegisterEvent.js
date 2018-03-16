@@ -140,7 +140,8 @@ define(function(require, exports, module) {
             $('body').off('click','#index_logo').on('click','#index_logo',function(){
                 var me = $(this);
                 var isState = sessionStorage.getItem('customer-isState');
-                if(isState === 'unavailable'){
+                var skipAuth = sessionStorage.getItem('skipAuth');
+                if(isState !== 'available' && !skipAuth){
                     return false;
                 }
                 window.location.href = '/';
