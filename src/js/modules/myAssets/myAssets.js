@@ -35,6 +35,8 @@ define(function(require, exports, module) {
     this.registerEvent = function() {
         //切换状态
         $('body').off('click', '.moneyState').on('click', '.moneyState', function() {
+            var mine = $(this);
+            $('#state').val(mine.data('value'));
             $(this).addClass("active").siblings().removeClass("active");
             $('.tr-myMoney').eq($(this).index()).attr("id", "tr-moneyDetail").siblings().removeAttr("id");
         })
