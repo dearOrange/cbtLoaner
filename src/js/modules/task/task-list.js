@@ -18,9 +18,9 @@ define(function(require, exports, module) {
             $('select').select2({
                 minimumResultsForSearch: Infinity
             });
-            var searchValue = ["undistributed", "unarrange", "tracing", "clueChecking", "unvaluation"];
-            searchValue = searchValue.join(",");
-            $('.valueArr').val(searchValue);
+//          var searchValue = ["undistributed", "unarrange", "tracing", "clueChecking", "unvaluation", "new"];
+//          searchValue = searchValue.join(",");
+//          $('.valueArr').val(searchValue);
         };
         this.initContent = function(isSearch) {
             var datas = jh.utils.formToJson(_this.form);

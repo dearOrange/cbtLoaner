@@ -1141,7 +1141,7 @@ input, select, textarea {
 .search-container .stateChange li {
     cursor: pointer;
     float: left;
-    border: 1px solid transparent;
+    /*border: 1px solid transparent;*/
     padding: 5px 10px;
     position: relative;
 }
@@ -1165,15 +1165,18 @@ input, select, textarea {
 }
 
 .search-container .stateChange li:hover {
-    color: #20a0ff;
-    border: 1px solid #20a0ff;
+    /*color: #20a0ff;
+    border: 1px solid #20a0ff;*/
 }
 
 .search-container .stateChange li.active {
-    color: #20a0ff;
-    border: 1px solid #20a0ff;
+    border-top: 4px solid #53c7a0;
+    border-right: 2px solid #eee;
+    border-left: 2px solid #eee;
 }
-
+.search-container .stateChange li:first-child.active {
+    border-left: 0;
+}
 /**
  * 任务列表-车辆详情
  */
@@ -1500,4 +1503,7 @@ span.operatorTaskOpen, span.operatorTaskClose {
 .textTable th {
     border: 1px solid #eef1f6;
     background: aliceblue;
+}
+#personalAssets-form{
+    /*border-bottom: 2px solid #ccc;*/
 }
