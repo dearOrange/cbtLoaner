@@ -31,6 +31,12 @@ define(function(require, exports, module) {
             module: '/src/modules/commonquery',
             url: '/commonquery',
             childrens: []
+        },{
+            name: '个人资产',
+            icon: 'icon-supplier',
+            module: '/src/modules/myAssets',
+            url: '/myAssets',
+            childrens: []
         }]
     };
     module.exports = FINAL_MENU_DATA_JSON;
