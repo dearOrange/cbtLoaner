@@ -1584,6 +1584,12 @@ define(function(require, exports, module) {
                 case 1:
                     state = "开启";
                     break;
+                case "UPSTREAM_ENTERPRISE":
+                    state = "企业";
+                    break;
+                case "UPSTREAM_PERSONAL":
+                    state = "个人";
+                    break;
             }
             return state;
         }

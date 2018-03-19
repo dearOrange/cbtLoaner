@@ -16,25 +16,7 @@ define(function(require, exports, module) {
             jh.utils.ajax.send({
                 url: '/user/userInfo',
                 done: function(returnData) {
-                    if (returnData.data.type == 'UPSTREAM_INSURANCE') {
-                        returnData.data.type = '保险公司'
-                    } else if (returnData.data.type == 'UPSTREAM_BANK') {
-                        returnData.data.type = '银行'
-                    } else if (returnData.data.type == 'UPSTREAM_FACTORY') {
-                        returnData.data.type = '厂家金融'
-                    } else if (returnData.data.type == 'UPSTREAM_LEASE') {
-                        returnData.data.type = '融资租赁'
-                    } else if (returnData.data.type == 'UPSTREAM_P2P') {
-                        returnData.data.type = 'P2P平台'
-                    } else if (returnData.data.type == 'UPSTREAM_LAWFIRM') {
-                        returnData.data.type = '律师事务所'
-                    } else if (returnData.data.type == 'UPSTREAM_GUARANTEE') {
-                        returnData.data.type = '担保公司'
-                    } else if (returnData.data.type == 'UPSTREAM_PERSONAL') {
-                        returnData.data.type = '个人'
-                    } else if (returnData.data.type == 'UPSTREAM_OTHER') {
-                        returnData.data.type = '其他'
-                    }
+                    returnData.menuState = jh.utils.menuState;
                     returnData.viewImgRoot = jh.config.viewImgRoot;
                     var getStr = jh.utils.template('task_getAuditInfo_template', returnData);
                     $('.modelData').html(getStr);
@@ -44,7 +26,7 @@ define(function(require, exports, module) {
             });
         };
         this.changeImgByUserType = function(type) {
-            if (type === '个人') {
+            if (type === 'UPSTREAM_PERSONAL') {
                 $('.businessImg').addClass("hide");
             } else {
                 $('.businessImg').removeClass("hide");

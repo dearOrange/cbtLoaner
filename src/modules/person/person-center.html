@@ -30,15 +30,8 @@
     	<li style="width:96.1%;">
             <label>主体类型</label>
             <select id="serviceType" name="type" class="required">
-                <option value="UPSTREAM_INSURANCE">保险公司</option>
-                <option value="UPSTREAM_BANK">银行</option>
-                <option value="UPSTREAM_FACTORY">厂家金融</option>
-                <option value="UPSTREAM_LEASE">融资租赁</option>
-                <option value="UPSTREAM_P2P">P2P平台</option>
-                <option value="UPSTREAM_LAWFIRM">律师事务所</option>
-                <option value="UPSTREAM_GUARANTEE">担保公司</option>
-                <option value="UPSTREAM_PERSONAL">个人</option>
-                <option value="UPSTREAM_OTHER">其他</option>
+                <option {{if type === 'UPSTREAM_ENTERPRISE'}}selected{{/if}} value="UPSTREAM_ENTERPRISE">企业</option>
+                <option {{if type === 'UPSTREAM_PERSONAL'}}selected{{/if}} value="UPSTREAM_PERSONAL">个人</option>
             </select>
         </li>
     </ul>
