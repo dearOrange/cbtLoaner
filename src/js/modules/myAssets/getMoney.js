@@ -8,14 +8,28 @@
 define(function(require, exports, module) {
   function GetMoney() {
     var _this = this;
-    _this.form = $('#personalAssets-form');
+    _this.form = $('#getMoney-form');
     
     this.init = function() {
       this.registerEvent();
     };
 
     this.registerEvent = function() {
-        
+        jh.utils.validator.init({
+            id: 'getMoney-form',
+            submitHandler: function(form) {
+                var datas = jh.utils.formToJson(form); //表单数据
+                jh.utils.ajax.send({
+                    url: '/user/applyWithdraw',
+                    method: 'post',
+                    data: datas,
+                    done: function(returnData) {
+                        
+                    }
+                });
+                return false;
+            }
+        });
     };
   }
   module.exports = GetMoney;
