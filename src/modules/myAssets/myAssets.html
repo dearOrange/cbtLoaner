@@ -10,7 +10,7 @@
                       </span>
                     </td>
                     <td>
-                        <span>账户余额:657687元</span>
+                        <span>账户余额：<i id="totalMoney"></i>元</span>
                     </td>
                     <td>
                         <a href="javascript:;" class="button goGetMoney" style="padding:8px 50px;"> 提现</a>
@@ -25,8 +25,8 @@
         	<table>
         		<tr>
         		    <ol class="stateChange pull-left">
-                        <li data-value="2" data-state="" class="moneyState active">我的收入</li>
-                        <li data-value="1" data-state="" class="moneyState">提现明细</li>
+                        <li data-value="2" class="moneyState active">我的收入</li>
+                        <li data-value="1" class="moneyState">提现明细</li>
                         <!--<input type="hidden" name="tabType" id="state" value="2">-->
                     </ol>
         		</tr>
@@ -34,21 +34,21 @@
         </form>
     </div>
     <div class="data-container">
-        <table class="dataShow">
+        <table class="dataShow" id="myAssets_table">
             <thead>
-                <tr class="tr-myMoney" id="tr-moneyDetail">
+                <tr>
                     <th width="5%">&nbsp;</th>
                     <th width="15%">时间</th>
                     <th width="8%">车牌号</th>
                     <th width="8%">任务号</th>
                     <th width="8%">收入</th>
                 </tr>
-                <tr class="tr-myMoney">
+                <tr class="hide">
                     <th width="5%">&nbsp;</th>
                     <th width="10%">放款类型</th>
                     <th width="8%">提现金额（元）</th>
                     <th width="8%">时间</th>
-                    <th width="8%">金额（元）</th>
+                    <th width="8%">余额（元）</th>
                     <th width="8%">备注</th>
                 </tr>
             </thead>
@@ -62,10 +62,24 @@
     <tr class="trData">
         <td>{{index + 1}}</td>
         <td>{{item.createAt}}</td>
-        <td>{{item.carNumber}}</td>
-        <td>{{item.carBrand}}</td>
-        <td>{{item.carSeries}}</td>
-        {{if item.car}}<td>{{item.carSeries}}</td>{{/if}}
+        <td>{{item.cardNum}}</td>
+        <td>{{item.subPhone}}</td>
+        <td>{{item.source}}</td>
+    </tr>
+    {{/each}}
+</script>
+<script type="text/template" id="getMoney-contentTemplate">
+    {{ each list item index }}
+    <tr class="trData">
+        <td>{{index + 1}}</td>
+        <td>{{if item.payWay === 1}}支付宝{{/if}}
+            {{if item.payWay === 2}}微信{{/if}}
+            {{if item.payWay === 3}}银行卡{{/if}}
+        </td>
+        <td>{{item.amount}}</td>
+        <td>{{item.createAt}}</td>
+        <td>{{item.fund}}</td>
+        <td>{{item.rejectReason}}</td>
     </tr>
     {{/each}}
 </script>
