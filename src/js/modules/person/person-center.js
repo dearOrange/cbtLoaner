@@ -37,7 +37,7 @@ define(function(require, exports, module) {
 
                     _this.changeUserType(returnData.data);
                     //上传资质
-                    var picArr = ['businessLicense', 'legalPersonIdImg', 'legalPersonHandIdImg', 'linkmanIdImg', 'linkmanHandIdImg'];
+                    var picArr = ['businessLicense', 'linkmanIdImg', 'linkmanHandIdImg'];
                     for (var i = 0; i < 5; i++) {
                         jh.utils.uploader.init({
                             isAppend: false,
@@ -61,11 +61,14 @@ define(function(require, exports, module) {
 
         this.changeImgByUserType = function(type) {
             if (type === 'UPSTREAM_PERSONAL') {
-                $('.personImg').addClass("uploaderRequired");
                 $('.businessImg').addClass("hide");
                 $('.businessLicense').removeClass("uploaderRequired");
+
+                $('#linkmanIdImg').siblings().addClass("uploaderRequired");
+                
             } else {
-                $('.personImg').removeClass("uploaderRequired");
+                $('#linkmanIdImg').siblings().removeClass("uploaderRequired");
+                
                 $('.businessImg').removeClass("hide");
                 $('.businessLicense').addClass("uploaderRequired");
             }
