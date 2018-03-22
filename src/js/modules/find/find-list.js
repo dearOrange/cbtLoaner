@@ -51,6 +51,8 @@ define(function(require, exports, module) {
           returnData.menuState = jh.utils.menuState;
           //图片预览
           returnData.viewImgRoot = jh.config.viewImgRoot;
+          returnData.data.state = "unconfirmed";
+          returnData.data.entrust = 'trace';
           //任务展示
           var alertStr = jh.utils.template('find-detail-template', returnData);
           //确定按钮显示文字
@@ -63,16 +65,20 @@ define(function(require, exports, module) {
             okStr = '电子签章';
           }
 
+          if (_this.data.state === "unconfirmed" && _this.data.entrust === 'trace') {
+            okStr = '收到车了';
+          }
+
           var alertOption = {
             content: alertStr,
             okValue: okStr,
             ok: function() {
               if (auth === 'available') {
                 //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                if (_this.data.state === "unconfirmed" || _this.data.state === "hunterUnreceive" || _this.data.state === "upstreamReceive") {
+                if ( (_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') || _this.data.state === "hunterUnreceive" || _this.data.state === "upstreamReceive") {
                   _this.uploadVouch(_this.data);
                   return false;
-                } else if (_this.data.state === 'platReceive' || _this.data.state === "hunterReceive") {
+                } else if (_this.data.state === 'platReceive' || _this.data.state === "hunterReceive" || (_this.data.state === 'unconfirmed' && _this.data.entrust === 'trace')) {
                   (new jh.ui.shadow()).init();
                   //如果平台已收车，则债权方进行确认收车
                   _this.confirmeReceive(taskId);
@@ -92,7 +98,7 @@ define(function(require, exports, module) {
             }
           };
 
-          if (_this.data.state === "unconfirmed") {
+          if (_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') {
             alertOption.button = [{
               value: '直接确认拖车',
               callback: function() {
