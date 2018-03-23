@@ -90,11 +90,11 @@ define(function(require, exports, module) {
                     okValue: '确定发布',
                     cancel: true
                 });
-                if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
-                	$('.courtDecision').removeClass('hide');
-                }else{
-                	$('.courtDecision').addClass('hide');
-                }
+//              if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
+//              	$('.courtDecision').removeClass('hide');
+//              }else{
+//              	$('.courtDecision').addClass('hide');
+//              }
                 jh.utils.validator.init({
                     id: 'customer-addTask-form',
                     submitHandler: function(form) {
@@ -329,7 +329,16 @@ define(function(require, exports, module) {
                     }
                 });
             });
-
+            
+//          编辑任务
+            $('.dataShow').off('click', '.customer-edit-detail').on('click', '.customer-edit-detail', function() {
+                var me = $(this);
+                var id = me.data('id');
+                jh.utils.load("/src/modules/task/task-edit", {
+                  id: id
+                });
+            });
+            
         };
     }
     module.exports = TaskList;
