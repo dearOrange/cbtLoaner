@@ -296,6 +296,23 @@
         		<td>{{data.engineId}}</td>
         	</tr>
         </table>
+        <div>
+            <label>诉讼状态：</label>
+            <table>
+              <tr>
+                <th>法院是否已立案：</th>
+                <td>{{if data.isFiling === 1}}是{{else}}否{{/if}}</td>
+                <th>财产是否已保全：</th>
+                <td>{{if data.isPreser === 1}}是{{else}}否{{/if}}</td>
+              </tr>
+              <tr>
+                <th>判决是否已生效：</th>
+                <td>{{if data.isEffect === 1}}是{{else}}否{{/if}}</td>
+                <th>案件是否已执行：</th>
+                <td>{{if data.isExecute === 1}}是{{else}}否{{/if}}</td>
+              </tr>
+            </table>
+        </div>
         <div class="remark">备注信息：{{data.remark}}</div>
         {{if data.attachmentVoList.length!==0 }}
         <div class="imgRecord" style="border:0;">
