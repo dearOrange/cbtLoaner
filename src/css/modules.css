@@ -1002,7 +1002,7 @@ input, select, textarea {
 }
 
 .dataContent {
-
+  padding:20px 0;
     /*overflow: hidden*/
 }
 
