@@ -51,8 +51,7 @@ define(function(require, exports, module) {
           returnData.menuState = jh.utils.menuState;
           //图片预览
           returnData.viewImgRoot = jh.config.viewImgRoot;
-          returnData.data.state = "unconfirmed";
-          returnData.data.entrust = 'trace';
+
           //任务展示
           var alertStr = jh.utils.template('find-detail-template', returnData);
           //确定按钮显示文字
