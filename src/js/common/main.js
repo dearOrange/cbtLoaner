@@ -64,7 +64,7 @@ define(function(require, exports, module) {
                   sessionStorage.setItem('customer-userInfo', JSON.stringify(returnData.data));
                   _this.initUserName();
                   
-                  if(!data.type || !data.linkman || !data.companyName || !data.address || !data.contactPhone) {
+                  if(data.type || !data.linkman || !data.companyName || !data.address || !data.contactPhone) {
                     _this.selectType();
                   }
                 }

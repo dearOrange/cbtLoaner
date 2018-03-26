@@ -406,6 +406,9 @@ a.clearEdit {
 }
 
 /*选择类型*/
+#select_type_form {
+  height: 226px;
+}
 #select_type_form div.select_nav {
   /*padding: 10px 0;*/
   /*border-bottom:1px solid #ccc;*/
@@ -415,7 +418,7 @@ a.clearEdit {
   float:left;
   width:28%;
   margin:0 24px;
-  font-size:26px;
+  font-size:16px;
   cursor: pointer;
 }
 
@@ -423,13 +426,17 @@ a.clearEdit {
   border-bottom:4px solid orange;
   color:orange;
 }
+#select_type_form div.select_content {
+  margin-top:10px;
+}
 #select_type_form div.select_content div {
+  width:252px;
   height:50px;
   border-bottom:1px solid #ccc;
   line-height: 50px;
 }
 #select_type_form div.select_content div label {
-  font-size:16px;
+  font-size:14px;
 }
 #select_type_form div.select_content div input {
   height:30px;
