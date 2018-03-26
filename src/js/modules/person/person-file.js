@@ -16,12 +16,13 @@ define(function(require, exports, module) {
             jh.utils.ajax.send({
                 url: '/user/userInfo',
                 done: function(returnData) {
-                    returnData.menuState = jh.utils.menuState;
-                    returnData.viewImgRoot = jh.config.viewImgRoot;
-                    var getStr = jh.utils.template('task_getAuditInfo_template', returnData);
-                    $('.modelData').html(getStr);
-                    _this.changeImgByUserType(returnData.data.type);
-                    
+                  var dataType = returnData.data.type;
+                  returnData.menuState = jh.utils.menuState;
+                  returnData.viewImgRoot = jh.config.viewImgRoot;
+                  var getStr = jh.utils.template('task_getAuditInfo_template', returnData);
+                  $('.modelData').html(getStr);
+                  _this.changeImgByUserType(returnData.data.type);
+                  
                 }
             });
         };
