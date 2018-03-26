@@ -198,6 +198,43 @@
         </form>
     </div>
 </script>
+
+<script type="text/template" id="select_type_template">
+	<form id="select_type_form">
+	  <div class="select_nav">
+	    <ul class="clearfix">
+	      <li class="select_type_li type_active">个人</li>
+	      <li class="select_type_li">企业</li>
+  	  </ul>
+	  </div>
+	  <div>
+      <div class="select_content">
+        <div>
+          <label for="">姓名：</label>
+          <input name="linkman" type="text" />
+        </div>
+      </div>
+      <div class="select_content hide">
+        <div>
+          <label for="">企业名称：</label>
+          <input name="companyName" type="text" />
+        </div>
+        <div>
+          <label for="">企业地址：</label>
+          <input name="address" type="text" />
+        </div>
+        <div>
+          <label for="">联系人姓名：</label>
+          <input name="linkman" type="text" />
+        </div>
+        <div>
+          <label for="">联系人手机：</label>
+          <input name="contactPhone" type="text" />
+        </div>
+      </div>
+	  </div>
+	</form>
+</script>
 <script type="text/javascript">
 seajs.use('modules/person/person-file', function(PersonFile) {
     var PersonFile = new PersonFile();

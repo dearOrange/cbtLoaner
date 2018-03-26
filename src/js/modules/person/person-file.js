@@ -16,12 +16,17 @@ define(function(require, exports, module) {
             jh.utils.ajax.send({
                 url: '/user/userInfo',
                 done: function(returnData) {
-                    returnData.menuState = jh.utils.menuState;
-                    returnData.viewImgRoot = jh.config.viewImgRoot;
-                    var getStr = jh.utils.template('task_getAuditInfo_template', returnData);
-                    $('.modelData').html(getStr);
-                    _this.changeImgByUserType(returnData.data.type);
-                    
+                  var data = returnData.data;
+                  var dataType = returnData.data.type;
+                  returnData.menuState = jh.utils.menuState;
+                  returnData.viewImgRoot = jh.config.viewImgRoot;
+                  var getStr = jh.utils.template('task_getAuditInfo_template', returnData);
+                  $('.modelData').html(getStr);
+                  _this.changeImgByUserType(returnData.data.type);
+                  
+                  if(!dataType || !data.linkman || !data.companyName || !data.address || !data.contactPhone) {
+                    _this.selectType();
+                  }
                 }
             });
         };
@@ -125,6 +130,42 @@ define(function(require, exports, module) {
                 jh.utils.load("/src/modules/person/person-center");
             });
         };
+        this.selectType = function() {
+          var typeStr = jh.utils.template('select_type_template', {});
+          jh.utils.alert({
+            title: '选择类型',
+            content: typeStr,
+            ok: function(){
+              $('#select_type_form').submit();
+              return false;
+            },
+            okValue: '保存'
+          });
+          $('body').off('click', '.select_type_li').on('click', '.select_type_li', function() {
+            var mine = $(this);
+            _this.index = mine.index();
+            mine.addClass("type_active").siblings().removeClass("type_active");
+            $('.select_content').eq(_this.index).removeClass('hide').siblings().addClass('hide');
+          });
+          
+          jh.utils.validator.init({
+              id: 'select_type_form',
+              submitHandler: function(form) {
+                  var datas = jh.utils.formToJson(form); //表单数据
+                  datas.type = _this.index == 0 ? 'UPSTREAM_PERSONAL' : 'UPSTREAM_ENTERPRISE';
+                  datas.linkman = _this.index == 0 ? datas.linkman[0] : datas.linkman[1];
+                  jh.utils.ajax.send({
+                      url: '/user/basic',
+                      method: 'post',
+                      data: datas,
+                      done: function(returnData) {
+                          
+                      }
+                  });
+                  return false;
+              }
+          });
+        }
     }
     module.exports = PersonFile;
 });

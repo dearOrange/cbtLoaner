@@ -405,6 +405,37 @@ a.clearEdit {
     text-align: left;
 }
 
+/*选择类型*/
+#select_type_form div.select_nav {
+  /*padding: 10px 0;*/
+  /*border-bottom:1px solid #ccc;*/
+  text-align: center;
+}
+#select_type_form div.select_nav ul li {
+  float:left;
+  width:28%;
+  margin:0 24px;
+  font-size:26px;
+  cursor: pointer;
+}
+
+#select_type_form div.select_nav ul li.type_active {
+  border-bottom:4px solid orange;
+  color:orange;
+}
+#select_type_form div.select_content div {
+  height:50px;
+  border-bottom:1px solid #ccc;
+  line-height: 50px;
+}
+#select_type_form div.select_content div label {
+  font-size:16px;
+}
+#select_type_form div.select_content div input {
+  height:30px;
+  border:0;
+}
+
 /*
 查看资讯
  */
