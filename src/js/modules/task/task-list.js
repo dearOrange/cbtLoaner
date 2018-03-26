@@ -118,15 +118,14 @@ define(function(require, exports, module) {
                             $(form).removeClass('disabled');
                             return false;
                         }
-                        
                         if( !datas.attachment){
                             datas.attachment = [];
                         }
 
                         datas.attachment = jh.utils.isArray(datas.attachment) ? datas.attachment : [datas.attachment];
-                        if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
+//                      if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
                             datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
-                        }
+//                      }
                         
                         jh.utils.ajax.send({
                             url: '/task/issueTask',
@@ -138,7 +137,7 @@ define(function(require, exports, module) {
                                     content: '任务发布成功！',
                                     ok: function() {
                                     	jh.utils.closeArt();
-                                        _this.initContent();
+                                      window.location.reload();
                                     },
                                     cancel: false
                                 });
