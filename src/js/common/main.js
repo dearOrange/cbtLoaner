@@ -60,8 +60,13 @@ define(function(require, exports, module) {
             jh.utils.ajax.send({
                 url: '/user/userInfo',
                 done: function(returnData) {
-                    sessionStorage.setItem('customer-userInfo', JSON.stringify(returnData.data));
-                    _this.initUserName();
+                  var data = returnData.data;
+                  sessionStorage.setItem('customer-userInfo', JSON.stringify(returnData.data));
+                  _this.initUserName();
+                  
+                  if(!data.type || !data.linkman || !data.companyName || !data.address || !data.contactPhone) {
+                    _this.selectType();
+                  }
                 }
             });
         };
@@ -95,9 +100,52 @@ define(function(require, exports, module) {
         	jh.utils.ajax.send({
                 url: '/qiniu/getToken',
                 done:function(returnData){
-                    sessionStorage.setItem('customer-uploadToken',returnData.data.uploadToken);
+                  sessionStorage.setItem('customer-uploadToken',returnData.data.uploadToken);
                 }
             });
+        }
+        
+        this.selectType = function() {
+          var typeStr = jh.utils.template('select_type_template', {});
+          jh.utils.alert({
+            title: '选择类型',
+            content: typeStr,
+            ok: function(){
+              $('#select_type_form').submit();
+              return false;
+            },
+            okValue: '保存'
+          });
+          $('body').off('click', '.select_type_li').on('click', '.select_type_li', function() {
+            var mine = $(this);
+            _this.index = mine.index();
+            mine.addClass("type_active").siblings().removeClass("type_active");
+            $('.select_content').eq(_this.index).removeClass('hide').siblings().addClass('hide');
+          });
+          
+          jh.utils.validator.init({
+              id: 'select_type_form',
+              submitHandler: function(form) {
+                  var datas = jh.utils.formToJson(form); //表单数据
+                  datas.type = _this.index == 1 ? 'UPSTREAM_ENTERPRISE' : 'UPSTREAM_PERSONAL';
+                  datas.linkman = _this.index == 1 ? datas.linkman[1] : datas.linkman[0];
+                  
+                  jh.utils.ajax.send({
+                      url: '/user/basic',
+                      method: 'post',
+                      data: datas,
+                      done: function(returnData) {
+                        jh.utils.alert({
+                          content: '填写完成',
+                          ok: function() {
+                            window.location.reload();
+                          }
+                        })
+                      }
+                  });
+                  return false;
+              }
+          });
         }
     }
     module.exports = Main;
