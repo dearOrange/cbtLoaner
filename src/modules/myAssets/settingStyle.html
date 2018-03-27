@@ -1,36 +1,37 @@
 <div class="dataContent">
-    <div class="search-container">
-        <form id="settingStyle-form" style="border-bottom:1px solid #ccc;padding:10px 0;">
-            <table class="common_query textLeft">
-                <tr>
-                    <td colspan="2">
-                      <label>方式一：支付宝</label>
-                      <input type="text" class="search-input isMobile" name="alipay" placeholder="请输入支付宝账号" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                      <label>方式二：银行卡</label>
-                	  <input type="text" class="search-input" name="payeeName" placeholder="请输入收款人姓名" />
-                	  <input type="text" class="search-input cardNumType" name="bankCard" placeholder="请输入银行卡号" />
-                	  <input type="text" class="search-input" name="bankName" placeholder="请输入开户支行" />
-                    </td>
-                    <td>
-                      <input type="submit" value="保存" class="button search-button">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <div class="data-container" style="margin: 10px;">
-        <p>温馨提示：</p>
-        <p>1、申请提现后将在48小时内打款至指定账户；</p>
-        <p>2、请务必保证支付宝账号或银行卡与本APP认证人的一致性，否则后果由申请人自行承担损失。</p>
-    </div>
+  <div class="search-container">
+    <form id="settingStyle-form" style="border-bottom:1px solid #ccc;padding:10px 0;">
+      <table class="common_query textLeft">
+        <tr>
+          <td colspan="2">
+            <label>方式一：支付宝</label>
+            <input type="text" class="search-input isMobile" name="alipay" placeholder="请输入支付宝账号" />
+            <input type="text" class="search-input" name="alipayName" placeholder="请输入对应支付宝账号的姓名" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>方式二：银行卡</label>
+            <input type="text" class="search-input" name="payeeName" placeholder="请输入收款人姓名" />
+            <input type="text" class="search-input cardNumType" name="bankCard" placeholder="请输入银行卡号" />
+            <input type="text" class="search-input" name="bankName" placeholder="请输入开户支行" />
+          </td>
+          <td>
+            <input type="submit" value="保存" class="button search-button">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="data-container" style="margin: 10px;">
+    <p>温馨提示：</p>
+    <p>1、申请提现后将在48小时内打款至指定账户；</p>
+    <p>2、请务必保证支付宝账号或银行卡与本APP认证人的一致性，否则后果由申请人自行承担损失。</p>
+  </div>
 </div>
 <script type="text/javascript">
-seajs.use('modules/myAssets/settingStyle', function(SettingStyle) {
+  seajs.use('modules/myAssets/settingStyle', function(SettingStyle) {
     var SettingStyle = new SettingStyle();
     SettingStyle.init();
-});
+  });
 </script>
