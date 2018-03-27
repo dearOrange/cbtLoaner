@@ -18,9 +18,6 @@ define(function(require, exports, module) {
             $('select').select2({
                 minimumResultsForSearch: Infinity
             });
-//          var searchValue = ["undistributed", "unarrange", "tracing", "clueChecking", "unvaluation", "new"];
-//          searchValue = searchValue.join(",");
-//          $('.valueArr').val(searchValue);
         };
         this.initContent = function(isSearch) {
             var datas = jh.utils.formToJson(_this.form);
@@ -90,11 +87,6 @@ define(function(require, exports, module) {
                     okValue: '确定发布',
                     cancel: true
                 });
-//              if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
-//              	$('.courtDecision').removeClass('hide');
-//              }else{
-//              	$('.courtDecision').addClass('hide');
-//              }
                 jh.utils.validator.init({
                     id: 'customer-addTask-form',
                     submitHandler: function(form) {
@@ -110,23 +102,14 @@ define(function(require, exports, module) {
                         delete datas.carNumber_province;
                         delete datas.add_carNumber;
 
-                        //如果是个人则必须上传法院判决书
-                        if( _this.userInfo.type === 'UPSTREAM_PERSONAL' && !datas.courtDecision ){
-                            jh.utils.confirm({
-                                content: '请上传法院判决书',
-                            });
-                            $(form).removeClass('disabled');
-                            return false;
-                        }
                         if( !datas.attachment){
                             datas.attachment = [];
                         }
-
+                        if( !datas.courtDecision){
+                            datas.courtDecision = [];
+                        }
                         datas.attachment = jh.utils.isArray(datas.attachment) ? datas.attachment : [datas.attachment];
-//                      if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
-                            datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
-//                      }
-                        
+                        datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
                         jh.utils.ajax.send({
                             url: '/task/issueTask',
                             method: 'post',
