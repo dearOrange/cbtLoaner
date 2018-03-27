@@ -111,22 +111,23 @@ define(function(require, exports, module) {
                         delete datas.add_carNumber;
 
                         //如果是个人则必须上传法院判决书
-                        if( _this.userInfo.type === 'UPSTREAM_PERSONAL' && !datas.courtDecision ){
-                            jh.utils.confirm({
-                                content: '请上传法院判决书',
-                            });
-                            $(form).removeClass('disabled');
-                            return false;
-                        }
+//                      if( _this.userInfo.type === 'UPSTREAM_PERSONAL' && !datas.courtDecision ){
+//                          jh.utils.confirm({
+//                              content: '请上传法院判决书',
+//                          });
+//                          $(form).removeClass('disabled');
+//                          return false;
+//                      }
                         if( !datas.attachment){
                             datas.attachment = [];
                         }
-
+                        if( !datas.courtDecision){
+                            datas.courtDecision = [];
+                        }
                         datas.attachment = jh.utils.isArray(datas.attachment) ? datas.attachment : [datas.attachment];
 //                      if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
-                            datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
+                        datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
 //                      }
-                        
                         jh.utils.ajax.send({
                             url: '/task/issueTask',
                             method: 'post',
