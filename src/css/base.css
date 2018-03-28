@@ -493,7 +493,6 @@ input.button.bigButton {
 	height: 32px;
 	background: url(../img/menuicon/person.png) no-repeat center;
 	background-size: cover;
-	margin-left: 6px;
 }
 
 .icon.icon-supplier {
@@ -1112,10 +1111,6 @@ input.button.bigButton {
 	line-height: 52px;
 	font-size: 16px;
 	color: #F0F0F0;
-}
-
-.sidebar-menu li:last-child>a {
-	padding: 0px 47px;
 }
 
 .sidebar-menu li>a:hover {
