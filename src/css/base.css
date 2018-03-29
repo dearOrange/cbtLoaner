@@ -335,6 +335,10 @@ label.error {
 	display: block;
 }
 
+span.error {
+	color: red;
+}
+
 /**
  * 导入、导出按钮
  */
