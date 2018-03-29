@@ -87,7 +87,7 @@
 </script>
 
 <script type="text/template" id="select_type_template">
-  <form id="select_type_form">
+  <div id="select_type_form">
     <div class="select_nav">
       <ul class="clearfix">
         <li class="select_type_li type_active">个人</li>
@@ -95,32 +95,36 @@
       </ul>
     </div>
     <div>
-      <div class="select_content">
-        <div>
-          <label for="">姓&nbsp;&nbsp;&nbsp;名：</label>
-          <input name="linkman" type="text" />
+      <form id="personal_form" class="change_select_form">
+        <div class="select_content">
+          <div>
+            <label for="">姓&nbsp;&nbsp;&nbsp;名：</label>
+            <input name="linkman" class="required" type="text" />
+          </div>
         </div>
-      </div>
-      <div class="select_content hide">
-        <div>
-          <label for="">企业名称：</label>
-          <input name="companyName" type="text" />
+      </form>
+      <form id="enterprise_form" class="change_select_form hide">
+        <div class="select_content">
+          <div>
+            <label for="">企业名称：</label>
+            <input name="companyName" class="required" type="text" />
+          </div>
+          <div>
+            <label for="">企业地址：</label>
+            <input name="address" class="required" type="text" />
+          </div>
+          <div>
+            <label for="">联系人姓名：</label>
+            <input name="linkman" class="required" type="text" />
+          </div>
+          <div>
+            <label for="">联系人手机：</label>
+            <input name="contactPhone" class="isMobile required" type="text" />
+          </div>
         </div>
-        <div>
-          <label for="">企业地址：</label>
-          <input name="address" type="text" />
-        </div>
-        <div>
-          <label for="">联系人姓名：</label>
-          <input name="linkman" type="text" />
-        </div>
-        <div>
-          <label for="">联系人手机：</label>
-          <input name="contactPhone" class="isMobile" type="text" />
-        </div>
-      </div>
+      </form>
     </div>
-  </form>
+  </div>
 </script>
 <script type="text/javascript" src="../../js/lib/seajs/3.0.1/sea.js?version=20170721"></script>
 <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=4710f3db882029c3838ac9eaf1ecda5c"></script> 
