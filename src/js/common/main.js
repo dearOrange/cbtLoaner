@@ -150,8 +150,7 @@ define(function(require, exports, module) {
                 jh.utils.alert({
                   content: '填写完成',
                   ok: function() {
-                    return false;
-                      window.location.reload();
+                    window.location.reload();
                   }
                 })
               }
