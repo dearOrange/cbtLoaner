@@ -1274,9 +1274,9 @@ define(function(require, exports, module) {
     })();
 
     (function() {
-        function validateImg() {
+        function validateImg(form) {
             var imgStatus = true;
-            var uploaderRequired = $('.uploaderRequired');
+            var uploaderRequired = form.find('.uploaderRequired');
             for (var i = 0; i < uploaderRequired.length; i++) {
                 var item = uploaderRequired.eq(i);
                 var uploader = item.siblings('.webuploader-container');
@@ -1294,9 +1294,9 @@ define(function(require, exports, module) {
         tammy.utils.validateImg = validateImg;
     })();
     (function() {
-        function validateUeditor() {
+        function validateUeditor(form) {
             var ueStatus = true;
-            var ueRequired = $('.ueRequired');
+            var ueRequired = form.find('.ueRequired');
             if (ueRequired.length == 0) {
                 return true;
             }
@@ -1369,8 +1369,8 @@ define(function(require, exports, module) {
                 },
                 submitHandler: function(form) {
                     form = $(form);
-                    var imgStatus = tammy.utils.validateImg();
-                    var ueStatus = tammy.utils.validateUeditor();
+                    var imgStatus = tammy.utils.validateImg(form);
+                    var ueStatus = tammy.utils.validateUeditor(form);
                     if (!imgStatus || !ueStatus) {
                         return false;
                     }
