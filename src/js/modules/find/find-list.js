@@ -74,7 +74,7 @@ define(function(require, exports, module) {
             ok: function() {
               if (auth === 'available') {
                 //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                if ( (_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') || _this.data.state === "hunterUnreceive" || _this.data.state === "upstreamReceive") {
+                if ((_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') || _this.data.state === "hunterUnreceive" || _this.data.state === "upstreamReceive") {
                   _this.uploadVouch(_this.data);
                   return false;
                 } else if (_this.data.state === 'platReceive' || _this.data.state === "hunterReceive" || (_this.data.state === 'unconfirmed' && _this.data.entrust === 'trace')) {
@@ -227,21 +227,29 @@ define(function(require, exports, module) {
     //确认收车
     this.confirmeReceive = function(taskId) {
       //如果平台收到车了，则进行债权方确认收车操作
-      jh.utils.ajax.send({
-        url: '/task/confirmeReceive',
-        data: {
-          taskId: taskId
-        },
-        done: function(urlData) {
-          jh.utils.closeArt();
-          (new jh.ui.shadow()).close();
-          jh.utils.alert({
-            content: '恭喜收到爱车！',
-            ok: function() {
-              window.location.reload();
+      jh.utils.alert({
+        content: '您确定已收到车了吗？',
+        ok: function() {
+          jh.utils.ajax.send({
+            url: '/task/confirmeReceive',
+            data: {
+              taskId: taskId
             },
-            cancel: false
+            done: function(urlData) {
+              jh.utils.closeArt();
+              (new jh.ui.shadow()).close();
+              jh.utils.alert({
+                content: '恭喜收到爱车！',
+                ok: function() {
+                  window.location.reload();
+                },
+                cancel: false
+              });
+            }
           });
+        },
+        cancel: function(){
+          (new jh.ui.shadow()).close();
         }
       });
     };
