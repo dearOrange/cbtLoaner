@@ -236,6 +236,16 @@
                 </div>
                 {{/if}}
 	        </div>
+	        {{if data.state === 'unconfirmed'}}
+	        <p>
+	          <span>最终处置费：{{data.finalPrice}}</span>
+	          <span>其中受托人费用：{{data.baileePrice}}</span>
+	          <span>资产查找费：{{data.assetPrice}}</span>
+	          {{if data.entrust === 'all' || data.entrust === 'recycle'}}
+	          <span>第三方处置清收费：{{data.thirdpartyPrice}}</span>
+	          {{/if}}
+	        </p>
+	        {{/if}}
 	        {{if data.state === "hunterReceive"}}
 	        <input class="button search-button upload-voList" value="保存" />
 	        {{/if}}
