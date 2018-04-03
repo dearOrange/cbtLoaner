@@ -52,7 +52,7 @@ define(function(require, exports, module) {
                           var str = '<option value="" data-id="">请选择品牌</option>';
                           $.each(result.data, function(index, item) {
                             var selectStr = _this.selectData.carBrand === item.name ? 'selected' : '';
-                            str += '<option value="' + item.name + '" ' + selectStr + ' data-id="' + item.id + '">' + item.name + '</option>';
+                            str += '<option value="' + item.name + '" ' + selectStr + ' data-id="' + item.id + '">' + item.sort + "&nbsp;&nbsp;&nbsp;" + item.name + '</option>';
                           });
                           $('#customer-editTask-carBrand').html(str);
                           $('#customer-editTask-carBrand').trigger('change');
