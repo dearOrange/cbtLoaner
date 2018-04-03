@@ -1,30 +1,31 @@
 <div class="dataContent">
-    <div class="search-container">
-        <form id="getMoney-form" style="border-bottom:1px solid #ccc;padding:10px 0;">
-            <table class="common_query textLeft">
-                <tr>
-                    <td>
-                      <label>提现金额（元）：</label>
-                      <input type="text" name="figure" class="search-input isMoney required" placeholder="输入金额" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="submit" value="提现" class="button search-button">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <div class="data-container" style="margin: 10px;">
-        <p>温馨提示：</p>
-        <p>1、打款优先通过支付宝；</p>
-        <p>2、如果没有支付宝，则通过银行卡。</p>
-    </div>
+  <div class="search-container">
+    <a href="javascript:;" class="button gobackPage goBack" style="margin-left:10px;">返回</a>
+    <form id="getMoney-form" style="border-bottom:1px solid #ccc;padding:10px 0;">
+      <table class="common_query textLeft">
+        <tr>
+          <td>
+            <label>提现金额（元）：</label>
+            <input type="text" name="figure" class="search-input isMoney required" placeholder="输入金额" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="submit" value="提现" class="button search-button">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="data-container" style="margin: 10px;">
+    <p>温馨提示：</p>
+    <p>1、打款优先通过支付宝；</p>
+    <p>2、如果没有支付宝，则通过银行卡。</p>
+  </div>
 </div>
 <script type="text/javascript">
-seajs.use('modules/myAssets/getMoney', function(GetMoney) {
+  seajs.use('modules/myAssets/getMoney', function(GetMoney) {
     var GetMoney = new GetMoney();
     GetMoney.init();
-});
+  });
 </script>

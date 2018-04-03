@@ -1568,6 +1568,15 @@ define(function(require, exports, module) {
                 case "UPSTREAM_PERSONAL":
                     state = "个人";
                     break;
+                case "rejected":
+                    state = "提现被拒";
+                    break;
+                case "completed":
+                    state = "已打款";
+                    break;
+                case "withdrawing":
+                    state = "申请中";
+                    break;
             }
             return state;
         }
