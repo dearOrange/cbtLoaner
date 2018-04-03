@@ -12,7 +12,6 @@ define(function(require, exports, module) {
     _this.templateName = 'myAssets-contentTemplate';
     _this.form = $('#personalAssets-form');
     var usernameObj = JSON.parse(sessionStorage.getItem('customer-userInfo'));
-    console.log(usernameObj)
     this.init = function() {
       this.initMoney();
       this.initContent();
