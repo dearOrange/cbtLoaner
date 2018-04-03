@@ -44,6 +44,7 @@
                 </tr>
                 <tr class="hide">
                     <th width="5%">序号</th>
+                    <th width="10%">状态</th>
                     <th width="10%">放款类型</th>
                     <th width="8%">提现金额（元）</th>
                     <th width="8%">时间</th>
@@ -71,6 +72,9 @@
     {{ each list item index }}
     <tr class="trData">
         <td>{{index + 1}}</td>
+        <td>
+          {{menuState(item.state)}}
+        </td>
         <td>{{if item.payWay === 1}}支付宝{{/if}}
             {{if item.payWay === 2}}微信{{/if}}
             {{if item.payWay === 3}}银行卡{{/if}}
