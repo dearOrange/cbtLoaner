@@ -11,7 +11,8 @@ define(function(require, exports, module) {
     _this.url = '/user/incomeRecord';
     _this.templateName = 'myAssets-contentTemplate';
     _this.form = $('#personalAssets-form');
-    
+    var usernameObj = JSON.parse(sessionStorage.getItem('customer-userInfo'));
+    console.log(usernameObj)
     this.init = function() {
       this.initMoney();
       this.initContent();
@@ -33,12 +34,17 @@ define(function(require, exports, module) {
       page.init();
     };
     this.initMoney = function() {
-        jh.utils.ajax.send({
-            url: '/user/balance',
-            done: function(returnData) {
-                $('#totalMoney').html(returnData.data.fund);
-            }
-        });
+      if(usernameObj.type === 'UPSTREAM_ENTERPRISE') {
+        $('.assetsName').text(usernameObj.companyName);
+      }else {
+        $('.assetsName').text(usernameObj.username);
+      }
+      jh.utils.ajax.send({
+          url: '/user/balance',
+          done: function(returnData) {
+              $('#totalMoney').html(returnData.data.fund);
+          }
+      });
     };
     this.registerEvent = function() {
         //切换状态
