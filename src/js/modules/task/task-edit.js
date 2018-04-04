@@ -146,7 +146,7 @@ define(function(require, exports, module) {
 
                   datas.attachment = jh.utils.isArray(datas.attachment) ? datas.attachment : [datas.attachment];
                   datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
-                  
+                  datas.taskId = args.id;
                   jh.utils.ajax.send({
                       url: '/task/edit',
                       method: 'post',
