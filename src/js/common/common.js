@@ -1494,7 +1494,7 @@ define(function(require, exports, module) {
         var menuState = function(state) {
             switch (state) {
                 case "new":
-                    state = "待审核";
+                    state = "查找中";
                     break;
                 case "invalid":
                     state = "审核未通过";

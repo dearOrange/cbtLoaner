@@ -1545,3 +1545,6 @@ span.operatorTaskOpen, span.operatorTaskClose {
 #personalAssets-form{
     /*border-bottom: 2px solid #ccc;*/
 }
+.fee_span span {
+  margin:20px;
+}

@@ -86,9 +86,17 @@ define(function(require, exports, module) {
                   return true;
                 }
               } else {
+                
                 var authArr = ['unconfirmed', 'upstreamReceive'];
                 if (authArr.indexOf(returnData.data.state) !== -1 && _this.data.contractState === 0) {
-                  jh.utils.load('/src/modules/person/person-center');
+                  jh.utils.alert({
+                    content: '您还未认证，即将跳转到补全资料页面',
+                    ok: function() {
+                      jh.utils.load('/src/modules/person/person-center');
+                    },
+                    cancel: true
+                  })
+                  return false;
                 } else if (_this.data.state === "hunterUnreceive") {
                   _this.uploadVouch(_this.data);
                 }
