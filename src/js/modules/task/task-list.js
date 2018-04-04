@@ -226,15 +226,7 @@ define(function(require, exports, module) {
           }
         });
       });
-      $('body').off('change', '#taskTypeFlag').on('change', '#taskTypeFlag', function() {
-        var me = $(this);
-        var val = me.val();
-        if (val === 'recycle') {
-          $('#dwLocation').removeClass('hide').prev().removeClass('hide');
-        } else {
-          $('#dwLocation').addClass('hide').prev().addClass('hide');
-        }
-      });
+      
       $('body').off('click', '.operatorTaskClose').on('click', '.operatorTaskClose', function() {
         var me = $(this);
         var id = me.data('id');
