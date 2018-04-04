@@ -65,7 +65,7 @@ define(function(require, exports, module) {
           });
           
           //品牌更改 初始化车系
-          $('body').off('change', '#customer-editTask-carBrand').on('change', '#customer-editTask-carBrand', function() {
+          $('body').off('change', '#customer-editTask-carBrand').on('change', '#customer-editTask-carBrand', function(event, type) {
               var me = $(this);
               var id = me.find('option:selected').data('id');
               jh.utils.ajax.send({
