@@ -28,7 +28,7 @@ define(function(require, exports, module) {
                   returnData.menuState = jh.utils.menuState;
                   returnData.viewImgRoot = jh.config.viewImgRoot;
                   var str = jh.utils.template('customer-editTask-template', returnData);
-                  $('.taskEditContent').html(str);
+                  $('#customer-editTask-form').html(str);
                   
                   //初始化新增任务时上传附件按钮
                   jh.utils.uploader.init({
@@ -122,15 +122,7 @@ define(function(require, exports, module) {
               $('#carModelIds').val(id);
           });
           
-          $('body').off('change', '#taskTypeFlags').on('change', '#taskTypeFlags', function() {
-              var me = $(this);
-              var val = me.val();
-              if(val === 'recycle'){
-                  $('#dwLocations').removeClass('hide').prev().removeClass('hide');
-              }else{
-                   $('#dwLocations').addClass('hide').prev().addClass('hide');
-              }
-          });
+          
           
           jh.utils.validator.init({
               id: 'customer-editTask-form',
