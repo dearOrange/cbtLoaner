@@ -76,7 +76,6 @@ define(function(require, exports, module) {
                 (new jh.ui.shadow()).init();
                 //如果平台已收车，则债权方进行确认收车
                 _this.confirmeReceive(taskId);
-                return false;
               } 
               if (auth === 'available') {
                 //如果是待债权方确认状态则进行上传凭证与进行电子签章
