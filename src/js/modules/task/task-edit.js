@@ -95,7 +95,7 @@ define(function(require, exports, module) {
               $('#carBrandIds').val(id);
           });
           //车系更改 初始化车型
-          $('body').off('change', '#customer-editTask-carSeries').on('change', '#customer-editTask-carSeries', function() {
+          $('body').off('change', '#customer-editTask-carSeries').on('change', '#customer-editTask-carSeries', function(event, type) {
               var me = $(this);
               var id = me.find('option:selected').data('id');
               jh.utils.ajax.send({
