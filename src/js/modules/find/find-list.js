@@ -72,6 +72,7 @@ define(function(require, exports, module) {
             content: alertStr,
             okValue: okStr,
             ok: function() {
+              debugger
               if (auth === 'available') {
                 //如果是待债权方确认状态则进行上传凭证与进行电子签章
                 if ((_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') || _this.data.state === "hunterUnreceive" || _this.data.state === "upstreamReceive") {
