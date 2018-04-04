@@ -55,7 +55,9 @@ define(function(require, exports, module) {
                             str += '<option value="' + item.name + '" ' + selectStr + ' data-id="' + item.id + '">' + item.sort + "&nbsp;&nbsp;&nbsp;" + item.name + '</option>';
                           });
                           $('#customer-editTask-carBrand').html(str);
-                          $('#customer-editTask-carBrand').trigger('change');
+                          if(_this.selectData.carBrand !== '未知') {
+                            $('#customer-editTask-carBrand').trigger('change', 'autoClick');
+                          }
                       }
                   });
 
@@ -75,10 +77,19 @@ define(function(require, exports, module) {
                       var str = '<option value="" data-id="">请选择车系</option>';
                       $.each(result.data, function(index, item) {
                         var selectCarSeries = _this.selectData.carSeries === item.name ? 'selected' : '';
-                          str += '<option value="' + item.name + '" ' + selectCarSeries + ' data-id="' + item.id + '">' + item.name + '</option>';
+                        if(type === 'autoClick') {
+                          selectCarSeries = _this.selectData.carSeries === item.name ? 'selected' : '';
+                        }else {
+                          selectCarSeries = '';
+                        }
+                        str += '<option value="' + item.name + '" ' + selectCarSeries + ' data-id="' + item.id + '">' + item.name + '</option>';
                       });
                       $('#customer-editTask-carSeries').html(str);
-                      $('#customer-editTask-carSeries').trigger('change');
+                      if(_this.selectData.carSeries !== '未知' && type === 'autoClick') {
+                        $('#customer-editTask-carSeries').trigger('change');
+                      } else {
+                        $('#customer-editTask-carModel').html('<option value="" data-id="">请选择车型</option>');
+                      }
                   }
               });
               $('#carBrandIds').val(id);
