@@ -96,7 +96,6 @@ define(function(require, exports, module) {
                     },
                     cancel: true
                   })
-                  return false;
                 } else if (_this.data.state === "hunterUnreceive") {
                   _this.uploadVouch(_this.data);
                 }
