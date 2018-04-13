@@ -79,6 +79,7 @@ define(function(require, exports, module) {
         var me = $(this);
         var alertInfo = jh.utils.template('customer-addTask-template', {});
         jh.utils.alert({
+          title: '新建任务',
           content: alertInfo,
           ok: function() {
             $('#customer-addTask-form').submit();

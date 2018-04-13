@@ -52,6 +52,7 @@ define(function(require, exports, module) {
                 var me = $(this);
                 var alertInfo = jh.utils.template('customer-addTask-template', {});
                 jh.utils.alert({
+                    title:'新建任务',
                     content: alertInfo,
                     ok: function() {
                         $('#customer-addTask-form').submit();
@@ -142,7 +143,7 @@ define(function(require, exports, module) {
                     done: function(result) {
                         var str = '<option value="" data-id="">请选择品牌</option>';
                         $.each(result.data, function(index, item) {
-                            str += '<option value="' + item.name + '" data-id="' + item.id + '">' + item.name + '</option>';
+                            str += '<option value="' + item.name + '" data-id="' + item.id + '">' + item.sort + "&nbsp;&nbsp;&nbsp;" + item.name + '</option>';
                         });
                         $('#customer-addTask-carBrand').html(str);
                     }
