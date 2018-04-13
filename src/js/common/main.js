@@ -115,7 +115,8 @@ define(function(require, exports, module) {
               $('#' + formId).submit();
               return false;
             },
-            okValue: '保存'
+            okValue: '保存',
+            cancel: false
           });
           $('body').off('click', '.select_type_li').on('click', '.select_type_li', function() {
             var mine = $(this);
