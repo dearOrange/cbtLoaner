@@ -41,10 +41,19 @@ define(function(require, exports, module) {
                 jh.utils.alert({
                     content: alertStr,
                     ok: function() {
+                        var repnewpwd = $.trim($('.find-repnewpwd').val());
+                        var newpwd = $.trim($('.find-newpwd').val());
                         var datachange = {
                             mobile: $.trim($('.bangPhone').html()),
                             code: $.trim($('.find-checkcode').val()),
                             password: $.trim($('.find-newpwd').val())
+                        };
+                        if(repnewpwd != newpwd) {
+                          jh.utils.alert({
+                            content: '两次密码不一致，请保持一致',
+                            ok: true
+                          })
+                          return false;
                         };
                         jh.utils.ajax.send({
                             url: '/user/updatePassword',
