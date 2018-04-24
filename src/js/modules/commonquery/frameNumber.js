@@ -9,6 +9,9 @@ define(function(require, exports, module) {
   function FrameNumber() {
     this.init = function() {
       this.registerEvent();
+      setTimeout(function() {
+        jh.utils.changeText($('#breadCrumb'), '>车辆查询>车架号查询');
+      }, 0)
     };
     this.registerEvent = function() {
       //查询

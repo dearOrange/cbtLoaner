@@ -10,6 +10,9 @@ define(function(require, exports, module) {
       var _this = this;
     this.init = function() {
       this.registerEvent();
+      setTimeout(function() {
+        jh.utils.changeText($('#breadCrumb'), '>车辆查询>失信人名单查询');
+      }, 0)
     };
     this.registerEvent = function() {
       //查询

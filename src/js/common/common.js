@@ -665,6 +665,13 @@ define(function(require, exports, module) {
         };
         tammy.utils.showHTML = showHTML;
     })();
+    
+    (function() {
+      var breadCrumb = function(obj, str) {
+        obj.text(str)
+      }
+      tammy.utils.changeText = breadCrumb;
+    })();
 
     /**
      * 加载页面
@@ -1576,6 +1583,12 @@ define(function(require, exports, module) {
                     break;
                 case "withdrawing":
                     state = "申请中";
+                    break;
+                case "referrerloaner":
+                    state = "推荐债权方任务奖励金";
+                    break;
+                case "loanerclean":
+                    state = "推荐债权方清收奖励金";
                     break;
             }
             return state;

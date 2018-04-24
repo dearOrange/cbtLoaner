@@ -189,14 +189,14 @@ define(function(require, exports, module) {
             });
             return false;
           }
-          if (returnDetail.contractState === 0 && _this.data.state === "unconfirmed") {
-            //保存成功后调用电子签章
-            _this.requestContractUrl(datas.taskId);
-          } else {
+//        if (returnDetail.contractState === 0 && _this.data.state === "unconfirmed") {
+//          //保存成功后调用电子签章
+//          _this.requestContractUrl(datas.taskId);
+//        } else {
             (new jh.ui.shadow()).close();
             jh.utils.closeArt();
             _this.initContent();
-          }
+//        }
         }
       });
     };

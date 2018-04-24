@@ -12,6 +12,9 @@ define(function(require, exports, module) {
         $('select').select2({
             minimumResultsForSearch: Infinity
         });
+        setTimeout(function() {
+          jh.utils.changeText($('#breadCrumb'), '>车辆查询>行业黑名单查询');
+        }, 0)
     };
     this.registerEvent = function() {
       //查询

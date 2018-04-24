@@ -66,7 +66,7 @@
 
 <script type="text/template" id="search_violation_template">
   <div>
-      {{if data.isResult === 0}}
+      {{if data.isResult == 0}}
       <span>查询结果：未查到</span>
       {{else}}
       <span>查询结果：<i style="color: orange;">{{carNumber}}</i>,</span><span>已罚款（元）：<i style="color: orange;">{{money}}</i>，</span><span>已扣分：<i style="color: orange;">{{fen}}分</i></span>

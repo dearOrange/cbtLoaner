@@ -19,6 +19,9 @@ define(function(require, exports, module) {
             } else {
                 $(".personRemove").addClass("hide");
             }
+            setTimeout(function() {
+              jh.utils.changeText($('#breadCrumb'), '>个人中心>编辑资料');
+            }, 0)
         };
         this.initContent = function() {
             jh.utils.ajax.send({
@@ -194,7 +197,7 @@ define(function(require, exports, module) {
                             jh.utils.alert({
                                 content: "提交成功，请等待审核！",
                                 ok: function() {
-                                    $('#leftMenu-box').addClass('hide');
+//                                  $('#leftMenu-box').addClass('hide');
                                     jh.utils.load('/src/modules/person/person-file');
                                     $('#userIsPassState').addClass('icon-nopass');
                                     $('#imgState').text("审核中");

@@ -11,6 +11,9 @@ define(function(require, exports, module) {
     _this.form = $('#settingStyle-form');
     this.init = function() {
       this.registerEvent();
+      setTimeout(function() {
+        jh.utils.changeText($('#breadCrumb'), '>个人资产>设置提现方式');
+      }, 0)
     };
 
     this.registerEvent = function() {

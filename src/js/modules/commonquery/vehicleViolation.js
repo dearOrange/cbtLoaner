@@ -13,6 +13,9 @@ define(function(require, exports, module) {
         });
         this.init = function() {
             this.registerEvent();
+            setTimeout(function() {
+              jh.utils.changeText($('#breadCrumb'), '>车辆查询>车辆违章查询');
+            }, 0)
         };
         this.registerEvent = function() {
             jh.utils.validator.init({

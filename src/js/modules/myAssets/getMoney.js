@@ -12,6 +12,9 @@ define(function(require, exports, module) {
     
     this.init = function() {
       this.registerEvent();
+      setTimeout(function() {
+        jh.utils.changeText($('#breadCrumb'), '>个人资产>提现');
+      }, 0)
     };
 
     this.registerEvent = function() {
