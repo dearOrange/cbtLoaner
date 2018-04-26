@@ -58,11 +58,11 @@ define(function(require, exports, module) {
           var okStr = (returnData.data.state === 'platReceive' || returnData.data.state === 'hunterReceive') ? '收到车了' : '确定';
           _this.data = returnData.data;
 
-          okStr = returnData.data.state === 'unconfirmed' ? '电子签章' : okStr;
+//        okStr = returnData.data.state === 'unconfirmed' ? '电子签章' : okStr;
 
-          if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
-            okStr = '电子签章';
-          }
+//        if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
+//          okStr = '电子签章';
+//        }
 
           if (_this.data.state === "unconfirmed" && _this.data.entrust === 'trace') {
             okStr = '收到车了';
@@ -136,10 +136,10 @@ define(function(require, exports, module) {
 
     //上传凭证
     this.uploadVouch = function(returnDetail, skip) {
-      if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
-        _this.requestContractUrl(_this.data.taskId);
-        return false;
-      }
+//    if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
+//      _this.requestContractUrl(_this.data.taskId);
+//      return false;
+//    }
       var datas = jh.utils.formToJson($('#custmoer-upload-form'));
       datas.type = returnDetail.state === 'unconfirmed' ? 0 : 1;
       //判断有无上传凭证
@@ -202,34 +202,34 @@ define(function(require, exports, module) {
     };
 
     //电子签章
-    this.requestContractUrl = function(taskId) {
-      jh.utils.ajax.send({
-        url: '/tasksign/getContractUrl',
-        data: {
-          taskId: taskId
-        },
-        done: function(returnData) {
-          var width = $(window).width() * 0.95;
-          var height = $(window).height() * 0.9;
-          (new jh.ui.shadow()).close();
-          //调用第三方电子签章
-          dialog({
-            url: returnData.data.signUrl,
-            id: 'iframe-dialog',
-            width: width,
-            height: height,
-            cancel: function() {
-              window.location.reload();
-            },
-            cancelValue: '关闭',
-            fixed: true,
-            onclose: function() {
-              window.location.reload();
-            }
-          }).showModal();
-        }
-      });
-    };
+//  this.requestContractUrl = function(taskId) {
+//    jh.utils.ajax.send({
+//      url: '/tasksign/getContractUrl',
+//      data: {
+//        taskId: taskId
+//      },
+//      done: function(returnData) {
+//        var width = $(window).width() * 0.95;
+//        var height = $(window).height() * 0.9;
+//        (new jh.ui.shadow()).close();
+//        //调用第三方电子签章
+//        dialog({
+//          url: returnData.data.signUrl,
+//          id: 'iframe-dialog',
+//          width: width,
+//          height: height,
+//          cancel: function() {
+//            window.location.reload();
+//          },
+//          cancelValue: '关闭',
+//          fixed: true,
+//          onclose: function() {
+//            window.location.reload();
+//          }
+//        }).showModal();
+//      }
+//    });
+//  };
 
     //确认收车
     this.confirmeReceive = function(taskId) {
