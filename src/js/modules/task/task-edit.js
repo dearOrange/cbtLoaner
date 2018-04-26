@@ -143,7 +143,18 @@ define(function(require, exports, module) {
                   if( !datas.attachment){
                       datas.attachment = [];
                   }
-
+                  if(datas.debtorIdNumber) {
+                    var regex1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+                    var regex2 = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/;
+                    datas.debtorIdNumber = datas.debtorIdNumber.replace(/\s/g, '');
+                    if(!(regex1.test(datas.debtorIdNumber)) || !(regex2.test(datas.debtorIdNumber))){
+                      jh.utils.alert({
+                        content:'请输入正确的身份证号',
+                        ok:true
+                      })
+                      return false;
+                    }
+                  }
                   datas.attachment = jh.utils.isArray(datas.attachment) ? datas.attachment : [datas.attachment];
                   datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
                   datas.taskId = args.id;

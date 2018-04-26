@@ -169,7 +169,8 @@ define(function(require, exports, module) {
                         },
                         done: function(returnData) {
                             jh.utils.alert({
-                                content: '验证码发送成功'
+                                content: '验证码发送成功',
+                                ok:true
                             });
                             var temp = new jh.utils.smsCountDown();
                             temp.init(id, 'click');

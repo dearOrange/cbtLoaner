@@ -24,14 +24,26 @@ define(function(require, exports, module) {
                 id: 'form_register',
                 submitHandler: function(form) {
                     var datas = jh.utils.formToJson(form); //表单数据
+                    if(datas.password != datas.confirm){
+                      jh.utils.alert({
+                        content: '两次密码不一致，请保持一致！',
+                        ok: true
+                      })
+                      return false;
+                    }
                     jh.utils.ajax.send({
                         url: '/user/register',
                         method: 'post',
                         data: datas,
                         done: function(returnData) {
-                            $('.registerForm').css('display', 'none');
-                            $('.registers-form').css('display', 'block');
-                            window.location.href = window.location.protocol + '//' + window.location.host;
+                          jh.utils.alert({
+                            content: '注册成功',
+                            ok:function(){
+                              $('.registerForm').css('display', 'none');
+                              $('.registers-form').css('display', 'block');
+                              window.location.href = window.location.protocol + '//' + window.location.host;
+                            }
+                          })
                         }
                     });
                     return false;
@@ -50,7 +62,8 @@ define(function(require, exports, module) {
                         },
                         done: function(returnData) {
                             jh.utils.alert({
-                                content: '验证码发送成功'
+                                content: '验证码发送成功',
+                                ok:true
                             });
                             var temp = new jh.utils.smsCountDown();
                             temp.init(id, 'click');

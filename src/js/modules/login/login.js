@@ -59,6 +59,13 @@ define(function(require, exports, module) {
                 id: 'form_forget',
                 submitHandler: function(form) {
                     var datas = jh.utils.formToJson(form); //表单数据
+                    if(datas.password != datas.confirm-password){
+                      jh.utils.alert({
+                        content: '两次密码不一致，请保持一致！',
+                        ok: true
+                      })
+                      return false;
+                    }
                     jh.utils.ajax.send({
                         url: '/user/findPassword',
                         method: 'post',
@@ -84,7 +91,8 @@ define(function(require, exports, module) {
                         },
                         done: function(returnData) {
                             jh.utils.alert({
-                                content: '验证码发送成功'
+                                content: '验证码发送成功',
+                                ok:true
                             });
                             var temp = new jh.utils.smsCountDown();
                             temp.init(id, 'click');

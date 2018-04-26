@@ -58,7 +58,7 @@ define(function(require, exports, module) {
           var okStr = (returnData.data.state === 'platReceive' || returnData.data.state === 'hunterReceive') ? '收到车了' : '确定';
           _this.data = returnData.data;
 
-//        okStr = returnData.data.state === 'unconfirmed' ? '电子签章' : okStr;
+          okStr = returnData.data.state === 'unconfirmed' ? '确认拖车' : okStr;
 
 //        if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
 //          okStr = '电子签章';
@@ -80,7 +80,7 @@ define(function(require, exports, module) {
               } 
               if (auth === 'available') {
                 //如果是待债权方确认状态则进行上传凭证与进行电子签章
-                if ((_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') || _this.data.state === "hunterUnreceive" || _this.data.state === "upstreamReceive") {
+                if ((_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') || _this.data.state === "hunterUnreceive" || _this.data.state === "voucherInvalid") {
                   _this.uploadVouch(_this.data);
                   return false;
                 } else {
@@ -101,21 +101,10 @@ define(function(require, exports, module) {
                 }
                 return true;
               }
-            }
+            },
+            cancel:true
           };
-
-          if (_this.data.state === "unconfirmed" && _this.data.entrust !== 'trace') {
-            alertOption.button = [{
-              value: '直接确认拖车',
-              callback: function() {
-                _this.uploadVouch(_this.data, 'skip');
-                return false;
-              }
-            }];
-          } else {
-            alertOption.cancel = true;
-          }
-
+          
           jh.utils.alert(alertOption);
           jh.utils.uploader.init({
             fileNumLimit: 15,
@@ -135,11 +124,7 @@ define(function(require, exports, module) {
     };
 
     //上传凭证
-    this.uploadVouch = function(returnDetail, skip) {
-//    if (_this.data.state === "upstreamReceive" && _this.data.contractState === 0) {
-//      _this.requestContractUrl(_this.data.taskId);
-//      return false;
-//    }
+    this.uploadVouch = function(returnDetail) {
       var datas = jh.utils.formToJson($('#custmoer-upload-form'));
       datas.type = returnDetail.state === 'unconfirmed' ? 0 : 1;
       //判断有无上传凭证
@@ -169,67 +154,16 @@ define(function(require, exports, module) {
         method: 'post',
         data: datas,
         done: function(returnData) {
-          jh.utils.closeArt();
-          if (skip) {
-            jh.utils.ajax.send({
-              url: '/task/skip',
-              data: {
-                taskId: datas.taskId
-              },
-              done: function() {
-                jh.utils.alert({
-                  content: '操作成功！',
-                  ok: function() {
-                    (new jh.ui.shadow()).close();
-                    jh.utils.closeArt();
-                    _this.initContent();
-                  }
-                });
-              }
-            });
-            return false;
-          }
-//        if (returnDetail.contractState === 0 && _this.data.state === "unconfirmed") {
-//          //保存成功后调用电子签章
-//          _this.requestContractUrl(datas.taskId);
-//        } else {
-            (new jh.ui.shadow()).close();
-            jh.utils.closeArt();
-            _this.initContent();
-//        }
+          (new jh.ui.shadow()).close();
+          jh.utils.alert({
+            content: '操作成功！',
+            ok: function() {
+              _this.initContent();
+            }
+          });
         }
       });
     };
-
-    //电子签章
-//  this.requestContractUrl = function(taskId) {
-//    jh.utils.ajax.send({
-//      url: '/tasksign/getContractUrl',
-//      data: {
-//        taskId: taskId
-//      },
-//      done: function(returnData) {
-//        var width = $(window).width() * 0.95;
-//        var height = $(window).height() * 0.9;
-//        (new jh.ui.shadow()).close();
-//        //调用第三方电子签章
-//        dialog({
-//          url: returnData.data.signUrl,
-//          id: 'iframe-dialog',
-//          width: width,
-//          height: height,
-//          cancel: function() {
-//            window.location.reload();
-//          },
-//          cancelValue: '关闭',
-//          fixed: true,
-//          onclose: function() {
-//            window.location.reload();
-//          }
-//        }).showModal();
-//      }
-//    });
-//  };
 
     //确认收车
     this.confirmeReceive = function(taskId) {
