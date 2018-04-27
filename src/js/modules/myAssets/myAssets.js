@@ -57,10 +57,10 @@ define(function(require, exports, module) {
             _this.initContent();
         });
         $('body').off('click', '.goGetMoney').on('click', '.goGetMoney', function() {
-            jh.utils.load("/src/modules/myAssets/getMoney", {});
+            jh.utils.load("/src/modules/myAssets/getMoney");
         });
         $('.settingStyle').click(function(){
-            jh.utils.load("/src/modules/myAssets/settingStyle", {});
+            jh.utils.load("/src/modules/myAssets/settingStyle");
         })
     };
   }

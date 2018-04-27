@@ -8,14 +8,25 @@
 define(function(require, exports, module) {
   function SettingStyle() {
     var _this = this;
-    _this.form = $('#settingStyle-form');
     this.init = function() {
+      this.initContent();
       this.registerEvent();
       setTimeout(function() {
         jh.utils.changeText($('#breadCrumb'), '>个人资产>设置提现方式');
       }, 0)
     };
-
+    this.initContent = function() {
+      jh.utils.ajax.send({
+        url: '/user/userInfo',
+        done: function(returnData) {
+          $('#alipay').val(returnData.data.alipay);
+          $('#alipayName').val(returnData.data.alipayName);
+          $('#bankCard').val(returnData.data.bankCard);
+          $('#bankName').val(returnData.data.bankName);
+          $('#payeeName').val(returnData.data.payeeName);
+        }
+      });
+    };
     this.registerEvent = function() {
         jh.utils.validator.init({
             id: 'settingStyle-form',
@@ -33,10 +44,10 @@ define(function(require, exports, module) {
                     method: 'post',
                     data: datas,
                     done: function(returnData) {
-                        jh.utils.alert({
-                            content: '设置成功，去提现吧',
-                            ok: true
-                        })
+                      jh.utils.alert({
+                          content: '设置成功，去提现吧',
+                          ok: true
+                      })
                     }
                 });
                 return false;

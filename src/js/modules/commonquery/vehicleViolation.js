@@ -29,6 +29,7 @@ define(function(require, exports, module) {
                         method: 'get',
                         data: datas,
                         done: function(returnData) {
+                          if(returnData.data.isResult === 1){
                             var clueListArr = returnData.data.clueList;
                             var sum = 0;
                             var sumMoney = 0;
@@ -39,9 +40,10 @@ define(function(require, exports, module) {
                             });
                             returnData.fen = sum; 
                             returnData.money = sumMoney;
-                            var str = jh.utils.template('search_violation_template', returnData);
-                            $('#violation-content').html(str);
-                            return false;
+                          }
+                          var str = jh.utils.template('search_violation_template', returnData);
+                          $('#violation-content').html(str);
+                          return false;
                         }
                     });
                 }

@@ -27,9 +27,10 @@ define(function(require, exports, module) {
             method: 'get',
             data: datas,
             done: function(returnData) {
-                var str = jh.utils.template('blackList-result-template', returnData);
-                $('#blackList-content').html(str);
-                return false;
+              returnData.dataLen = returnData.data.length;
+              var str = jh.utils.template('blackList-result-template', returnData);
+              $('#blackList-content').html(str);
+              return false;
             }
           });
         }

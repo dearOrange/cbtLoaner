@@ -1,5 +1,6 @@
 <div class="dataContent">
   <div class="embedBox search-container">
+    <a href="javascript:;" class="button gobackPage goBack" style="margin-left:10px;">返回</a>
     <form id="search_violation_form">
         <table class="common_query textLeft">
           <tr>
@@ -66,9 +67,7 @@
 
 <script type="text/template" id="search_violation_template">
   <div>
-      {{if data.isResult == 0}}
-      <span>查询结果：未查到</span>
-      {{else}}
+      {{if data.isResult === 1}}
       <span>查询结果：<i style="color: orange;">{{carNumber}}</i>,</span><span>已罚款（元）：<i style="color: orange;">{{money}}</i>，</span><span>已扣分：<i style="color: orange;">{{fen}}分</i></span>
       <div class="data-container">
         <table class="dataShow">
@@ -93,6 +92,8 @@
             </tbody>
         </table>
       </div>
+      {{else}}
+      <span>查询结果：未查到</span>
       {{/if}}
   </div>
 </script>

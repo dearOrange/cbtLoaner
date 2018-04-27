@@ -1,22 +1,23 @@
 <div class="dataContent">
     <div class="embedBox search-container">
-        <form id="blackList-form">
-            <table class="common_query textLeft">
-                <tr>
-                    <td>
-                        <label>姓名：</label>
-                        <input type="text" class="search-input required" name="name" placeholder="请输入姓名" style="width:50%;">
-                    </td>
-                    <td>
-                        <label>身份证号：</label>
-                        <input type="text" class="search-input isIdCardNo" name="idNumber" placeholder="请输入身份证号" style="width:50%;" maxlength="18">
-                    </td>
-                    <td>
-                        <input type="submit" class="button search-button" value="查询" />
-                    </td>
-                </tr>
-            </table>
-        </form>
+      <a href="javascript:;" class="button gobackPage goBack" style="margin-left:10px;">返回</a>
+      <form id="blackList-form">
+          <table class="common_query textLeft">
+              <tr>
+                  <td>
+                      <label>姓名：</label>
+                      <input type="text" class="search-input required" name="name" placeholder="请输入姓名" style="width:50%;">
+                  </td>
+                  <td>
+                      <label>身份证号：</label>
+                      <input type="text" class="search-input isIdCardNo" name="idNumber" placeholder="请输入身份证号" style="width:50%;" maxlength="18">
+                  </td>
+                  <td>
+                      <input type="submit" class="button search-button" value="查询" />
+                  </td>
+              </tr>
+          </table>
+      </form>
     </div>
     <div id="blackList-content" class="public-result">
         
@@ -26,7 +27,7 @@
 <script type="text/template" id="blackList-result-template">
     <div>
         <span>查询结果：</span>
-        {{if data.isResult === 0}}
+        {{if dataLen === 0}}
         <span>暂无结果</span>
         {{else}}
         <div class="data-container">

@@ -30,15 +30,17 @@ define(function(require, exports, module) {
                         data: datas,
                         done: function(returnData) {
                             returnData.viewImgRoot = jh.config.viewImgRoot;
-                            var conditiona = returnData.data.conditiona.split('-');
-                            var conditionb = returnData.data.conditionb.split('-');
-                            var conditionc = returnData.data.conditionc.split('-');
-                            returnData.conditiona = conditiona[1] + '万';
-                            returnData.conditionb = conditionb[1] + '万';
-                            returnData.conditionc = conditionc[1] + '万';
-                            returnData.referencepricea = conditiona[0] + '万-' + conditiona[2] + '万';
-                            returnData.referencepriceb = conditionb[0] + '万-' + conditionb[2] + '万';
-                            returnData.referencepricec = conditionc[0] + '万-' + conditionc[2] + '万';
+                            if(returnData.data.isResult === 1){
+                              var conditiona = returnData.data.conditiona.split('-');
+                              var conditionb = returnData.data.conditionb.split('-');
+                              var conditionc = returnData.data.conditionc.split('-');
+                              returnData.conditiona = conditiona[1] + '万';
+                              returnData.conditionb = conditionb[1] + '万';
+                              returnData.conditionc = conditionc[1] + '万';
+                              returnData.referencepricea = conditiona[0] + '万-' + conditiona[2] + '万';
+                              returnData.referencepriceb = conditionb[0] + '万-' + conditionb[2] + '万';
+                              returnData.referencepricec = conditionc[0] + '万-' + conditionc[2] + '万';
+                            }
                             var str = jh.utils.template('search_carPrice_template', returnData);
                             $('#carPrice-content').html(str);
                             return false;
