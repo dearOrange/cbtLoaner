@@ -59,7 +59,9 @@ define(function(require, exports, module) {
                 id: 'form_forget',
                 submitHandler: function(form) {
                     var datas = jh.utils.formToJson(form); //表单数据
-                    if(datas.password != datas.confirm-password){
+                    var newpwd = $('#newpwd');
+                    var repnewpwd = $('#repnewpwd');
+                    if(newpwd.val() != repnewpwd.val()){
                       jh.utils.alert({
                         content: '两次密码不一致，请保持一致！',
                         ok: true
@@ -71,7 +73,12 @@ define(function(require, exports, module) {
                         method: 'post',
                         data: datas,
                         done: function(returnData) {
-                            window.location.href = '/src/modules/login/login.html'
+                          jh.utils.alert({
+                            content: '密码修改成功',
+                            ok: function(){
+                              window.location.href = '/src/modules/login/login.html'
+                            }
+                          })
                         }
                     });
                     return false;

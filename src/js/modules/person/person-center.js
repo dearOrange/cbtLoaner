@@ -66,12 +66,12 @@ define(function(require, exports, module) {
             if (type === 'UPSTREAM_PERSONAL') {
                 $('.businessImg').addClass("hide");
                 $('.businessLicense').removeClass("uploaderRequired");
-
+                $('.showPuso').addClass("hide");
                 $('#linkmanIdImg').siblings().addClass("uploaderRequired");
                 
             } else {
                 $('#linkmanIdImg').siblings().removeClass("uploaderRequired");
-                
+                $('.showPuso').removeClass("hide");
                 $('.businessImg').removeClass("hide");
                 $('.businessLicense').addClass("uploaderRequired");
             }
