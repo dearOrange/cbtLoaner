@@ -158,7 +158,7 @@ define(function(require, exports, module) {
           jh.utils.alert({
             content: '操作成功！',
             ok: function() {
-              _this.initContent();
+              window.location.reload();
             }
           });
         }
