@@ -48,7 +48,7 @@ define(function(require, exports, module) {
                                 targetUrl += '/src/modules/index/index.html#routeModule=/src/modules/person/person-center*routeData=';
                             }
 //                          targetUrl = encodeURIComponent(targetUrl);
-                            window.location.href = signAdress + targetUrl;
+                            window.location.href = targetUrl;
 
                         }
                     });
