@@ -67,59 +67,62 @@ define(function(require, exports, module) {
                 	$('.courtDecision').addClass('hide');
                 }
                 jh.utils.validator.init({
-                    id: 'customer-addTask-form',
-                    submitHandler: function(form) {
-                        //禁止重复提交
-                        if ($(form).hasClass('disabled')) {
-                            return false;
-                        }
-                        $(form).addClass('disabled');
-
-                        //数据处理
-                        var datas = jh.utils.formToJson(form);
-                        datas.carNumber = datas.carNumber_province + datas.add_carNumber;
-                        delete datas.carNumber_province;
-                        delete datas.add_carNumber;
-
-                        //如果是个人则必须上传法院判决书
-                        if( _this.userInfo.type === 'UPSTREAM_PERSONAL' && !datas.courtDecision ){
-                            jh.utils.confirm({
-                                content: '请上传法院判决书',
-                            });
-                            $(form).removeClass('disabled');
-                            return false;
-                        }
-                        
-                        if( !datas.attachment){
-                            datas.attachment = [];
-                        }
-
-                        datas.attachment = jh.utils.isArray(datas.attachment) ? datas.attachment : [datas.attachment];
-                        if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
-                            datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
-                        }
-                        
-                        jh.utils.ajax.send({
-                            url: '/task/issueTask',
-                            method: 'post',
-                            contentType: 'application/json',
-                            data: datas,
-                            done: function() {
-                                jh.utils.alert({
-                                    content: '任务发布成功！',
-                                    ok: function() {
-                                    	jh.utils.closeArt();
-                                        window.location.reload();
-                                    },
-                                    cancel: false
-                                });
-                            },
-                            fail: function() {
-                                $(form).removeClass('disabled');
-                            }
-                        });
-                        return false;
+                  id: 'customer-addTask-form',
+                  submitHandler: function(form) {
+                    //禁止重复提交
+                    if ($(form).hasClass('disabled')) {
+                      return false;
                     }
+                    $(form).addClass('disabled');
+        
+                    //数据处理
+                    var datas = jh.utils.formToJson(form);
+                    datas.carNumber = datas.carNumber_province + datas.add_carNumber;
+                    delete datas.carNumber_province;
+                    delete datas.add_carNumber;
+        
+                    if (!datas.attachment) {
+                      datas.attachment = [];
+                    }
+                    if (!datas.courtDecision) {
+                      datas.courtDecision = [];
+                    }
+                    if(datas.debtorIdNumber) {
+                      var regex1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+                      var regex2 = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/;
+                      datas.debtorIdNumber = datas.debtorIdNumber.replace(/\s/g, '');
+                      if(!(regex1.test(datas.debtorIdNumber)) && !(regex2.test(datas.debtorIdNumber))){
+                        $(form).removeClass('disabled');
+                        jh.utils.alert({
+                          content:'请输入正确的身份证号',
+                          ok:true
+                        })
+                        return false;
+                      }
+                    }
+                    datas.attachment = jh.utils.isArray(datas.attachment) ? datas.attachment : [datas.attachment];
+                    datas.courtDecision = jh.utils.isArray(datas.courtDecision) ? datas.courtDecision : [datas.courtDecision];
+                    jh.utils.ajax.send({
+                      url: '/task/issueTask',
+                      method: 'post',
+                      contentType: 'application/json',
+                      data: datas,
+                      done: function() {
+                        jh.utils.alert({
+                          content: '任务发布成功！',
+                          ok: function() {
+                            jh.utils.closeArt();
+                            window.location.reload();
+                          },
+                          cancel: false
+                        });
+                      },
+                      fail: function() {
+                        $(form).removeClass('disabled');
+                      }
+                    });
+                    return false;
+                  }
                 });
 
                 //初始化新增任务时上传附件按钮
