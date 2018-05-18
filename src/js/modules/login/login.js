@@ -47,7 +47,7 @@ define(function(require, exports, module) {
                             } else {
                                 targetUrl += '/src/modules/index/index.html#routeModule=/src/modules/person/person-center*routeData=';
                             }
-                            targetUrl = encodeURIComponent(targetUrl);
+//                          targetUrl = encodeURIComponent(targetUrl);
                             window.location.href = signAdress + targetUrl;
 
                         }

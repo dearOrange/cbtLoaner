@@ -61,11 +61,7 @@ define(function(require, exports, module) {
                     okValue: '确定发布',
                     cancel: true
                 });
-                if( _this.userInfo.type === 'UPSTREAM_PERSONAL'){
-                	$('.courtDecision').removeClass('hide');
-                }else{
-                	$('.courtDecision').addClass('hide');
-                }
+                
                 jh.utils.validator.init({
                   id: 'customer-addTask-form',
                   submitHandler: function(form) {
